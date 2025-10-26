@@ -1,0 +1,2 @@
+Primer día: Obtención de requerimientos, estructura de la aplicación, tecnologías a utilizar, diseño de UI/UX, incluyendo paleta de colores. Al principio lo hizo todo la IA, pero como hizo demasiado (no solo creó los archivos sino que los completó) lo borré todo y lo hice manualmente
+Segundo día: Resolver dependencias. Lo solucioné bajando el _build_runner_ manualmente, después con ayuda de la IA encontramos la versión al borde de que rompa
