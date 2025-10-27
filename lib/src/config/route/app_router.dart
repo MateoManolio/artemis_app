@@ -4,7 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../presentation/pages/home/home_page.dart';
 import '../../presentation/pages/login/login_page.dart';
 import '../../presentation/pages/details/details_page.dart';
-import '../../presentation/pages/favorites/favorites_page.dart';
+import '../../presentation/pages/articles/articles_page.dart';
 import '../../presentation/pages/settings/settings_page.dart';
 
 part 'app_router.g.dart';
@@ -30,9 +30,9 @@ GoRouter appRouter(Ref ref) {
         builder: (context, state) => const DetailsPage(),
       ),
       GoRoute(
-        path: FavoritesPage.routeName,
+        path: ArticlesPage.routeName,
         name: 'favorites',
-        builder: (context, state) => const FavoritesPage(),
+        builder: (context, state) => const ArticlesPage(),
       ),
       GoRoute(
         path: SettingsPage.routeName,

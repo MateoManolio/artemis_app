@@ -4,7 +4,7 @@ class MetricCard extends StatelessWidget {
   final String label;
   final String value;
   
-  static const double _cardHeight = 80.0;
+  static const double _cardHeight = 90.0;
   static const double _padding = 16.0;
   static const double _spacing = 8.0;
 
