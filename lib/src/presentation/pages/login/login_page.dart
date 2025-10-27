@@ -1,46 +1,73 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'widgets/welcome_avatar.dart';
+import 'widgets/welcome_text.dart';
+import 'widgets/google_sign_in_button.dart';
+import 'widgets/skip_button.dart';
 
 class LoginPage extends StatelessWidget {
   static const String routeName = '/login';
   const LoginPage({super.key});
 
+  Future<void> _signInWithGoogle() async {
+    // TODO: Implement Firebase Auth Google Sign In
+    // Example:
+    // final authService = FirebaseAuth.instance;
+    // final googleProvider = GoogleAuthProvider();
+    // await authService.signInWithPopup(googleProvider);
+    
+    print('Sign in with Google - To be implemented');
+  }
+
+  Future<void> _skipLogin() async {
+    // TODO: Handle guest mode or skip authentication
+    print('Skip login - To be implemented');
+  }
+
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Iniciar Sesión'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.go('/home'),
-        ),
-      ),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.login,
-              size: 80,
-              color: Colors.blue,
-            ),
-            SizedBox(height: 24),
-            Text(
-              'Página de Login',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+      backgroundColor: theme.colorScheme.surface,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Column(
+            children: [
+              const Spacer(flex: 2),
+              
+              
+              const WelcomeAvatar(),
+              
+              const SizedBox(height: 40),
+              
+              const WelcomeText(),
+              
+              const SizedBox(height: 48),
+              
+              
+              GoogleSignInButton(
+                onPressed: () async {
+                  await _signInWithGoogle();
+                },
               ),
-            ),
-            SizedBox(height: 16),
-            Text(
-              'Funcionalidad en desarrollo',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey,
+              
+              const Spacer(flex: 2),
+              
+              SkipButton(
+                onPressed: () async {
+                  await _skipLogin();
+                  // Navigate to home as guest
+                  if (context.mounted) {
+                    context.go('/home');
+                  }
+                },
               ),
-            ),
-          ],
+              
+              const SizedBox(height: 40),
+            ],
+          ),
         ),
       ),
     );

@@ -12,17 +12,17 @@ part 'app_router.g.dart';
 @riverpod
 GoRouter appRouter(Ref ref) {
   return GoRouter(
-    initialLocation: '/home',
+    initialLocation: '/login',
     routes: [
-      GoRoute(
-        path: HomePage.routeName,
-        name: 'home',
-        builder: (context, state) => HomePage(name: 'Guest'),
-      ),
       GoRoute(
         path: LoginPage.routeName,
         name: 'login',
         builder: (context, state) => const LoginPage(),
+      ),
+      GoRoute(
+        path: HomePage.routeName,
+        name: 'home',
+        builder: (context, state) => HomePage(name: 'Guest'),
       ),
       GoRoute(
         path: DetailsPage.routeName,
