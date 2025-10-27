@@ -1,3 +1,4 @@
+import 'package:artemis_app/src/presentation/widgets/filter_modal.dart';
 import 'package:flutter/material.dart';
 
 class LookArticle extends StatelessWidget {
@@ -17,7 +18,7 @@ class LookArticle extends StatelessWidget {
         ),
         Card(
           child: IconButton(
-            onPressed: () {},
+            onPressed: () => FilterModal.show(context),
             icon: Icon(Icons.article),
           ),
         ),
