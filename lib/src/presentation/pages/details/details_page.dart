@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class DetailsPage extends StatelessWidget {
+  static const String routeName = '/details';
   const DetailsPage({super.key});
 
   @override

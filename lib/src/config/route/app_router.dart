@@ -15,27 +15,27 @@ GoRouter appRouter(Ref ref) {
     initialLocation: '/home',
     routes: [
       GoRoute(
-        path: '/home',
+        path: HomePage.routeName,
         name: 'home',
-        builder: (context, state) => const HomePage(),
+        builder: (context, state) => HomePage(name: 'Guest'),
       ),
       GoRoute(
-        path: '/login',
+        path: LoginPage.routeName,
         name: 'login',
         builder: (context, state) => const LoginPage(),
       ),
       GoRoute(
-        path: '/details',
+        path: DetailsPage.routeName,
         name: 'details',
         builder: (context, state) => const DetailsPage(),
       ),
       GoRoute(
-        path: '/favorites',
+        path: FavoritesPage.routeName,
         name: 'favorites',
         builder: (context, state) => const FavoritesPage(),
       ),
       GoRoute(
-        path: '/settings',
+        path: SettingsPage.routeName,
         name: 'settings',
         builder: (context, state) => const SettingsPage(),
       ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class FavoritesPage extends StatelessWidget {
+  static const String routeName = '/favorites';
   const FavoritesPage({super.key});
 
   @override

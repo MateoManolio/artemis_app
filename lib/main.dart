@@ -1,5 +1,6 @@
 import 'package:artemis_app/src/config/route/app_router.dart';
 import 'package:artemis_app/src/config/theme/app_theme.dart';
+import 'package:artemis_app/src/config/theme/theme_mode_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -17,13 +18,16 @@ class MainApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(appRouterProvider);
+    final lightTheme = ref.watch(lightThemeProviderProvider);
+    final darkTheme = ref.watch(darkThemeProviderProvider);
+    final currentMode = ref.watch(themeModeProvider);
     
     return MaterialApp.router(
       title: 'Artemis',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.system,
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: currentMode,
       routerConfig: router,
     );
   }
