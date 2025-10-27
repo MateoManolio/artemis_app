@@ -1,11 +1,11 @@
-import 'package:artemis_app/src/presentation/pages/home/widget/favorites_list.dart';
-import 'package:artemis_app/src/presentation/pages/home/widget/look_article.dart';
+import 'package:artemis_app/src/presentation/pages/home/widgets/favorites_list.dart';
+import 'package:artemis_app/src/presentation/pages/home/widgets/look_article.dart';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:artemis_app/src/presentation/pages/home/widget/articles_read.dart';
-import 'package:artemis_app/src/presentation/pages/home/widget/custom_search_bar.dart';
-import 'package:artemis_app/src/presentation/pages/home/widget/new_ideas.dart';
+import 'package:artemis_app/src/presentation/pages/home/widgets/articles_read.dart';
+import 'package:artemis_app/src/presentation/pages/home/widgets/custom_search_bar.dart';
+import 'package:artemis_app/src/presentation/pages/home/widgets/new_ideas.dart';
 
 class HomePage extends StatelessWidget {
   

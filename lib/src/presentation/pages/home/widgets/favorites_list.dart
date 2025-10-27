@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:artemis_app/src/presentation/pages/home/widget/articles_text.dart';
+import 'package:go_router/go_router.dart';
+import 'package:artemis_app/src/presentation/pages/home/widgets/articles_text.dart';
 
 class FavoritesList extends StatelessWidget {
   static const double separatorHeight = 6;
@@ -57,12 +58,15 @@ class FavoritesList extends StatelessWidget {
               'DevOps',
             ];
             
-            return Padding(
-              padding: const EdgeInsets.all(padding),
-              child: ArticlesText(
-                title: titles[index % titles.length],
-                category: categories[index % categories.length],
-                readingTime: (index + 3) * 2,
+            return InkWell(
+              onTap: () => context.push('/details'),
+              child: Padding(
+                padding: const EdgeInsets.all(padding),
+                child: ArticlesText(
+                  title: titles[index % titles.length],
+                  category: categories[index % categories.length],
+                  readingTime: (index + 3) * 2,
+                ),
               ),
             );
           },
