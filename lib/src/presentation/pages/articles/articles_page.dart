@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../widgets/filter_modal.dart';
 import 'widgets/articles_header.dart';
 import 'widgets/articles_list.dart';
 
@@ -20,7 +21,7 @@ class _ArticlesPageState extends State<ArticlesPage> {
   }
 
   void _onFiltersPressed() {
-    // TODO: Implement filter modal
+    FilterModal.show(context);
   }
 
   void _onArticleTap(int index) {

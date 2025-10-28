@@ -1,6 +1,6 @@
 import 'package:artemis_app/src/presentation/pages/home/widgets/favorites_list.dart';
-import 'package:artemis_app/src/presentation/pages/home/widgets/look_article.dart';
 import 'package:artemis_app/src/presentation/providers/weekly_goal_provider.dart';
+import 'package:artemis_app/src/presentation/widgets/filter_modal.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -45,7 +45,12 @@ class HomePage extends ConsumerWidget {
                 children: [
                   CustomSearchBar(),
                   SizedBox(width: spacing),
-                  LookArticle(),
+                   Card(
+                    child: IconButton(
+                      onPressed: () => FilterModal.show(context),
+                      icon: Icon(Icons.filter_list),
+                    ),
+                  ),
                 ],
               ),
               NewIdeas(),

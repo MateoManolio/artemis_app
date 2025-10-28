@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'custom_modal.dart';
 
 class FilterModal extends StatefulWidget {
   const FilterModal({super.key});
@@ -21,7 +22,6 @@ class FilterModal extends StatefulWidget {
 
 class _FilterModalState extends State<FilterModal> {
   // Layout constants
-  static const double _modalHeightRatio = 0.75;
   static const double _spacingSmall = 12.0;
   static const double _spacingMedium = 16.0;
   static const double _spacingLarge = 24.0;
@@ -30,17 +30,14 @@ class _FilterModalState extends State<FilterModal> {
   // Border radius constants
   static const double _radiusSmall = 8.0;
   static const double _radiusMedium = 12.0;
-  static const double _radiusLarge = 24.0;
   
   // Font size constants
   static const double _fontSizeSmall = 14.0;
   static const double _fontSizeMedium = 16.0;
-  static const double _fontSizeLarge = 24.0;
   
   // Icon and component sizes
   static const double _iconSizeSmall = 16.0;
   static const double _iconSizeMedium = 24.0;
-  static const double _iconSizeLarge = 28.0;
   static const double _buttonHeight = 56.0;
   
   // Year range constants
@@ -57,95 +54,61 @@ class _FilterModalState extends State<FilterModal> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final screenHeight = MediaQuery.of(context).size.height;
 
-    return Container(
-      height: screenHeight * _modalHeightRatio,
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(_radiusLarge),
-          topRight: Radius.circular(_radiusLarge),
+    return CustomModal(
+      title: 'Filters',
+      headerActions: _buildClearButton(context, theme),
+      footer: _buildFooter(context, theme),
+      child: SingleChildScrollView(
+        padding: EdgeInsets.all(_spacingLarge),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Publication year filter
+            _buildPublicationYearFilter(theme),
+            
+            SizedBox(height: _spacingXLarge),
+            
+            // Publication type filter
+            _buildPublicationTypeFilter(),
+            
+            SizedBox(height: _spacingXLarge),
+            
+            // Access filter
+            _buildAccessFilter(theme),
+          ],
         ),
-      ),
-      child: Column(
-        children: [
-          // Header
-          _buildHeader(context, theme),
-          
-          Expanded(
-            child: SingleChildScrollView(
-              padding: EdgeInsets.all(_spacingLarge),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Publication year filter
-                  _buildPublicationYearFilter(theme),
-                  
-                  SizedBox(height: _spacingXLarge),
-                  
-                  // Publication type filter
-                  _buildPublicationTypeFilter(),
-                  
-                  SizedBox(height: _spacingXLarge),
-                  
-                  // Access filter
-                  _buildAccessFilter(theme),
-                ],
-              ),
-            ),
-          ),
-          
-          // Apply filters button
-          _buildApplyButton(context, theme),
-
-          SizedBox(height: _spacingXLarge),
-        ],
       ),
     );
   }
 
-  Widget _buildHeader(BuildContext context, ThemeData theme) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: _spacingMedium,
-        vertical: _spacingSmall,
+  Widget _buildClearButton(BuildContext context, ThemeData theme) {
+    return TextButton(
+      onPressed: () {
+        setState(() {
+          _startYear = _minYear;
+          _endYear = _maxYear;
+          _selectedPublicationType = _defaultPublicationType;
+          _openAccess = true;
+        });
+      },
+      child: Text(
+        'Clear',
+        style: TextStyle(
+          color: theme.colorScheme.primary,
+          fontSize: _fontSizeMedium,
+          fontWeight: FontWeight.w500,
+        ),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          IconButton(
-            icon: Icon(Icons.chevron_left, size: _iconSizeLarge),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-          Text(
-            'Filters',
-            style: TextStyle(
-              fontSize: _fontSizeLarge,
-              fontWeight: FontWeight.bold,
-              color: theme.colorScheme.onSurface,
-            ),
-          ),
-          TextButton(
-            onPressed: () {
-              setState(() {
-                _startYear = _minYear;
-                _endYear = _maxYear;
-                _selectedPublicationType = _defaultPublicationType;
-                _openAccess = true;
-              });
-            },
-            child: Text(
-              'Clear',
-              style: TextStyle(
-                color: theme.colorScheme.primary,
-                fontSize: _fontSizeMedium,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-        ],
-      ),
+    );
+  }
+
+  Widget _buildFooter(BuildContext context, ThemeData theme) {
+    return Column(
+      children: [
+        _buildApplyButton(context, theme),
+        SizedBox(height: _spacingXLarge),
+      ],
     );
   }
 
