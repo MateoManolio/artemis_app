@@ -16,8 +16,8 @@ class AuthRepositoryImpl implements IAuthRepository {
 
   @override
   Future<User?> signInWithGoogle() async {
-    final m = await _remote.signInWithGoogle();
-    final user = m?.toDomain();
+    final userModel = await _remote.signInWithGoogle();
+    final user = userModel?.toDomain();
     return user;
   }
 

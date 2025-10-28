@@ -12,29 +12,28 @@ class UserNotifier extends _$UserNotifier {
   late final SignOutUsecase _signOutUsecase;
 
   @override
-  Future<User?> build() async {
+  User? build() {
     final loginProvider = ref.read(loginProviderProvider);
     _signOutUsecase    = ref.read(signOutUsecaseProvider);
 
     ref.listen(loginProviderProvider, (prev, next) {
       if (!ref.mounted) return;
-      state = AsyncValue.data(next);
+      state = next;
     });
 
     return loginProvider;
   }
 
   Future<void> signOut() async {
-    state = const AsyncValue.loading();
     await _signOutUsecase();
-    state = const AsyncValue.data(null);
+    state = User.guest();
   }
 
   
-  bool get isAuthenticated => state.asData?.value != null;
-  bool get isGuest         => state.asData?.value?.uid == User.guest().uid;
-  String get displayName   => state.asData?.value?.displayName 
-                             ?? state.asData?.value?.email 
+  bool get isAuthenticated => state != null;
+  bool get isGuest         => state?.uid == User.guest().uid;
+  String get displayName   => state?.displayName 
+                             ?? state?.email 
                              ?? 'Guest';
-  String? get photoUrl     => state.asData?.value?.photoUrl;
+  String? get photoUrl     => state?.photoUrl;
 }

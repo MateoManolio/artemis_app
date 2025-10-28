@@ -1,3 +1,4 @@
+import 'package:artemis_app/src/presentation/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -11,8 +12,30 @@ part 'app_router.g.dart';
 
 @riverpod
 GoRouter appRouter(Ref ref) {
+
+  ref.listen(userProvider, (previous, next) {
+    // Esto se ejecutará cada vez que cambie el estado de autenticación
+  });
+
   return GoRouter(
     initialLocation: '/login',
+    redirect: (context, state) {
+      final user = ref.read(userProvider);
+      final isLoggingIn = state.uri.path == '/login';
+      
+      // Si no hay usuario y está intentando acceder a cualquier ruta excepto login
+      if (user == null && !isLoggingIn) {
+        return '/login';
+      }
+      
+      // Si hay usuario y está en la página de login, redirigir a home
+      if (user != null && isLoggingIn) {
+        return '/home';
+      }
+      
+      // Permitir acceso normal
+      return null;
+    },
     routes: [
       GoRoute(
         path: LoginPage.routeName,
@@ -22,7 +45,11 @@ GoRouter appRouter(Ref ref) {
       GoRoute(
         path: HomePage.routeName,
         name: 'home',
-        builder: (context, state) => HomePage(name: 'Guest'),
+        builder: (context, state) {
+          final user = ref.watch(userProvider);
+          final displayName = user?.displayName;
+          return HomePage(name: displayName);
+        },
       ),
       GoRoute(
         path: DetailsPage.routeName,

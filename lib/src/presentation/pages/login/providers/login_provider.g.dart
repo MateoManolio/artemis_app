@@ -41,7 +41,7 @@ final class LoginProviderProvider
   }
 }
 
-String _$loginProviderHash() => r'd3cd8ff0fab2cb1c75e449bce9d1ea855c6aa144';
+String _$loginProviderHash() => r'3241e33e949b9f0ebb313dcd7eb53e6ccc85e84d';
 
 abstract class _$LoginProvider extends $Notifier<User?> {
   User? build();

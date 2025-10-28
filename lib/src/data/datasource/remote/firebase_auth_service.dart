@@ -31,6 +31,11 @@ class FirebaseAuthService {
 
     final userCred = await _auth.signInWithCredential(cred);
     final u = userCred.user;
+
+    if (u != null && u.displayName == null) {
+      u.updateDisplayName(acc.displayName);
+    }
+
     return u == null ? null : UserModel.fromFirebaseUser(u);
   }
 

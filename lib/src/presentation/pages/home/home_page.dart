@@ -13,7 +13,7 @@ class HomePage extends StatelessWidget {
   static const double paddingHorizontal = 16;
   static const double spacing = 16;
 
-  final String name;
+  final String? name;
 
   const HomePage({super.key, required this.name});
 
@@ -21,7 +21,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Hello, $name'),
+        title: name != null ? Text('Hello, $name') : Text('Hello'),
         centerTitle: false,
         actions: [
           IconButton(

@@ -15,7 +15,7 @@ class LoginPage extends ConsumerWidget {
   Future<void> _signInWithGoogle(BuildContext context, WidgetRef ref) async {
     try {
       await ref.read(loginProviderProvider.notifier).signInWithGoogle();
-      // Navigate to home on successful login
+      
       if (context.mounted) {
         context.go('/home');
       }
