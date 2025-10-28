@@ -4,6 +4,7 @@ import 'widgets/settings_section.dart';
 import 'widgets/appearance_section.dart';
 import 'widgets/reading_section.dart';
 import 'widgets/about_section.dart';
+import 'widgets/account_section.dart';
 
 class SettingsPage extends StatelessWidget {
   static const String routeName = '/settings';
@@ -32,6 +33,16 @@ class SettingsPage extends StatelessWidget {
       body: ListView(
         children: [
           const SizedBox(height: 16),
+          
+          // Account Section
+          SettingsSection(
+            title: 'ACCOUNT',
+            children: [
+              const AccountSection(),
+            ],
+          ),
+          
+          const SizedBox(height: 24),
           
           // Appearance Section
           SettingsSection(
@@ -79,7 +90,7 @@ class SettingsPage extends StatelessWidget {
                   Text(
                     'Your companion for discovering research',
                     style: theme.textTheme.bodySmall?.copyWith(
-                      color: colorScheme.onSurfaceVariant.withOpacity(0.7),
+                      color: colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
                     ),
                   ),
                 ],

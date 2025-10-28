@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_provider.dart';
+part of 'edit_profile_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,49 +9,48 @@ part of 'user_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(UserNotifier)
-const userProvider = UserNotifierProvider._();
+@ProviderFor(EditProfile)
+const editProfileProvider = EditProfileProvider._();
 
-final class UserNotifierProvider
-    extends $NotifierProvider<UserNotifier, User?> {
-  const UserNotifierProvider._()
+final class EditProfileProvider extends $NotifierProvider<EditProfile, bool> {
+  const EditProfileProvider._()
       : super(
           from: null,
           argument: null,
           retry: null,
-          name: r'userProvider',
-          isAutoDispose: false,
+          name: r'editProfileProvider',
+          isAutoDispose: true,
           dependencies: null,
           $allTransitiveDependencies: null,
         );
 
   @override
-  String debugGetCreateSourceHash() => _$userNotifierHash();
+  String debugGetCreateSourceHash() => _$editProfileHash();
 
   @$internal
   @override
-  UserNotifier create() => UserNotifier();
+  EditProfile create() => EditProfile();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(User? value) {
+  Override overrideWithValue(bool value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<User?>(value),
+      providerOverride: $SyncValueProvider<bool>(value),
     );
   }
 }
 
-String _$userNotifierHash() => r'7b67f1d57d4dc8776775ebcab91630b36c582323';
+String _$editProfileHash() => r'694944b186400d6dc47bdc89c6247c4e541d28b8';
 
-abstract class _$UserNotifier extends $Notifier<User?> {
-  User? build();
+abstract class _$EditProfile extends $Notifier<bool> {
+  bool build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<User?, User?>;
+    final ref = this.ref as $Ref<bool, bool>;
     final element = ref.element as $ClassProviderElement<
-        AnyNotifier<User?, User?>, User?, Object?, Object?>;
+        AnyNotifier<bool, bool>, bool, Object?, Object?>;
     element.handleValue(ref, created);
   }
 }

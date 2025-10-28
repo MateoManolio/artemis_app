@@ -1,13 +1,15 @@
 import 'package:artemis_app/src/presentation/pages/home/widgets/favorites_list.dart';
 import 'package:artemis_app/src/presentation/pages/home/widgets/look_article.dart';
+import 'package:artemis_app/src/presentation/providers/weekly_goal_provider.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:artemis_app/src/presentation/pages/home/widgets/articles_read.dart';
 import 'package:artemis_app/src/presentation/pages/home/widgets/custom_search_bar.dart';
 import 'package:artemis_app/src/presentation/pages/home/widgets/new_ideas.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends ConsumerWidget {
   
   static const String routeName = '/home';
   static const double paddingHorizontal = 16;
@@ -18,7 +20,8 @@ class HomePage extends StatelessWidget {
   const HomePage({super.key, required this.name});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final weeklyGoal = ref.watch(weeklyGoalProvider);
     return Scaffold(
       appBar: AppBar(
         title: name != null ? Text('Hello, $name') : Text('Hello'),
@@ -26,7 +29,7 @@ class HomePage extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
-            onPressed: () => context.go('/settings'),
+            onPressed: () => context.push('/settings'),
           ),
         ],
       ),
@@ -36,7 +39,7 @@ class HomePage extends StatelessWidget {
           child: Column(
             spacing: spacing,
             children: [
-              ArticlesRead(articlesRead: 5, weekGoal: 10),
+              ArticlesRead(articlesRead: 5, weekGoal: weeklyGoal),
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [

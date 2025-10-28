@@ -32,11 +32,19 @@ class FirebaseAuthService {
     final userCred = await _auth.signInWithCredential(cred);
     final u = userCred.user;
 
-    if (u != null && u.displayName == null) {
-      u.updateDisplayName(acc.displayName);
+    if (u == null) return null;
+
+    // Si Firebase no tiene el displayName, usar el de Google y actualizarlo
+    if (u.displayName == null && acc.displayName != null) {
+      await u.updateDisplayName(acc.displayName);
+    }
+    
+    // Si Firebase no tiene la photoURL, usar el de Google y actualizarlo
+    if (u.photoURL == null && acc.photoUrl != null) {
+      await u.updatePhotoURL(acc.photoUrl);
     }
 
-    return u == null ? null : UserModel.fromFirebaseUser(u);
+    return UserModel.fromFirebaseUser(u);
   }
 
   Future<void> signOut() async {

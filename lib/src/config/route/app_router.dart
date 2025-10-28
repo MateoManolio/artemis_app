@@ -12,43 +12,27 @@ part 'app_router.g.dart';
 
 @riverpod
 GoRouter appRouter(Ref ref) {
-
-  ref.listen(userProvider, (previous, next) {
-    // Esto se ejecutará cada vez que cambie el estado de autenticación
-  });
-
   return GoRouter(
     initialLocation: '/login',
-    redirect: (context, state) {
-      final user = ref.read(userProvider);
-      final isLoggingIn = state.uri.path == '/login';
-      
-      // Si no hay usuario y está intentando acceder a cualquier ruta excepto login
-      if (user == null && !isLoggingIn) {
-        return '/login';
-      }
-      
-      // Si hay usuario y está en la página de login, redirigir a home
-      if (user != null && isLoggingIn) {
-        return '/home';
-      }
-      
-      // Permitir acceso normal
-      return null;
-    },
     routes: [
       GoRoute(
         path: LoginPage.routeName,
         name: 'login',
-        builder: (context, state) => const LoginPage(),
+        builder: (context, state) {
+          final user = ref.read(userProvider);
+      
+          if (user != null) {
+            return HomePage(name: user.displayName);
+          }
+           return const LoginPage();
+        },
       ),
       GoRoute(
         path: HomePage.routeName,
         name: 'home',
         builder: (context, state) {
           final user = ref.watch(userProvider);
-          final displayName = user?.displayName;
-          return HomePage(name: displayName);
+          return HomePage(name: user?.displayName);
         },
       ),
       GoRoute(

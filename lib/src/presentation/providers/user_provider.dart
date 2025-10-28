@@ -29,6 +29,10 @@ class UserNotifier extends _$UserNotifier {
     state = User.guest();
   }
 
+  void deleteUser() {
+    state = null;
+  }
+
   
   bool get isAuthenticated => state != null;
   bool get isGuest         => state?.uid == User.guest().uid;
