@@ -1,31 +1,47 @@
+import 'package:artemis_app/src/presentation/pages/login/providers/login_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'widgets/welcome_avatar.dart';
 import 'widgets/welcome_text.dart';
 import 'widgets/google_sign_in_button.dart';
 import 'widgets/skip_button.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends ConsumerWidget {
   static const String routeName = '/login';
+  
   const LoginPage({super.key});
 
-  Future<void> _signInWithGoogle() async {
-    // TODO: Implement Firebase Auth Google Sign In
-    // Example:
-    // final authService = FirebaseAuth.instance;
-    // final googleProvider = GoogleAuthProvider();
-    // await authService.signInWithPopup(googleProvider);
-    
-    print('Sign in with Google - To be implemented');
+  Future<void> _signInWithGoogle(BuildContext context, WidgetRef ref) async {
+    try {
+      await ref.read(loginProviderProvider.notifier).signInWithGoogle();
+      // Navigate to home on successful login
+      if (context.mounted) {
+        context.go('/home');
+      }
+    } catch (e) {
+      // Handle error
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error: ${e.toString()}'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
   }
 
-  Future<void> _skipLogin() async {
-    // TODO: Handle guest mode or skip authentication
-    print('Skip login - To be implemented');
+  Future<void> _skipLogin(BuildContext context, WidgetRef ref) async {
+    ref.read(loginProviderProvider.notifier).signInAsGuest();
+    // Navigate to home as guest
+    if (context.mounted) {
+      context.go('/home');
+    }
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     
     return Scaffold(
@@ -37,7 +53,6 @@ class LoginPage extends StatelessWidget {
             children: [
               const Spacer(flex: 2),
               
-              
               const WelcomeAvatar(),
               
               const SizedBox(height: 40),
@@ -46,23 +61,14 @@ class LoginPage extends StatelessWidget {
               
               const SizedBox(height: 48),
               
-              
               GoogleSignInButton(
-                onPressed: () async {
-                  await _signInWithGoogle();
-                },
+                onPressed: () => _signInWithGoogle(context, ref),
               ),
               
               const Spacer(flex: 2),
               
               SkipButton(
-                onPressed: () async {
-                  await _skipLogin();
-                  // Navigate to home as guest
-                  if (context.mounted) {
-                    context.go('/home');
-                  }
-                },
+                onPressed: () => _skipLogin(context, ref),
               ),
               
               const SizedBox(height: 40),

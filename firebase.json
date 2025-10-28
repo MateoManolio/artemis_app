@@ -1,0 +1,23 @@
+{
+    "flutter": {
+        "platforms": {
+            "android": {
+                "default": {
+                    "projectId": "art3mis-app",
+                    "appId": "1:248267647503:android:f82d94332e8758f5e6117a",
+                    "fileOutput": "android/app/google-services.json"
+                }
+            },
+            "dart": {
+                "lib/firebase_options.dart": {
+                    "projectId": "art3mis-app",
+                    "configurations": {
+                        "android": "1:248267647503:android:f82d94332e8758f5e6117a",
+                        "ios": "1:248267647503:ios:50f16393f058efb0e6117a",
+                        "web": "1:248267647503:web:e8131d10bf1627f9e6117a"
+                    }
+                }
+            }
+        }
+    }
+}

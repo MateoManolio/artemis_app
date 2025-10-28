@@ -5,3 +5,7 @@ abstract class IUseCaseQuery<T, P>{
 abstract class IUseCaseCommand<T>{
   Future<T> call();
 }
+
+abstract class IUseCaseStream<T>{
+  Stream<T> call();
+}

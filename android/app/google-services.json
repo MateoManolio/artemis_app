@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "248267647503",
+    "project_id": "art3mis-app",
+    "storage_bucket": "art3mis-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:248267647503:android:f82d94332e8758f5e6117a",
+        "android_client_info": {
+          "package_name": "com.example.artemis_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "248267647503-l1g1jq0ujf94jeqt66lbl4iuena9chbu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByEcTDaPdqNDi0Jg85X3ZLdfHyTuuW0M4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "248267647503-l1g1jq0ujf94jeqt66lbl4iuena9chbu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "248267647503-2732mnf6ual7gcm2rg064rvbti2amjvt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.artemisApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
