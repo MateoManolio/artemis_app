@@ -25,14 +25,7 @@ class OpenAccessButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                width: 12,
-                height: 12,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white,
-                ),
-              ),
+             Icon(Icons.book_online, size: 16, color: Colors.white,),
               SizedBox(width: _spacing),
               Text(
                 'Open Access • PDF',

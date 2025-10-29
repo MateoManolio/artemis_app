@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:artemis_app/src/presentation/pages/details/widgets/article_title.dart';
 import 'package:artemis_app/src/presentation/pages/details/widgets/article_tags.dart';
@@ -21,19 +22,31 @@ class DetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[50],
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.chevron_left),
           onPressed: () => context.pop(),
         ),
+        backgroundColor: Colors.transparent,
+        elevation: 3,
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+        ),
         actions: [
-          Icon(Icons.favorite_border),
-          SizedBox(width: _spacing),
+          IconButton(
+            icon: const Icon(Icons.favorite_border),
+            onPressed: () {},
+          ),
         ],
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(_spacing),
+        padding: EdgeInsets.only(
+          top: MediaQuery.of(context).padding.top + 80,
+          left: _spacing,
+          right: _spacing,
+          bottom: _spacing,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -74,7 +87,7 @@ class DetailsPage extends StatelessWidget {
                   'Labor market dynamics & wage inequality',
                   'Gender. Labor, and Family',
                   'Work-Family Balance',
-                ]),
+                ], borderRadius: 12.0),
               ],
             ),
             SizedBox(height: _spacingLarge),

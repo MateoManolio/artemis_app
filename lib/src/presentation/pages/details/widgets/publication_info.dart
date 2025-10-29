@@ -20,7 +20,7 @@ class PublicationInfo extends StatelessWidget {
         CircleAvatar(
           radius: _avatarRadius,
           backgroundColor: Colors.grey[300],
-          child: Icon(Icons.person, size: 24),
+          child: Icon(Icons.menu_book, size: 24),
         ),
         SizedBox(width: _spacing),
         Expanded(
