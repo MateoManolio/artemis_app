@@ -7,6 +7,7 @@ import '../../presentation/pages/login/login_page.dart';
 import '../../presentation/pages/details/details_page.dart';
 import '../../presentation/pages/articles/articles_page.dart';
 import '../../presentation/pages/settings/settings_page.dart';
+import 'details_parameters.dart';
 
 part 'app_router.g.dart';
 
@@ -38,7 +39,10 @@ GoRouter appRouter(Ref ref) {
       GoRoute(
         path: DetailsPage.routeName,
         name: 'details',
-        builder: (context, state) => const DetailsPage(),
+        builder: (context, state) {
+          final params = state.extra as DetailsParameters?;
+          return DetailsPage(article: params?.article);
+        },
       ),
       GoRoute(
         path: ArticlesPage.routeName,

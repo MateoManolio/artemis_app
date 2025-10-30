@@ -1,10 +1,60 @@
-enum ArticleType{
-  work,
-
+enum ArticleType {
+  article,
+  bookChapter,
+  dataset,
+  dissertation,
+  editorial,
+  erratum,
+  grant,
+  letter,
+  paratext,
+  peerReview,
+  preprint,
+  report,
+  retraction,
+  review,
+  other,
 }
 
-class Article{
-  final int id;
+extension ArticleTypeExtension on ArticleType {
+  String get displayName {
+    switch (this) {
+      case ArticleType.article:
+        return 'Article';
+      case ArticleType.bookChapter:
+        return 'Book Chapter';
+      case ArticleType.dataset:
+        return 'Dataset';
+      case ArticleType.dissertation:
+        return 'Dissertation';
+      case ArticleType.editorial:
+        return 'Editorial';
+      case ArticleType.erratum:
+        return 'Erratum';
+      case ArticleType.grant:
+        return 'Grant';
+      case ArticleType.letter:
+        return 'Letter';
+      case ArticleType.paratext:
+        return 'Paratext';
+      case ArticleType.peerReview:
+        return 'Peer Review';
+      case ArticleType.preprint:
+        return 'Preprint';
+      case ArticleType.report:
+        return 'Report';
+      case ArticleType.retraction:
+        return 'Retraction';
+      case ArticleType.review:
+        return 'Review';
+      case ArticleType.other:
+        return 'Other';
+    }
+  }
+}
+
+class Article {
+  final String id;
   final String title;
   final ArticleType type;
   final String pageUrl;
@@ -14,11 +64,11 @@ class Article{
   final List<String> institutions;
   final String language;
   final int cites;
-  
+
   final int citedBy;
   final double fwci;
   final double citationPercentile;
-  
+
   final List<String> topics;
 
   final int relatedTo;
@@ -28,7 +78,7 @@ class Article{
   final String domain;
 
   final bool openAccess;
-  
+
   final bool favorite;
 
   Article({
@@ -52,6 +102,6 @@ class Article{
     required this.field,
     required this.domain,
     required this.openAccess,
-    required this.favorite
+    required this.favorite,
   });
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../widgets/filter_modal.dart';
+import 'package:artemis_app/src/domain/entity/article.dart';
+import 'package:artemis_app/src/config/route/details_parameters.dart';
+import 'package:artemis_app/src/presentation/widgets/filter_modal.dart';
 import 'providers/get_articles_provider.dart';
 import 'widgets/articles_header.dart';
 import 'widgets/articles_list.dart';
@@ -23,11 +25,9 @@ class _ArticlesPageState extends ConsumerState<ArticlesPage> {
     super.initState();
     // Cargar datos solo una vez al iniciar
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(articlesProvider.notifier).fetchArticles(
-            query: '',
-            page: 1,
-            perPage: 10,
-          );
+      ref
+          .read(articlesProvider.notifier)
+          .fetchArticles(query: '', page: 1, perPage: 10);
     });
   }
 
@@ -38,20 +38,17 @@ class _ArticlesPageState extends ConsumerState<ArticlesPage> {
   }
 
   void _onSearchChanged(String query) {
-    ref.read(articlesProvider.notifier).fetchArticles(
-          query: query,
-          page: 1,
-          perPage: 10,
-        );
+    ref
+        .read(articlesProvider.notifier)
+        .fetchArticles(query: query, page: 1, perPage: 10);
   }
 
   void _onFiltersPressed() {
     FilterModal.show(context);
   }
 
-  void _onArticleTap(int index) {
-    // Navigate to article details
-    context.push('/details');
+  void _onArticleTap(Article article) {
+    context.push('/details', extra: DetailsParameters(article: article));
   }
 
   @override
@@ -59,7 +56,6 @@ class _ArticlesPageState extends ConsumerState<ArticlesPage> {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
-    // Solo observa el estado, no ejecuta nada
     final articlesState = ref.watch(articlesProvider);
 
     return Scaffold(
@@ -90,18 +86,14 @@ class _ArticlesPageState extends ConsumerState<ArticlesPage> {
             child: articlesState.when(
               data: (articles) {
                 if (articles.isEmpty) {
-                  return const Center(
-                    child: Text('No articles found'),
-                  );
+                  return const Center(child: Text('No articles found'));
                 }
                 return ArticlesList(
                   articles: articles,
                   onArticleTap: _onArticleTap,
                 );
               },
-              loading: () => const Center(
-                child: CircularProgressIndicator(),
-              ),
+              loading: () => const Center(child: CircularProgressIndicator()),
               error: (error, stackTrace) {
                 return Center(
                   child: Column(
