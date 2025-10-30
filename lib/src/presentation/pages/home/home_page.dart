@@ -1,4 +1,5 @@
 import 'package:artemis_app/src/presentation/pages/home/widgets/favorites_list.dart';
+import 'package:artemis_app/src/presentation/pages/home/widgets/look_article.dart';
 import 'package:artemis_app/src/presentation/providers/weekly_goal_provider.dart';
 import 'package:artemis_app/src/presentation/widgets/filter_modal.dart';
 
@@ -10,7 +11,6 @@ import 'package:artemis_app/src/presentation/pages/home/widgets/custom_search_ba
 import 'package:artemis_app/src/presentation/pages/home/widgets/new_ideas.dart';
 
 class HomePage extends ConsumerWidget {
-  
   static const String routeName = '/home';
   static const double paddingHorizontal = 16;
   static const double spacing = 16;
@@ -45,12 +45,7 @@ class HomePage extends ConsumerWidget {
                 children: [
                   CustomSearchBar(),
                   SizedBox(width: spacing),
-                   Card(
-                    child: IconButton(
-                      onPressed: () => FilterModal.show(context),
-                      icon: Icon(Icons.filter_list),
-                    ),
-                  ),
+                  LookArticle(),
                 ],
               ),
               NewIdeas(),

@@ -137,6 +137,27 @@ class OpenalexApiService implements IArticleApiDatasource {
     }
   }
 
+  @override
+  Future<DataState<WorkDto>> getRandomArticle() async {
+    try {
+      final response = await _client.get('/works/random');
+      if (response.statusCode == 200 && response.data != null) {
+        final article = WorkDto.fromJson(response.data);
+        return DataSuccess(data: article);
+      } else {
+        return DataFailure(
+          error: Exception(
+            'Failed to load random article: Status ${response.statusCode}',
+          ),
+        );
+      }
+    } on DioException catch (e) {
+      return DataFailure(error: _handleDioError(e));
+    } catch (e) {
+      return DataFailure(error: Exception('Unexpected error: $e'));
+    }
+  }
+
   /// Buscar artículos por autor
   Future<DataState<List<WorkDto>>> getArticlesByAuthor({
     required String authorId,

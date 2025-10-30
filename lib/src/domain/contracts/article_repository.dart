@@ -18,4 +18,7 @@ abstract class IArticleRepository {
 
   /// Obtiene sugerencias de artículos para autocompletado
   Future<DataState<List<Article>>> getAutocompleteArticles(String query);
+
+  /// Obtiene un artículo aleatorio
+  Future<DataState<Article>> getRandomArticle();
 }

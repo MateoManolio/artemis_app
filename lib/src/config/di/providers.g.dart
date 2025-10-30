@@ -424,6 +424,54 @@ final class GetAutocompleteArticlesUsecaseProvider
 String _$getAutocompleteArticlesUsecaseHash() =>
     r'33d9bc5573471ebd1093e50cd0533894420914e6';
 
+@ProviderFor(getRandomArticleUsecase)
+const getRandomArticleUsecaseProvider = GetRandomArticleUsecaseProvider._();
+
+final class GetRandomArticleUsecaseProvider
+    extends
+        $FunctionalProvider<
+          GetRandomArticleUsecase,
+          GetRandomArticleUsecase,
+          GetRandomArticleUsecase
+        >
+    with $Provider<GetRandomArticleUsecase> {
+  const GetRandomArticleUsecaseProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'getRandomArticleUsecaseProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$getRandomArticleUsecaseHash();
+
+  @$internal
+  @override
+  $ProviderElement<GetRandomArticleUsecase> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  GetRandomArticleUsecase create(Ref ref) {
+    return getRandomArticleUsecase(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(GetRandomArticleUsecase value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<GetRandomArticleUsecase>(value),
+    );
+  }
+}
+
+String _$getRandomArticleUsecaseHash() =>
+    r'c53d7da14ef2bfcbc7f3b512515fb88ca11b9d55';
+
 @ProviderFor(articleApiDatasource)
 const articleApiDatasourceProvider = ArticleApiDatasourceProvider._();
 

@@ -76,4 +76,20 @@ class ArticleRepositoryImpl implements IArticleRepository {
       return DataFailure(error: Exception('Repository error: $e'));
     }
   }
+
+  @override
+  Future<DataState<Article>> getRandomArticle() async {
+    try {
+      final result = await service.getRandomArticle();
+      if (result is DataSuccess) {
+        final article = result.data!.toDomain();
+        return DataSuccess(data: article);
+      } else if (result is DataFailure) {
+        return DataFailure<Article>(error: result.error!);
+      }
+      return DataFailure(error: Exception('Unknown error'));
+    } catch (e) {
+      return DataFailure(error: Exception('Repository error: $e'));
+    }
+  }
 }

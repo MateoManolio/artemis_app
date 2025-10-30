@@ -13,5 +13,7 @@ abstract class IArticleApiDatasource {
     ArticlesFilters? filters,
   });
 
+  Future<DataState<WorkDto>> getRandomArticle();
+
   Future<DataState<List<WorkDto>>> getAutocompleteArticle(String query);
 }
