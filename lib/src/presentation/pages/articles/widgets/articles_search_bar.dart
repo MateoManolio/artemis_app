@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ArticlesSearchBar extends StatelessWidget {
-  const ArticlesSearchBar({
-    super.key,
-    this.onChanged,
-    this.controller,
-  });
+  const ArticlesSearchBar({super.key, this.onChanged, this.controller});
 
   final ValueChanged<String>? onChanged;
   final TextEditingController? controller;
@@ -17,7 +13,10 @@ class ArticlesSearchBar extends StatelessWidget {
 
     return TextField(
       controller: controller,
-      onChanged: onChanged,
+      onChanged: (value) {
+        debugPrint('value: $value');
+        onChanged?.call(value);
+      },
       decoration: InputDecoration(
         hintText: 'Search articles',
         prefixIcon: const Icon(Icons.search),
@@ -33,10 +32,7 @@ class ArticlesSearchBar extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(
-            color: colorScheme.primary,
-            width: 2,
-          ),
+          borderSide: BorderSide(color: colorScheme.primary, width: 2),
         ),
       ),
     );

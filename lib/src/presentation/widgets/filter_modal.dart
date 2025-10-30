@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:artemis_app/src/presentation/providers/articles_filters_provider.dart';
 import 'custom_modal.dart';
 
-class FilterModal extends StatefulWidget {
+class FilterModal extends ConsumerStatefulWidget {
   const FilterModal({super.key});
 
-  
   static Future<void> show(BuildContext context) {
     return showModalBottomSheet(
       context: context,
@@ -17,39 +18,57 @@ class FilterModal extends StatefulWidget {
   }
 
   @override
-  State<FilterModal> createState() => _FilterModalState();
+  ConsumerState<FilterModal> createState() => _FilterModalState();
 }
 
-class _FilterModalState extends State<FilterModal> {
+class _FilterModalState extends ConsumerState<FilterModal> {
   // Layout constants
   static const double _spacingSmall = 12.0;
   static const double _spacingMedium = 16.0;
   static const double _spacingLarge = 24.0;
   static const double _spacingXLarge = 32.0;
-  
+
   // Border radius constants
   static const double _radiusSmall = 8.0;
   static const double _radiusMedium = 12.0;
-  
+
   // Font size constants
   static const double _fontSizeSmall = 14.0;
   static const double _fontSizeMedium = 16.0;
-  
+
   // Icon and component sizes
   static const double _iconSizeSmall = 16.0;
   static const double _iconSizeMedium = 24.0;
   static const double _buttonHeight = 56.0;
-  
+
   // Year range constants
   static const double _minYear = 2000.0;
   static const double _maxYear = 2024.0;
   static const int _yearDivisions = 24;
-  static const String _defaultPublicationType = 'Articles';
-  
+
   double _startYear = _minYear;
   double _endYear = _maxYear;
-  String _selectedPublicationType = _defaultPublicationType;
-  bool _openAccess = true;
+  List<String>? _selectedPublicationTypes = [];
+  bool _openAccess = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Inicializar con los valores actuales del provider de filtros
+    final filters = ref.read(articlesFiltersNotifierProvider);
+    if (filters.fromYear != null) {
+      _startYear = filters.fromYear!.toDouble();
+    }
+    if (filters.toYear != null) {
+      _endYear = filters.toYear!.toDouble();
+    }
+    if (filters.types != null && filters.types!.isNotEmpty) {
+      _selectedPublicationTypes = filters.types;
+    }
+    if (filters.isOa != null) {
+      _openAccess = filters.isOa!;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,14 +85,14 @@ class _FilterModalState extends State<FilterModal> {
           children: [
             // Publication year filter
             _buildPublicationYearFilter(theme),
-            
+
             SizedBox(height: _spacingXLarge),
-            
+
             // Publication type filter
             _buildPublicationTypeFilter(),
-            
+
             SizedBox(height: _spacingXLarge),
-            
+
             // Access filter
             _buildAccessFilter(theme),
           ],
@@ -88,9 +107,10 @@ class _FilterModalState extends State<FilterModal> {
         setState(() {
           _startYear = _minYear;
           _endYear = _maxYear;
-          _selectedPublicationType = _defaultPublicationType;
+          _selectedPublicationTypes = [];
           _openAccess = true;
         });
+        ref.read(articlesFiltersNotifierProvider.notifier).reset();
       },
       child: Text(
         'Clear',
@@ -180,18 +200,24 @@ class _FilterModalState extends State<FilterModal> {
   }
 
   Widget _buildPublicationTypeButton(String type, String label) {
-    final isSelected = _selectedPublicationType == type;
+    final isSelected = _selectedPublicationTypes?.contains(type) ?? false;
     return Expanded(
       child: GestureDetector(
         onTap: () {
           setState(() {
-            _selectedPublicationType = type;
+            if (isSelected) {
+              _selectedPublicationTypes?.remove(type);
+            } else {
+              _selectedPublicationTypes?.add(type);
+            }
           });
         },
         child: Container(
           padding: EdgeInsets.symmetric(vertical: _spacingSmall),
           decoration: BoxDecoration(
-            color: isSelected ? Theme.of(context).colorScheme.primary : Colors.white.withValues(alpha: 0.7),
+            color: isSelected
+                ? Theme.of(context).colorScheme.primary
+                : Colors.white.withValues(alpha: 0.7),
             borderRadius: BorderRadius.circular(_radiusSmall),
             boxShadow: [
               BoxShadow(
@@ -205,7 +231,9 @@ class _FilterModalState extends State<FilterModal> {
             child: Text(
               label,
               style: TextStyle(
-                color: isSelected ? Colors.white : Theme.of(context).colorScheme.onSurface,
+                color: isSelected
+                    ? Colors.white
+                    : Theme.of(context).colorScheme.onSurface,
                 fontSize: _fontSizeSmall,
                 fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
               ),
@@ -233,6 +261,9 @@ class _FilterModalState extends State<FilterModal> {
           onTap: () {
             setState(() {
               _openAccess = !_openAccess;
+              ref
+                  .read(articlesFiltersNotifierProvider.notifier)
+                  .setOnlyOpenAccess(_openAccess);
             });
           },
           child: Container(
@@ -255,7 +286,9 @@ class _FilterModalState extends State<FilterModal> {
                   height: _iconSizeMedium,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: _openAccess ? theme.colorScheme.primary : Colors.transparent,
+                    color: _openAccess
+                        ? theme.colorScheme.primary
+                        : Colors.transparent,
                   ),
                   child: Icon(
                     _openAccess ? Icons.check : null,
@@ -287,6 +320,20 @@ class _FilterModalState extends State<FilterModal> {
         height: _buttonHeight,
         child: ElevatedButton(
           onPressed: () {
+            // Map UI state to provider filters
+            final List<String> types = _selectedPublicationTypes ?? [];
+            ref
+                .read(articlesFiltersNotifierProvider.notifier)
+                .updateTypes(types);
+            if (_startYear != _minYear || _endYear != _maxYear) {
+              ref
+                  .read(articlesFiltersNotifierProvider.notifier)
+                  .updateYearRange(
+                    fromYear: _startYear.toInt(),
+                    toYear: _endYear.toInt(),
+                  );
+            }
+
             Navigator.of(context).pop();
           },
           style: ElevatedButton.styleFrom(

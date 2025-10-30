@@ -7,17 +7,19 @@ Sexto día: Arranqué a la madrugada para terminar de dejar andando freeze, porq
 
 
 # TODOs
- - [ ] Cachear los articles
- - [ ] Filtrado y búsqueda
-    - [ ] Debounce para el campo de búsqueda
-    - [ ] Cancelación de request al cambiar búsqueda
+ - [x] Cachear los articles
+ - [x] Infinite scrolling
+ - [x] Filtrado y búsqueda
+    - [x] Debounce para el campo de búsqueda
+    - [x] Cancelación de request al cambiar búsqueda
  - [ ] Favoritos
+ - [ ] Localitation
  - [ ] Svgs y logos
  - [ ] Articles read
- - [ ] Infinite scrolling
  - [ ] Testing
  - [ ] Github CI/CD
  - [ ] Competar README
+ - [ ] Arreglar el color
 
  ## Opcionales
  - [ ] Random article

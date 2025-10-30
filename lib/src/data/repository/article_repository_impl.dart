@@ -3,6 +3,8 @@ import 'package:artemis_app/src/data/datasource/contracts/article_api_datasource
 import 'package:artemis_app/src/data/mappers/work_mapper.dart';
 import 'package:artemis_app/src/domain/contracts/article_repository.dart';
 import 'package:artemis_app/src/domain/entity/article.dart';
+import 'package:dio/dio.dart';
+import 'package:artemis_app/src/presentation/providers/articles_filters_provider.dart';
 
 class ArticleRepositoryImpl implements IArticleRepository {
   final IArticleApiDatasource service;
@@ -32,12 +34,16 @@ class ArticleRepositoryImpl implements IArticleRepository {
     String? query,
     int? page,
     int? perPage,
+    CancelToken? cancelToken,
+    ArticlesFilters? filters,
   }) async {
     try {
       final result = await service.getArticles(
         query: query,
         page: page,
         perPage: perPage,
+        cancelToken: cancelToken,
+        filters: filters,
       );
 
       if (result is DataSuccess) {

@@ -1,10 +1,12 @@
+import 'package:artemis_app/src/presentation/pages/articles/providers/articles_data_provider.dart';
+import 'package:artemis_app/src/presentation/pages/articles/providers/debouncer_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:artemis_app/src/domain/entity/article.dart';
 import 'package:artemis_app/src/config/route/details_parameters.dart';
 import 'package:artemis_app/src/presentation/widgets/filter_modal.dart';
-import 'providers/get_articles_provider.dart';
+import 'package:artemis_app/src/presentation/providers/articles_filters_provider.dart';
 import 'widgets/articles_header.dart';
 import 'widgets/articles_list.dart';
 
@@ -23,11 +25,9 @@ class _ArticlesPageState extends ConsumerState<ArticlesPage> {
   @override
   void initState() {
     super.initState();
-    // Cargar datos solo una vez al iniciar
+    // Cargar datos solo si no hay datos cacheados
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref
-          .read(articlesProvider.notifier)
-          .fetchArticles(query: '', page: 1, perPage: 10);
+      ref.read(articlesDataProvider.notifier).fetchArticles();
     });
   }
 
@@ -38,9 +38,14 @@ class _ArticlesPageState extends ConsumerState<ArticlesPage> {
   }
 
   void _onSearchChanged(String query) {
-    ref
-        .read(articlesProvider.notifier)
-        .fetchArticles(query: query, page: 1, perPage: 10);
+    ref.read(debouncerProvider.notifier).debounceSearch(query, (
+      debounced,
+      cancelToken,
+    ) {
+      ref
+          .read(articlesDataProvider.notifier)
+          .updateQuery(debounced, cancelToken);
+    });
   }
 
   void _onFiltersPressed() {
@@ -56,7 +61,15 @@ class _ArticlesPageState extends ConsumerState<ArticlesPage> {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
-    final articlesState = ref.watch(articlesProvider);
+    ref.listen<ArticlesFilters>(articlesFiltersNotifierProvider, (
+      previous,
+      next,
+    ) {
+      ref.read(articlesDataProvider.notifier).refresh();
+      ref.read(articlesDataProvider.notifier).fetchArticles();
+    });
+
+    final articlesState = ref.watch(articlesDataProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -71,6 +84,17 @@ class _ArticlesPageState extends ConsumerState<ArticlesPage> {
           icon: const Icon(Icons.arrow_back),
           onPressed: () => context.pop(),
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () {
+              _searchController.clear();
+              ref.read(articlesDataProvider.notifier).refresh();
+              ref.read(articlesFiltersNotifierProvider.notifier).reset();
+              ref.read(articlesDataProvider.notifier).fetchArticles();
+            },
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -88,9 +112,13 @@ class _ArticlesPageState extends ConsumerState<ArticlesPage> {
                 if (articles.isEmpty) {
                   return const Center(child: Text('No articles found'));
                 }
+
                 return ArticlesList(
                   articles: articles,
                   onArticleTap: _onArticleTap,
+                  onLoadMore: () {
+                    ref.read(articlesDataProvider.notifier).loadMoreArticles();
+                  },
                 );
               },
               loading: () => const Center(child: CircularProgressIndicator()),
@@ -116,7 +144,9 @@ class _ArticlesPageState extends ConsumerState<ArticlesPage> {
                       const SizedBox(height: 24),
                       ElevatedButton.icon(
                         onPressed: () {
-                          ref.read(articlesProvider.notifier).retry();
+                          ref
+                              .read(articlesDataProvider.notifier)
+                              .fetchArticles();
                         },
                         icon: const Icon(Icons.refresh),
                         label: const Text('Retry'),

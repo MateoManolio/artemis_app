@@ -1,9 +1,11 @@
 import 'package:artemis_app/src/core/network/dio_client.dart';
 import 'package:artemis_app/src/core/util/data_state.dart';
 import 'package:artemis_app/src/data/datasource/contracts/article_api_datasource.dart';
+import 'package:artemis_app/src/data/mappers/openalex_filters_mapper.dart';
 import 'package:artemis_app/src/data/models/dtos/work_dto.dart';
 import 'package:artemis_app/src/data/models/dtos/openalex_response_dto.dart';
 import 'package:dio/dio.dart';
+import 'package:artemis_app/src/presentation/providers/articles_filters_provider.dart';
 
 class OpenalexApiService implements IArticleApiDatasource {
   final DioClient _client;
@@ -40,6 +42,8 @@ class OpenalexApiService implements IArticleApiDatasource {
     String? query,
     int? page,
     int? perPage,
+    CancelToken? cancelToken,
+    ArticlesFilters? filters,
   }) async {
     try {
       final queryParameters = <String, dynamic>{};
@@ -53,16 +57,24 @@ class OpenalexApiService implements IArticleApiDatasource {
       queryParameters['page'] = page ?? 1;
       queryParameters['per-page'] = perPage ?? 25;
 
-      // Ordenar por relevancia o fecha de publicación
-      if (query != null && query.isNotEmpty) {
-        queryParameters['sort'] = 'relevance_score:desc';
-      } else {
-        queryParameters['sort'] = 'publication_date:desc';
+      // Filtros tipados
+      if (filters != null) {
+        queryParameters.addAll(
+          OpenAlexFiltersMapper.toQueryParameters(filters),
+        );
       }
+
+      // Ordenar por relevancia o fecha de publicación si no lo define el filtro
+      queryParameters['sort'] =
+          queryParameters['sort'] ??
+          ((query != null && query.isNotEmpty)
+              ? 'relevance_score:desc'
+              : 'publication_date:desc');
 
       final response = await _client.get(
         '/works',
         queryParameters: queryParameters,
+        cancelToken: cancelToken,
       );
 
       if (response.statusCode == 200 && response.data != null) {
