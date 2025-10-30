@@ -3,3 +3,27 @@ Segundo día: Resolver dependencias. Lo solucioné bajando el _build_runner_ man
 Tercer día: Se crearon todas las pantallas necesarias en la aplicación. Idea de propia autoría pero ayudado con la IA para acelerar el proceso de codeado, lo que se hizo no es final, quedan un montón de ajustes finos. Pero ya las modificaciones que quedan son pocos
 Cuarto día: Se implementó el login con Firebase Authentication, la IA se utilizó para las configuraciones nativas.
 Quinto día: Se implementó la conexión a la API, muchos problemas difíciles de solucionar. Mucho tiempo con un provider que no compilaba porque su nombre contenía Autocomplete, después el get_articles_provider dió muchos dolores de cabeza porque no manejaba bien los errores y se reconstruia en vez de pasar su estado, mucho colaboración la ia para solucionar este tema.
+Sexto día: Arranqué a la madrugada para terminar de dejar andando freeze, porque no había forma de que me corriera el autogenerado, problema que me llevó muchas horas. Se solucionó cuando dejé de usar la ia y me puse a leer documentación e issues en GitHub manualmente, a la "vieja usanza"
+
+
+# TODOs
+ - [ ] Cachear los articles
+ - [ ] Filtrado y búsqueda
+    - [ ] Debounce para el campo de búsqueda
+    - [ ] Cancelación de request al cambiar búsqueda
+ - [ ] Favoritos
+ - [ ] Svgs y logos
+ - [ ] Articles read
+ - [ ] Infinite scrolling
+ - [ ] Testing
+ - [ ] Github CI/CD
+ - [ ] Competar README
+
+ ## Opcionales
+ - [ ] Random article
+ - [ ] Cambiar el usuario
+ - [ ] Skeleton loaders
+
+ ## Bugs
+ - [ ] El no hay artículos al inicio de Article Explorer
+ - [ ] Aumento del performance
