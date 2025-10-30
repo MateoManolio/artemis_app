@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:artemis_app/src/presentation/widgets/safe_svg_picture.dart';
 
 class GoogleSignInButton extends StatelessWidget {
+  static const String googleIconPath = 'assets/svg/google_icon_logo.svg';
   final VoidCallback onPressed;
 
-  const GoogleSignInButton({
-    super.key,
-    required this.onPressed,
-  });
+  const GoogleSignInButton({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -42,16 +41,15 @@ class GoogleSignInButton extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  width: 24,
-                  height: 24,
+                  width: 32,
+                  height: 32,
                   decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(8),
                   ),
-                  child: const Icon(
-                    Icons.g_mobiledata,
-                    color: Color(0xFFFF6F00),
-                    size: 18,
+                  child: Padding(
+                    padding: const EdgeInsets.all(4),
+                    child: SafeSvgPicture.asset(googleIconPath),
                   ),
                 ),
                 const SizedBox(width: 12),
