@@ -16,15 +16,15 @@ final class LightThemeProviderProvider
     extends $FunctionalProvider<ThemeData, ThemeData, ThemeData>
     with $Provider<ThemeData> {
   const LightThemeProviderProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'lightThemeProviderProvider',
-          isAutoDispose: true,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'lightThemeProviderProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$lightThemeProviderHash();
@@ -58,15 +58,15 @@ final class DarkThemeProviderProvider
     extends $FunctionalProvider<ThemeData, ThemeData, ThemeData>
     with $Provider<ThemeData> {
   const DarkThemeProviderProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'darkThemeProviderProvider',
-          isAutoDispose: true,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'darkThemeProviderProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$darkThemeProviderHash();

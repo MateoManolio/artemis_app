@@ -1,8 +1,11 @@
+import 'package:artemis_app/src/domain/entity/article.dart';
 import 'package:flutter/material.dart';
 import 'article_card.dart';
 
 class ArticlesList extends StatelessWidget {
-  const ArticlesList({super.key, required this.onArticleTap});
+  final List<Article> articles;
+  const ArticlesList(
+      {super.key, required this.articles, required this.onArticleTap});
 
   final ValueChanged<int> onArticleTap;
 
@@ -51,7 +54,8 @@ class ArticlesList extends StatelessWidget {
       'isOpenAccess': false,
     },
     {
-      'title': 'EfficientNet: Rethinking model scaling for convolutional neural networks',
+      'title':
+          'EfficientNet: Rethinking model scaling for convolutional neural networks',
       'authors': 'Mingxing Tan, Quoc V. Le',
       'type': 'Conference paper',
       'year': 2019,
@@ -63,15 +67,15 @@ class ArticlesList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      itemCount: _articles.length,
+      itemCount: articles.length,
       itemBuilder: (context, index) {
-        final article = _articles[index];
+        final article = articles[index];
         return ArticleCard(
-          title: article['title'] as String,
-          authors: article['authors'] as String,
-          type: article['type'] as String,
-          year: article['year'] as int,
-          isOpenAccess: article['isOpenAccess'] as bool,
+          title: article.title,
+          authors: article.authors.join(', '),
+          type: article.type.name,
+          year: article.year,
+          isOpenAccess: article.openAccess,
           onTap: () => onArticleTap(index),
         );
       },

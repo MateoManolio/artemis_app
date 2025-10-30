@@ -15,15 +15,15 @@ const loginProviderProvider = LoginProviderProvider._();
 final class LoginProviderProvider
     extends $NotifierProvider<LoginProvider, User?> {
   const LoginProviderProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'loginProviderProvider',
-          isAutoDispose: false,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'loginProviderProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$loginProviderHash();
@@ -50,8 +50,14 @@ abstract class _$LoginProvider extends $Notifier<User?> {
   void runBuild() {
     final created = build();
     final ref = this.ref as $Ref<User?, User?>;
-    final element = ref.element as $ClassProviderElement<
-        AnyNotifier<User?, User?>, User?, Object?, Object?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<User?, User?>,
+              User?,
+              Object?,
+              Object?
+            >;
     element.handleValue(ref, created);
   }
 }

@@ -1,9 +1,9 @@
-import 'package:artemis_app/src/data/datasource/remote/firebase_auth_service.dart';
+import 'package:artemis_app/src/data/datasource/contracts/auth_datasource.dart';
 import 'package:artemis_app/src/domain/contracts/auth_repository.dart';
 import 'package:artemis_app/src/domain/entity/user.dart';
 
 class AuthRepositoryImpl implements IAuthRepository {
-  final FirebaseAuthService _remote;
+  final IAuthDatasource _remote;
 
   AuthRepositoryImpl(this._remote);
 

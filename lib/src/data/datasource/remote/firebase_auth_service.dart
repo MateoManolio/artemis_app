@@ -1,8 +1,9 @@
+import 'package:artemis_app/src/data/datasource/contracts/auth_datasource.dart';
 import 'package:artemis_app/src/data/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:google_sign_in/google_sign_in.dart';
 
-class FirebaseAuthService {
+class FirebaseAuthService implements IAuthDatasource {
   final firebase_auth.FirebaseAuth _auth;
   final GoogleSignIn _google;
 
@@ -12,9 +13,12 @@ class FirebaseAuthService {
   })  : _auth = auth ?? firebase_auth.FirebaseAuth.instance,
         _google = google ?? GoogleSignIn(scopes: const ['email']);
 
-  Stream<UserModel?> authState() =>
-      _auth.authStateChanges().map((u) => u == null ? null : UserModel.fromFirebaseUser(u));
+  @override
+  Stream<UserModel?> authState() => _auth
+      .authStateChanges()
+      .map((u) => u == null ? null : UserModel.fromFirebaseUser(u));
 
+  @override
   Future<UserModel?> signInWithGoogle() async {
     final acc = await _google.signIn();
     if (acc == null) return null; // cancelado
@@ -38,7 +42,7 @@ class FirebaseAuthService {
     if (u.displayName == null && acc.displayName != null) {
       await u.updateDisplayName(acc.displayName);
     }
-    
+
     // Si Firebase no tiene la photoURL, usar el de Google y actualizarlo
     if (u.photoURL == null && acc.photoUrl != null) {
       await u.updatePhotoURL(acc.photoUrl);
@@ -47,11 +51,15 @@ class FirebaseAuthService {
     return UserModel.fromFirebaseUser(u);
   }
 
+  @override
   Future<void> signOut() async {
     await _auth.signOut();
-    try { await _google.signOut(); } catch (_) {}
+    try {
+      await _google.signOut();
+    } catch (_) {}
   }
 
+  @override
   UserModel? current() {
     final u = _auth.currentUser;
     return u == null ? null : UserModel.fromFirebaseUser(u);

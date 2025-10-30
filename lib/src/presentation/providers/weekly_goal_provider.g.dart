@@ -15,15 +15,15 @@ const weeklyGoalProvider = WeeklyGoalNotifierProvider._();
 final class WeeklyGoalNotifierProvider
     extends $NotifierProvider<WeeklyGoalNotifier, int> {
   const WeeklyGoalNotifierProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'weeklyGoalProvider',
-          isAutoDispose: true,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'weeklyGoalProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$weeklyGoalNotifierHash();
@@ -51,8 +51,14 @@ abstract class _$WeeklyGoalNotifier extends $Notifier<int> {
   void runBuild() {
     final created = build();
     final ref = this.ref as $Ref<int, int>;
-    final element = ref.element
-        as $ClassProviderElement<AnyNotifier<int, int>, int, Object?, Object?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<int, int>,
+              int,
+              Object?,
+              Object?
+            >;
     element.handleValue(ref, created);
   }
 }

@@ -15,15 +15,15 @@ const userProvider = UserNotifierProvider._();
 final class UserNotifierProvider
     extends $NotifierProvider<UserNotifier, User?> {
   const UserNotifierProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'userProvider',
-          isAutoDispose: false,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'userProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$userNotifierHash();
@@ -50,8 +50,14 @@ abstract class _$UserNotifier extends $Notifier<User?> {
   void runBuild() {
     final created = build();
     final ref = this.ref as $Ref<User?, User?>;
-    final element = ref.element as $ClassProviderElement<
-        AnyNotifier<User?, User?>, User?, Object?, Object?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<User?, User?>,
+              User?,
+              Object?,
+              Object?
+            >;
     element.handleValue(ref, created);
   }
 }
