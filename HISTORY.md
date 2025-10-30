@@ -22,7 +22,7 @@ Sexto día: Arranqué a la madrugada para terminar de dejar andando freeze, porq
  - [ ] Arreglar el color
 
  ## Opcionales
- - [ ] Random article
+ - [x] Random article
  - [ ] Cambiar el usuario
  - [ ] Skeleton loaders
 
