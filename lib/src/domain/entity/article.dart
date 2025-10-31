@@ -79,7 +79,7 @@ class Article {
 
   final bool openAccess;
 
-  final bool favorite;
+  bool favorite;
 
   Article({
     required this.id,
@@ -102,6 +102,6 @@ class Article {
     required this.field,
     required this.domain,
     required this.openAccess,
-    required this.favorite,
+    this.favorite = false,
   });
 }

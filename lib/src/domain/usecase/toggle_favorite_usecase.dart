@@ -1,29 +1,22 @@
 import 'package:artemis_app/src/core/interfaces/i_usecase.dart';
 import 'package:artemis_app/src/domain/contracts/favorites_repository.dart';
+import 'package:artemis_app/src/domain/entity/article.dart';
 
 /// Use case para cambiar el estado de favorito de un artículo
-class ToggleFavoriteUsecase implements IUseCaseQuery<void, ToggleFavoriteParams> {
+class ToggleFavoriteUsecase implements IUseCaseQuery<void, Article> {
   final IFavoritesRepository _repository;
 
   ToggleFavoriteUsecase(this._repository);
 
   /// Cambia el estado de favorito de un artículo
-  /// 
-  /// [params] Los parámetros que contienen el ID del artículo y el nuevo estado
+  ///
+  /// [article] El artículo a actualizar
   @override
-  Future<void> call(ToggleFavoriteParams params) async {
-    await _repository.toggleFavorite(params.articleId, params.isFavorite);
+  Future<void> call(Article article) async {
+    if (!article.favorite) {
+      _repository.removeFavorite(article.id);
+    } else {
+      _repository.addFavorite(article);
+    }
   }
 }
-
-/// Parámetros para el use case de toggle favorite
-class ToggleFavoriteParams {
-  final String articleId;
-  final bool isFavorite;
-
-  ToggleFavoriteParams({
-    required this.articleId,
-    required this.isFavorite,
-  });
-}
-

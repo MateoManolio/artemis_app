@@ -1,5 +1,7 @@
+import 'package:artemis_app/src/presentation/pages/details/providers/toogle_favorite_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:artemis_app/src/domain/entity/article.dart';
@@ -12,16 +14,22 @@ import 'package:artemis_app/src/presentation/pages/details/widgets/section_title
 import 'package:artemis_app/src/presentation/pages/details/widgets/abstract_section.dart';
 import 'package:artemis_app/src/presentation/pages/details/widgets/bottom_actions.dart';
 
-class DetailsPage extends StatelessWidget {
+class DetailsPage extends ConsumerStatefulWidget {
   static const String routeName = '/details';
-
-  // Constants
-  static const double _spacing = 16.0;
-  static const double _spacingLarge = 24.0;
 
   final Article? article;
 
   const DetailsPage({super.key, this.article});
+
+  @override
+  ConsumerState<DetailsPage> createState() => _DetailsPageState();
+}
+
+class _DetailsPageState extends ConsumerState<DetailsPage> {
+  // Constants
+  static const double _spacing = 16.0;
+  static const double _spacingLarge = 24.0;
+  bool _isFavorite = false;
 
   /// Abre una URL en el navegador externo
   Future<void> _launchUrl(String url) async {
@@ -34,9 +42,15 @@ class DetailsPage extends StatelessWidget {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _isFavorite = widget.article?.favorite ?? false;
+  }
+
+  @override
   Widget build(BuildContext context) {
     // Si no hay artículo, mostrar error
-    if (article == null) {
+    if (widget.article == null) {
       return Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -50,20 +64,20 @@ class DetailsPage extends StatelessWidget {
 
     // Preparar datos del artículo
     final tags = [
-      article!.type.displayName,
-      article!.year.toString(),
-      article!.language,
-      if (article!.openAccess) 'Open Access',
+      widget.article!.type.displayName,
+      widget.article!.year.toString(),
+      widget.article!.language,
+      if (widget.article!.openAccess) 'Open Access',
     ];
 
     final metrics = {
-      'Citations': article!.citedBy.toString(),
-      'FWCI': article!.fwci.toStringAsFixed(1),
-      'Percentile': article!.citationPercentile > 99
+      'Citations': widget.article!.citedBy.toString(),
+      'FWCI': widget.article!.fwci.toStringAsFixed(1),
+      'Percentile': widget.article!.citationPercentile > 99
           ? 'Top 1%'
-          : article!.citationPercentile > 90
+          : widget.article!.citationPercentile > 90
           ? 'Top 10%'
-          : '${article!.citationPercentile.toStringAsFixed(0)}%',
+          : '${widget.article!.citationPercentile.toStringAsFixed(0)}%',
     };
 
     return Scaffold(
@@ -80,11 +94,13 @@ class DetailsPage extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            icon: Icon(
-              article!.favorite ? Icons.favorite : Icons.favorite_border,
-            ),
+            icon: Icon(_isFavorite ? Icons.favorite : Icons.favorite_border),
             onPressed: () {
-              // TODO: Implementar lógica de favoritos
+              setState(() {
+                _isFavorite = !_isFavorite;
+                widget.article!.favorite = _isFavorite;
+                ref.read(toggleFavoriteProvider(widget.article!));
+              });
             },
           ),
         ],
@@ -99,29 +115,29 @@ class DetailsPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ArticleTitle(title: article!.title),
+            ArticleTitle(title: widget.article!.title),
             const SizedBox(height: _spacingLarge),
 
             ArticleTags(tags: tags),
             const SizedBox(height: _spacingLarge),
 
             PublicationInfo(
-              publication: article!.institutions.isNotEmpty
-                  ? article!.institutions.first
+              publication: widget.article!.institutions.isNotEmpty
+                  ? widget.article!.institutions.first
                   : 'Unknown',
-              author: article!.authors.isNotEmpty
-                  ? article!.authors.first
+              author: widget.article!.authors.isNotEmpty
+                  ? widget.article!.authors.first
                   : 'Unknown',
             ),
             const SizedBox(height: _spacingLarge),
 
             OpenAccessButton(
               hasPdf: true,
-              onViewPdf: article!.pdfUrl.isNotEmpty
-                  ? () => _launchUrl(article!.pdfUrl)
+              onViewPdf: widget.article!.pdfUrl.isNotEmpty
+                  ? () => _launchUrl(widget.article!.pdfUrl)
                   : null,
-              onViewSource: article!.pageUrl.isNotEmpty
-                  ? () => _launchUrl(article!.pageUrl)
+              onViewSource: widget.article!.pageUrl.isNotEmpty
+                  ? () => _launchUrl(widget.article!.pageUrl)
                   : null,
             ),
             const SizedBox(height: _spacingLarge),
@@ -129,13 +145,13 @@ class DetailsPage extends StatelessWidget {
             MetricsSection(metrics: metrics),
             const SizedBox(height: _spacingLarge),
 
-            if (article!.topics.isNotEmpty)
+            if (widget.article!.topics.isNotEmpty)
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SectionTitle(title: 'Key topics'),
                   const SizedBox(height: _spacing),
-                  ArticleTags(tags: article!.topics, borderRadius: 12.0),
+                  ArticleTags(tags: widget.article!.topics, borderRadius: 12.0),
                   const SizedBox(height: _spacingLarge),
                 ],
               ),

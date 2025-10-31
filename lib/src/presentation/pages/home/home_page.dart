@@ -1,3 +1,4 @@
+import 'package:artemis_app/src/presentation/pages/home/providers/get_favorites_provider.dart';
 import 'package:artemis_app/src/presentation/pages/home/widgets/favorites_list.dart';
 import 'package:artemis_app/src/presentation/pages/home/widgets/look_article.dart';
 import 'package:artemis_app/src/presentation/providers/weekly_goal_provider.dart';
@@ -20,6 +21,7 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final favorites = ref.watch(getFavoritesProvider);
     final weeklyGoal = ref.watch(weeklyGoalProvider);
     return Scaffold(
       appBar: AppBar(
@@ -48,7 +50,11 @@ class HomePage extends ConsumerWidget {
                 ],
               ),
               NewIdeas(),
-              FavoritesList(),
+              favorites.when(
+                data: (data) => FavoritesList(articles: data),
+                error: (error, stackTrace) => Text('Error: $error'),
+                loading: () => const Center(child: CircularProgressIndicator()),
+              ),
             ],
           ),
         ),

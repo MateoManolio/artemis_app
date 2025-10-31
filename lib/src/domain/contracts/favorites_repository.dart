@@ -7,4 +7,6 @@ abstract class IFavoritesRepository {
   Future<List<Article>> getAllFavorites();
 
   Future<void> toggleFavorite(String articleId, bool isFavorite);
+
+  Future<void> updateArticle(Article article);
 }

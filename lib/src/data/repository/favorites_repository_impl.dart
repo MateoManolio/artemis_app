@@ -28,4 +28,9 @@ class FavoritesRepositoryImpl implements IFavoritesRepository {
   Future<void> toggleFavorite(String articleId, bool isFavorite) async {
     await dbDataSource.toggleFavorite(articleId, isFavorite);
   }
+
+  @override
+  Future<void> updateArticle(Article article) async {
+    await dbDataSource.updateArticle(ArticleDbModel.fromDomain(article));
+  }
 }

@@ -53,9 +53,8 @@ String _$openAlexDioClientHash() => r'831adc8597a7167001cfd975fb9fb9db05b5317b';
 @ProviderFor(isar)
 const isarProvider = IsarProvider._();
 
-final class IsarProvider
-    extends $FunctionalProvider<AsyncValue<Isar>, Isar, FutureOr<Isar>>
-    with $FutureModifier<Isar>, $FutureProvider<Isar> {
+final class IsarProvider extends $FunctionalProvider<Isar, Isar, Isar>
+    with $Provider<Isar> {
   const IsarProvider._()
     : super(
         from: null,
@@ -72,16 +71,24 @@ final class IsarProvider
 
   @$internal
   @override
-  $FutureProviderElement<Isar> $createElement($ProviderPointer pointer) =>
-      $FutureProviderElement(pointer);
+  $ProviderElement<Isar> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
-  FutureOr<Isar> create(Ref ref) {
+  Isar create(Ref ref) {
     return isar(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Isar value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<Isar>(value),
+    );
   }
 }
 
-String _$isarHash() => r'10aeb1dc4a5e84bea6658c44e6ef6762f20a4ed8';
+String _$isarHash() => r'c61beec83dcda0f0e8e8e9b6193f956120257763';
 
 @ProviderFor(firebaseAuthService)
 const firebaseAuthServiceProvider = FirebaseAuthServiceProvider._();
@@ -831,7 +838,7 @@ final class DbDataSourceProvider
   }
 }
 
-String _$dbDataSourceHash() => r'2f7e97b23d8989c5c8a580bfc59c2655b278a976';
+String _$dbDataSourceHash() => r'e958a865821429d9f0a396c74f0541a454f4fdb6';
 
 @ProviderFor(favoritesRepository)
 const favoritesRepositoryProvider = FavoritesRepositoryProvider._();

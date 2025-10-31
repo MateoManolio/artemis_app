@@ -40,7 +40,9 @@ DioClient openAlexDioClient(Ref ref) => DioClient(
 );
 
 @Riverpod(keepAlive: true)
-Future<Isar> isar(Ref ref) async => await IsarStorage.getInstance();
+Isar isar(Ref ref) {
+  throw UnimplementedError('Isar debe ser inicializado en main()');
+}
 
 // ============================================================================
 // AUTH - Datasources, Repositories
@@ -121,16 +123,7 @@ IArticleRepository articleRepository(Ref ref) =>
 // ============================================================================
 
 @Riverpod(keepAlive: true)
-DbDataSource dbDataSource(Ref ref) {
-  final isarAsync = ref.watch(isarProvider);
-
-  return isarAsync.when(
-    data: (isar) => ArticlesDao(isar),
-    loading: () => throw StateError('Database is initializing. Please wait.'),
-    error: (err, stack) =>
-        throw Exception('Failed to initialize database: $err'),
-  );
-}
+DbDataSource dbDataSource(Ref ref) => ArticlesDao(ref.watch(isarProvider));
 
 @Riverpod(keepAlive: true)
 IFavoritesRepository favoritesRepository(Ref ref) =>

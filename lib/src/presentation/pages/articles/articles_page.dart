@@ -144,6 +144,7 @@ class _ArticlesPageState extends ConsumerState<ArticlesPage> {
                       const SizedBox(height: 24),
                       ElevatedButton.icon(
                         onPressed: () {
+                          ref.read(articlesDataProvider.notifier).refresh();
                           ref
                               .read(articlesDataProvider.notifier)
                               .fetchArticles();
