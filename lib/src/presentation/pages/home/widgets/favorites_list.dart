@@ -50,8 +50,9 @@ class FavoritesList extends StatelessWidget {
                   padding: const EdgeInsets.all(padding),
                   child: ArticlesText(
                     title: article.title,
-                    category: article.type.displayName,
-                    readingTime: article.citedBy,
+                    domain: article.domain,
+                    type: article.type.displayName,
+                    isOa: article.openAccess,
                   ),
                 ),
               );
