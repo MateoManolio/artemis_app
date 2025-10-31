@@ -1,4 +1,5 @@
 import 'package:artemis_app/src/presentation/pages/details/providers/toogle_favorite_provider.dart';
+import 'package:artemis_app/src/presentation/providers/articles_read_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -33,6 +34,7 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
 
   /// Abre una URL en el navegador externo
   Future<void> _launchUrl(String url) async {
+    ref.read(articlesReadProviderProvider.notifier).incrementArticlesRead();
     if (url.isEmpty) return;
 
     final uri = Uri.parse(url);

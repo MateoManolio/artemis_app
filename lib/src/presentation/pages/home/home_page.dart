@@ -1,3 +1,4 @@
+import 'package:artemis_app/src/presentation/providers/articles_read_provider.dart';
 import 'package:artemis_app/src/presentation/pages/home/providers/get_favorites_provider.dart';
 import 'package:artemis_app/src/presentation/pages/home/widgets/favorites_list.dart';
 import 'package:artemis_app/src/presentation/pages/home/widgets/look_article.dart';
@@ -40,7 +41,10 @@ class HomePage extends ConsumerWidget {
           child: Column(
             spacing: spacing,
             children: [
-              ArticlesRead(articlesRead: 5, weekGoal: weeklyGoal),
+              ArticlesRead(
+                articlesRead: ref.watch(articlesReadProviderProvider),
+                weekGoal: weeklyGoal,
+              ),
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
