@@ -13,20 +13,24 @@ Séptimo día: Arranqué con problemas en las dependencias, ya que Isar no se ac
  - [x] Filtrado y búsqueda
     - [x] Debounce para el campo de búsqueda
     - [x] Cancelación de request al cambiar búsqueda
- - [ ] Favoritos
+ - [x] Favoritos
  - [ ] Localitation
- - [ ] Svgs y logos
+ - [x] Svgs y logos
  - [ ] Articles read
  - [ ] Testing
  - [ ] Github CI/CD
  - [ ] Competar README
  - [ ] Arreglar el color
-
+ - [ ] Poner el ícono a la app
+ 
  ## Opcionales
  - [x] Random article
  - [ ] Cambiar el usuario
  - [ ] Skeleton loaders
+ - [ ] Que el discover no muestre siempre lo mismo
+ - [ ] Cambiar la splash screen
 
  ## Bugs
  - [ ] El no hay artículos al inicio de Article Explorer
  - [ ] Aumento del performance
+ - [ ] Search en el menu
