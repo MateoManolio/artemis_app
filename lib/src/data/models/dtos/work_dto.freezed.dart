@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 mixin _$WorkDto {
 
  String? get id;@UriConverter() Uri? get doi; String? get title; String? get displayName; int? get publicationYear;@DateTimeConverter() DateTime? get publicationDate; WorkIdsDto? get ids; String? get language; PrimaryLocationDto? get primaryLocation; String? get type; String? get typeCrossref; List<String>? get indexedIn; OpenAccessDto? get openAccess; List<AuthorshipDto>? get authorships; int? get countriesDistinctCount; int? get institutionsDistinctCount; List<String>? get correspondingAuthorIds; List<String>? get correspondingInstitutionIds; MoneyDto? get apcList; MoneyDto? get apcPaid; double? get fwci; bool? get hasFulltext; String? get fulltextOrigin; int? get citedByCount; CitationNormalizedPercentileDto? get citationNormalizedPercentile; IntRangeDto? get citedByPercentileYear; BiblioDto? get biblio; bool? get isRetracted; bool? get isParatext; TopicDto? get primaryTopic; List<TopicDto>? get topics; List<KeywordDto>? get keywords; List<ConceptDto>? get concepts; List<dynamic>? get mesh; int? get locationsCount; List<LocationDto>? get locations; LocationDto? get bestOaLocation; List<dynamic>? get sustainableDevelopmentGoals; List<dynamic>? get grants; List<dynamic>? get datasets; List<dynamic>? get versions; int? get referencedWorksCount; List<String>? get referencedWorks; List<String>? get relatedWorks;/// OpenAlex entrega el abstract como inverted index (no texto plano).
-/// Lo modelamos como Map<String, List<int>> y lo reconstruimos fuera.
+/// Lo modelamos como Map\<String, List\<int\>\> y lo reconstruimos fuera.
  Map<String, List<int>>? get abstractInvertedIndex; List<CountByYearDto>? get countsByYear;@DateTimeConverter() DateTime? get updatedDate;@DateTimeConverter() DateTime? get createdDate;
 /// Create a copy of WorkDto
 /// with the given fields replaced by the non-null parameter values.
@@ -369,8 +369,8 @@ return $default(_that.id,_that.doi,_that.title,_that.displayName,_that.publicati
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class _WorkDto implements WorkDto {
   const _WorkDto({this.id, @UriConverter() this.doi, this.title, this.displayName, this.publicationYear, @DateTimeConverter() this.publicationDate, this.ids, this.language, this.primaryLocation, this.type, this.typeCrossref, final  List<String>? indexedIn, this.openAccess, final  List<AuthorshipDto>? authorships, this.countriesDistinctCount, this.institutionsDistinctCount, final  List<String>? correspondingAuthorIds, final  List<String>? correspondingInstitutionIds, this.apcList, this.apcPaid, this.fwci, this.hasFulltext, this.fulltextOrigin, this.citedByCount, this.citationNormalizedPercentile, this.citedByPercentileYear, this.biblio, this.isRetracted, this.isParatext, this.primaryTopic, final  List<TopicDto>? topics, final  List<KeywordDto>? keywords, final  List<ConceptDto>? concepts, final  List<dynamic>? mesh, this.locationsCount, final  List<LocationDto>? locations, this.bestOaLocation, final  List<dynamic>? sustainableDevelopmentGoals, final  List<dynamic>? grants, final  List<dynamic>? datasets, final  List<dynamic>? versions, this.referencedWorksCount, final  List<String>? referencedWorks, final  List<String>? relatedWorks, final  Map<String, List<int>>? abstractInvertedIndex, final  List<CountByYearDto>? countsByYear, @DateTimeConverter() this.updatedDate, @DateTimeConverter() this.createdDate}): _indexedIn = indexedIn,_authorships = authorships,_correspondingAuthorIds = correspondingAuthorIds,_correspondingInstitutionIds = correspondingInstitutionIds,_topics = topics,_keywords = keywords,_concepts = concepts,_mesh = mesh,_locations = locations,_sustainableDevelopmentGoals = sustainableDevelopmentGoals,_grants = grants,_datasets = datasets,_versions = versions,_referencedWorks = referencedWorks,_relatedWorks = relatedWorks,_abstractInvertedIndex = abstractInvertedIndex,_countsByYear = countsByYear;
   factory _WorkDto.fromJson(Map<String, dynamic> json) => _$WorkDtoFromJson(json);
@@ -540,10 +540,10 @@ class _WorkDto implements WorkDto {
 }
 
 /// OpenAlex entrega el abstract como inverted index (no texto plano).
-/// Lo modelamos como Map<String, List<int>> y lo reconstruimos fuera.
+/// Lo modelamos como Map\<String, List\<int\>\> y lo reconstruimos fuera.
  final  Map<String, List<int>>? _abstractInvertedIndex;
 /// OpenAlex entrega el abstract como inverted index (no texto plano).
-/// Lo modelamos como Map<String, List<int>> y lo reconstruimos fuera.
+/// Lo modelamos como Map\<String, List\<int\>\> y lo reconstruimos fuera.
 @override Map<String, List<int>>? get abstractInvertedIndex {
   final value = _abstractInvertedIndex;
   if (value == null) return null;

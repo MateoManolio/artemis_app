@@ -203,8 +203,8 @@ return $default(_that.isOa,_that.oaStatus,_that.oaUrl,_that.anyRepositoryHasFull
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class _OpenAccessDto implements OpenAccessDto {
   const _OpenAccessDto({this.isOa, this.oaStatus, @UriConverter() this.oaUrl, this.anyRepositoryHasFulltext});
   factory _OpenAccessDto.fromJson(Map<String, dynamic> json) => _$OpenAccessDtoFromJson(json);

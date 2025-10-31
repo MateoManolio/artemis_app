@@ -8,20 +8,20 @@ part of 'source_dto.dart';
 
 _SourceDto _$SourceDtoFromJson(Map<String, dynamic> json) => _SourceDto(
   id: json['id'] as String?,
-  displayName: json['display_name'] as String?,
-  issnL: json['issn_l'] as String?,
+  displayName: json['displayName'] as String?,
+  issnL: json['issnL'] as String?,
   issn: (json['issn'] as List<dynamic>?)?.map((e) => e as String).toList(),
-  isOa: json['is_oa'] as bool?,
-  isInDoaj: json['is_in_doaj'] as bool?,
-  isIndexedInScopus: json['is_indexed_in_scopus'] as bool?,
-  isCore: json['is_core'] as bool?,
-  hostOrganization: json['host_organization'] as String?,
-  hostOrganizationName: json['host_organization_name'] as String?,
-  hostOrganizationLineage: (json['host_organization_lineage'] as List<dynamic>?)
+  isOa: json['isOa'] as bool?,
+  isInDoaj: json['isInDoaj'] as bool?,
+  isIndexedInScopus: json['isIndexedInScopus'] as bool?,
+  isCore: json['isCore'] as bool?,
+  hostOrganization: json['hostOrganization'] as String?,
+  hostOrganizationName: json['hostOrganizationName'] as String?,
+  hostOrganizationLineage: (json['hostOrganizationLineage'] as List<dynamic>?)
       ?.map((e) => e as String)
       .toList(),
   hostOrganizationLineageNames:
-      (json['host_organization_lineage_names'] as List<dynamic>?)
+      (json['hostOrganizationLineageNames'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
   type: json['type'] as String?,
@@ -30,16 +30,16 @@ _SourceDto _$SourceDtoFromJson(Map<String, dynamic> json) => _SourceDto(
 Map<String, dynamic> _$SourceDtoToJson(_SourceDto instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'display_name': instance.displayName,
-      'issn_l': instance.issnL,
+      'displayName': instance.displayName,
+      'issnL': instance.issnL,
       'issn': instance.issn,
-      'is_oa': instance.isOa,
-      'is_in_doaj': instance.isInDoaj,
-      'is_indexed_in_scopus': instance.isIndexedInScopus,
-      'is_core': instance.isCore,
-      'host_organization': instance.hostOrganization,
-      'host_organization_name': instance.hostOrganizationName,
-      'host_organization_lineage': instance.hostOrganizationLineage,
-      'host_organization_lineage_names': instance.hostOrganizationLineageNames,
+      'isOa': instance.isOa,
+      'isInDoaj': instance.isInDoaj,
+      'isIndexedInScopus': instance.isIndexedInScopus,
+      'isCore': instance.isCore,
+      'hostOrganization': instance.hostOrganization,
+      'hostOrganizationName': instance.hostOrganizationName,
+      'hostOrganizationLineage': instance.hostOrganizationLineage,
+      'hostOrganizationLineageNames': instance.hostOrganizationLineageNames,
       'type': instance.type,
     };

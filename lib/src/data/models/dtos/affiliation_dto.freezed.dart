@@ -201,8 +201,8 @@ return $default(_that.rawAffiliationString,_that.institutionIds);case _:
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class _AffiliationDto implements AffiliationDto {
    _AffiliationDto({this.rawAffiliationString, final  List<String>? institutionIds}): _institutionIds = institutionIds;
   factory _AffiliationDto.fromJson(Map<String, dynamic> json) => _$AffiliationDtoFromJson(json);

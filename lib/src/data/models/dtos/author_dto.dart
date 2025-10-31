@@ -5,7 +5,6 @@ part 'author_dto.g.dart';
 
 @freezed
 sealed class AuthorDto with _$AuthorDto {
-  @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
   factory AuthorDto({String? id, String? displayName, String? orcid}) =
       _AuthorDto;
 

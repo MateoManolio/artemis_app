@@ -5,7 +5,6 @@ part 'biblio_dto.g.dart';
 
 @freezed
 sealed class BiblioDto with _$BiblioDto {
-  @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
   factory BiblioDto({
     String? volume,
     String? issue,

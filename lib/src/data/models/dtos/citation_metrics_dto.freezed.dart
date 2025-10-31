@@ -202,8 +202,8 @@ return $default(_that.value,_that.isInTop1Percent,_that.isInTop10Percent);case _
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class _CitationNormalizedPercentileDto implements CitationNormalizedPercentileDto {
   const _CitationNormalizedPercentileDto({this.value, this.isInTop1Percent, this.isInTop10Percent});
   factory _CitationNormalizedPercentileDto.fromJson(Map<String, dynamic> json) => _$CitationNormalizedPercentileDtoFromJson(json);
@@ -464,8 +464,8 @@ return $default(_that.min,_that.max);case _:
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class _IntRangeDto implements IntRangeDto {
   const _IntRangeDto({this.min, this.max});
   factory _IntRangeDto.fromJson(Map<String, dynamic> json) => _$IntRangeDtoFromJson(json);

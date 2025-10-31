@@ -203,8 +203,8 @@ return $default(_that.volume,_that.issue,_that.firstPage,_that.lastPage);case _:
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class _BiblioDto implements BiblioDto {
    _BiblioDto({this.volume, this.issue, this.firstPage, this.lastPage});
   factory _BiblioDto.fromJson(Map<String, dynamic> json) => _$BiblioDtoFromJson(json);

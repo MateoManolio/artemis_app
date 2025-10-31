@@ -221,8 +221,8 @@ return $default(_that.authorPosition,_that.author,_that.institutions,_that.count
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class _AuthorshipDto implements AuthorshipDto {
    _AuthorshipDto({this.authorPosition, this.author, final  List<InstitutionDto>? institutions, final  List<String>? countries, this.isCorresponding, this.rawAuthorName, final  List<String>? rawAffiliationStrings, final  List<AffiliationDto>? affiliations}): _institutions = institutions,_countries = countries,_rawAffiliationStrings = rawAffiliationStrings,_affiliations = affiliations;
   factory _AuthorshipDto.fromJson(Map<String, dynamic> json) => _$AuthorshipDtoFromJson(json);

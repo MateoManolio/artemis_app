@@ -5,7 +5,6 @@ part 'money_dto.g.dart';
 
 @freezed
 sealed class MoneyDto with _$MoneyDto {
-  @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
   factory MoneyDto({double? value, String? currency, double? valueUsd}) =
       _MoneyDto;
 

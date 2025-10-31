@@ -241,8 +241,8 @@ return $default(_that.id,_that.displayName,_that.score,_that.subfield,_that.fiel
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class _TopicDto implements TopicDto {
   const _TopicDto({this.id, this.displayName, this.score, this.subfield, this.field, this.domain});
   factory _TopicDto.fromJson(Map<String, dynamic> json) => _$TopicDtoFromJson(json);
@@ -545,8 +545,8 @@ return $default(_that.id,_that.displayName);case _:
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class _TopicLevelDto implements TopicLevelDto {
   const _TopicLevelDto({this.id, this.displayName});
   factory _TopicLevelDto.fromJson(Map<String, dynamic> json) => _$TopicLevelDtoFromJson(json);

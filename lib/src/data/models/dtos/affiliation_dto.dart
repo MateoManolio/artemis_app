@@ -5,7 +5,6 @@ part 'affiliation_dto.g.dart';
 
 @freezed
 sealed class AffiliationDto with _$AffiliationDto {
-  @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
   factory AffiliationDto({
     String? rawAffiliationString,
     List<String>? institutionIds,

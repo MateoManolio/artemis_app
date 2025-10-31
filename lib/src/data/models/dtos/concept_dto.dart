@@ -5,7 +5,6 @@ part 'concept_dto.g.dart';
 
 @freezed
 sealed class ConceptDto with _$ConceptDto {
-  @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
   const factory ConceptDto({
     String? id,
     String? wikidata,

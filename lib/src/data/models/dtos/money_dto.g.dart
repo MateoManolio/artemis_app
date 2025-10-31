@@ -9,11 +9,11 @@ part of 'money_dto.dart';
 _MoneyDto _$MoneyDtoFromJson(Map<String, dynamic> json) => _MoneyDto(
   value: (json['value'] as num?)?.toDouble(),
   currency: json['currency'] as String?,
-  valueUsd: (json['value_usd'] as num?)?.toDouble(),
+  valueUsd: (json['valueUsd'] as num?)?.toDouble(),
 );
 
 Map<String, dynamic> _$MoneyDtoToJson(_MoneyDto instance) => <String, dynamic>{
   'value': instance.value,
   'currency': instance.currency,
-  'value_usd': instance.valueUsd,
+  'valueUsd': instance.valueUsd,
 };

@@ -6,7 +6,6 @@ part 'citation_metrics_dto.g.dart';
 @freezed
 sealed class CitationNormalizedPercentileDto
     with _$CitationNormalizedPercentileDto {
-  @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
   const factory CitationNormalizedPercentileDto({
     double? value,
     bool? isInTop1Percent,
@@ -19,7 +18,6 @@ sealed class CitationNormalizedPercentileDto
 
 @freezed
 sealed class IntRangeDto with _$IntRangeDto {
-  @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
   const factory IntRangeDto({int? min, int? max}) = _IntRangeDto;
 
   factory IntRangeDto.fromJson(Map<String, dynamic> json) =>

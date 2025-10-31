@@ -5,7 +5,6 @@ part 'institution_dto.g.dart';
 
 @freezed
 sealed class InstitutionDto with _$InstitutionDto {
-  @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
   const factory InstitutionDto({
     String? id,
     String? displayName,

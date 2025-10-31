@@ -6,7 +6,6 @@ part 'work_ids_dto.g.dart';
 
 @freezed
 sealed class WorkIdsDto with _$WorkIdsDto {
-  @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
   const factory WorkIdsDto({
     String? openalex,
     @UriConverter() Uri? doi,

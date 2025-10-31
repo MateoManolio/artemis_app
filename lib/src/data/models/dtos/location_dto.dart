@@ -7,7 +7,6 @@ part 'location_dto.g.dart';
 
 @freezed
 sealed class LocationDto with _$LocationDto {
-  @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
   const factory LocationDto({
     bool? isOa,
     @UriConverter() Uri? landingPageUrl,

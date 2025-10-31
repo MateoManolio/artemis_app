@@ -202,8 +202,8 @@ return $default(_that.id,_that.displayName,_that.orcid);case _:
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class _AuthorDto implements AuthorDto {
    _AuthorDto({this.id, this.displayName, this.orcid});
   factory _AuthorDto.fromJson(Map<String, dynamic> json) => _$AuthorDtoFromJson(json);

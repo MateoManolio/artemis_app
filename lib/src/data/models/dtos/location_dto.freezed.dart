@@ -220,8 +220,8 @@ return $default(_that.isOa,_that.landingPageUrl,_that.pdfUrl,_that.source,_that.
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class _LocationDto implements LocationDto {
   const _LocationDto({this.isOa, @UriConverter() this.landingPageUrl, @UriConverter() this.pdfUrl, this.source, this.license, @UriConverter() this.licenseId, this.version, this.isAccepted, this.isPublished});
   factory _LocationDto.fromJson(Map<String, dynamic> json) => _$LocationDtoFromJson(json);

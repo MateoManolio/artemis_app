@@ -5,7 +5,6 @@ part 'topic_dto.g.dart';
 
 @freezed
 sealed class TopicDto with _$TopicDto {
-  @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
   const factory TopicDto({
     String? id,
     String? displayName,
@@ -21,7 +20,6 @@ sealed class TopicDto with _$TopicDto {
 
 @freezed
 sealed class TopicLevelDto with _$TopicLevelDto {
-  @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
   const factory TopicLevelDto({String? id, String? displayName}) =
       _TopicLevelDto;
 

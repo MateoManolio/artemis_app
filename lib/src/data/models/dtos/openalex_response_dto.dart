@@ -7,11 +7,6 @@ part 'openalex_response_dto.g.dart';
 /// E representa el tipo de cada item en `results` (por ej., Work).
 @Freezed(genericArgumentFactories: true)
 sealed class OpenAlexResponse<E> with _$OpenAlexResponse<E> {
-  @JsonSerializable(
-    fieldRename: FieldRename.snake,
-    explicitToJson: true,
-    genericArgumentFactories: true,
-  )
   factory OpenAlexResponse({
     required OpenAlexMeta meta,
     required List<E> results,
@@ -28,7 +23,6 @@ sealed class OpenAlexResponse<E> with _$OpenAlexResponse<E> {
 /// https://docs.openalex.org/how-to-use-the-api/get-lists-of-entities/paging
 @freezed
 sealed class OpenAlexMeta with _$OpenAlexMeta {
-  @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
   factory OpenAlexMeta({
     required int count,
     int? dbResponseTimeMs,
@@ -45,7 +39,6 @@ sealed class OpenAlexMeta with _$OpenAlexMeta {
 /// https://docs.openalex.org/api-entities/works/group-works
 @freezed
 sealed class OpenAlexGroupBy with _$OpenAlexGroupBy {
-  @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
   factory OpenAlexGroupBy({
     /// nombre del grupo (ej. "oa_status", "publication_year", etc.)
     String? key,

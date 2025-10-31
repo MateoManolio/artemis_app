@@ -8,7 +8,6 @@ part 'authorship_dto.g.dart';
 
 @freezed
 sealed class AuthorshipDto with _$AuthorshipDto {
-  @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
   factory AuthorshipDto({
     String? authorPosition, // first/middle/last
     AuthorDto? author,

@@ -211,8 +211,8 @@ return $default(_that.meta,_that.results,_that.groupBy);case _:
 }
 
 /// @nodoc
+@JsonSerializable(genericArgumentFactories: true)
 
-@JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true, genericArgumentFactories: true)
 class _OpenAlexResponse<E> implements OpenAlexResponse<E> {
    _OpenAlexResponse({required this.meta, required final  List<E> results, final  List<OpenAlexGroupBy>? groupBy}): _results = results,_groupBy = groupBy;
   factory _OpenAlexResponse.fromJson(Map<String, dynamic> json,E Function(Object?) fromJsonE) => _$OpenAlexResponseFromJson(json,fromJsonE);
@@ -499,8 +499,8 @@ return $default(_that.count,_that.dbResponseTimeMs,_that.page,_that.perPage,_tha
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class _OpenAlexMeta implements OpenAlexMeta {
    _OpenAlexMeta({required this.count, this.dbResponseTimeMs, required this.page, required this.perPage, this.groupsCount});
   factory _OpenAlexMeta.fromJson(Map<String, dynamic> json) => _$OpenAlexMetaFromJson(json);
@@ -773,8 +773,8 @@ return $default(_that.key,_that.keyDisplayName,_that.count,_that.filter,_that.va
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class _OpenAlexGroupBy implements OpenAlexGroupBy {
    _OpenAlexGroupBy({this.key, this.keyDisplayName, this.count, final  Map<String, dynamic>? filter, final  Map<String, dynamic>? value}): _filter = filter,_value = value;
   factory _OpenAlexGroupBy.fromJson(Map<String, dynamic> json) => _$OpenAlexGroupByFromJson(json);

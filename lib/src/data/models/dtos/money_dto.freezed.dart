@@ -202,8 +202,8 @@ return $default(_that.value,_that.currency,_that.valueUsd);case _:
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class _MoneyDto implements MoneyDto {
    _MoneyDto({this.value, this.currency, this.valueUsd});
   factory _MoneyDto.fromJson(Map<String, dynamic> json) => _$MoneyDtoFromJson(json);

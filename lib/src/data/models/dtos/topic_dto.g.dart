@@ -8,7 +8,7 @@ part of 'topic_dto.dart';
 
 _TopicDto _$TopicDtoFromJson(Map<String, dynamic> json) => _TopicDto(
   id: json['id'] as String?,
-  displayName: json['display_name'] as String?,
+  displayName: json['displayName'] as String?,
   score: (json['score'] as num?)?.toDouble(),
   subfield: json['subfield'] == null
       ? null
@@ -23,18 +23,18 @@ _TopicDto _$TopicDtoFromJson(Map<String, dynamic> json) => _TopicDto(
 
 Map<String, dynamic> _$TopicDtoToJson(_TopicDto instance) => <String, dynamic>{
   'id': instance.id,
-  'display_name': instance.displayName,
+  'displayName': instance.displayName,
   'score': instance.score,
-  'subfield': instance.subfield?.toJson(),
-  'field': instance.field?.toJson(),
-  'domain': instance.domain?.toJson(),
+  'subfield': instance.subfield,
+  'field': instance.field,
+  'domain': instance.domain,
 };
 
 _TopicLevelDto _$TopicLevelDtoFromJson(Map<String, dynamic> json) =>
     _TopicLevelDto(
       id: json['id'] as String?,
-      displayName: json['display_name'] as String?,
+      displayName: json['displayName'] as String?,
     );
 
 Map<String, dynamic> _$TopicLevelDtoToJson(_TopicLevelDto instance) =>
-    <String, dynamic>{'id': instance.id, 'display_name': instance.displayName};
+    <String, dynamic>{'id': instance.id, 'displayName': instance.displayName};

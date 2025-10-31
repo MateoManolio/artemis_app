@@ -205,8 +205,8 @@ return $default(_that.id,_that.displayName,_that.ror,_that.countryCode,_that.typ
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class _InstitutionDto implements InstitutionDto {
   const _InstitutionDto({this.id, this.displayName, this.ror, this.countryCode, this.type, final  List<String>? lineage}): _lineage = lineage;
   factory _InstitutionDto.fromJson(Map<String, dynamic> json) => _$InstitutionDtoFromJson(json);

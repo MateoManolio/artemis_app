@@ -8,7 +8,7 @@ part of 'authorship_dto.dart';
 
 _AuthorshipDto _$AuthorshipDtoFromJson(Map<String, dynamic> json) =>
     _AuthorshipDto(
-      authorPosition: json['author_position'] as String?,
+      authorPosition: json['authorPosition'] as String?,
       author: json['author'] == null
           ? null
           : AuthorDto.fromJson(json['author'] as Map<String, dynamic>),
@@ -18,9 +18,9 @@ _AuthorshipDto _$AuthorshipDtoFromJson(Map<String, dynamic> json) =>
       countries: (json['countries'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
-      isCorresponding: json['is_corresponding'] as bool?,
-      rawAuthorName: json['raw_author_name'] as String?,
-      rawAffiliationStrings: (json['raw_affiliation_strings'] as List<dynamic>?)
+      isCorresponding: json['isCorresponding'] as bool?,
+      rawAuthorName: json['rawAuthorName'] as String?,
+      rawAffiliationStrings: (json['rawAffiliationStrings'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
       affiliations: (json['affiliations'] as List<dynamic>?)
@@ -30,12 +30,12 @@ _AuthorshipDto _$AuthorshipDtoFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$AuthorshipDtoToJson(_AuthorshipDto instance) =>
     <String, dynamic>{
-      'author_position': instance.authorPosition,
-      'author': instance.author?.toJson(),
-      'institutions': instance.institutions?.map((e) => e.toJson()).toList(),
+      'authorPosition': instance.authorPosition,
+      'author': instance.author,
+      'institutions': instance.institutions,
       'countries': instance.countries,
-      'is_corresponding': instance.isCorresponding,
-      'raw_author_name': instance.rawAuthorName,
-      'raw_affiliation_strings': instance.rawAffiliationStrings,
-      'affiliations': instance.affiliations?.map((e) => e.toJson()).toList(),
+      'isCorresponding': instance.isCorresponding,
+      'rawAuthorName': instance.rawAuthorName,
+      'rawAffiliationStrings': instance.rawAffiliationStrings,
+      'affiliations': instance.affiliations,
     };

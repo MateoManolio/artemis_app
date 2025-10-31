@@ -1,7 +1,6 @@
 import 'package:artemis_app/src/core/network/dio_client.dart';
 import 'package:artemis_app/src/data/datasource/contracts/article_api_datasource.dart';
 import 'package:artemis_app/src/data/datasource/local/articles_dao.dart';
-import 'package:artemis_app/src/data/datasource/local/isar_storage.dart';
 import 'package:artemis_app/src/data/datasource/remote/firebase_auth_service.dart';
 import 'package:artemis_app/src/data/datasource/remote/openalex_api_service.dart';
 import 'package:artemis_app/src/data/repository/article_repository_impl.dart';

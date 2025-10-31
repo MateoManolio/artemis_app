@@ -9,9 +9,9 @@ part of 'institution_dto.dart';
 _InstitutionDto _$InstitutionDtoFromJson(Map<String, dynamic> json) =>
     _InstitutionDto(
       id: json['id'] as String?,
-      displayName: json['display_name'] as String?,
+      displayName: json['displayName'] as String?,
       ror: json['ror'] as String?,
-      countryCode: json['country_code'] as String?,
+      countryCode: json['countryCode'] as String?,
       type: json['type'] as String?,
       lineage: (json['lineage'] as List<dynamic>?)
           ?.map((e) => e as String)
@@ -21,9 +21,9 @@ _InstitutionDto _$InstitutionDtoFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$InstitutionDtoToJson(_InstitutionDto instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'display_name': instance.displayName,
+      'displayName': instance.displayName,
       'ror': instance.ror,
-      'country_code': instance.countryCode,
+      'countryCode': instance.countryCode,
       'type': instance.type,
       'lineage': instance.lineage,
     };

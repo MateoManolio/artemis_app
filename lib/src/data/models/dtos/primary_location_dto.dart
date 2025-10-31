@@ -7,7 +7,6 @@ part 'primary_location_dto.g.dart';
 
 @freezed
 sealed class PrimaryLocationDto with _$PrimaryLocationDto {
-  @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
   const factory PrimaryLocationDto({
     bool? isOa,
     @UriConverter() Uri? landingPageUrl,

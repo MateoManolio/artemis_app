@@ -10,16 +10,16 @@ _CitationNormalizedPercentileDto _$CitationNormalizedPercentileDtoFromJson(
   Map<String, dynamic> json,
 ) => _CitationNormalizedPercentileDto(
   value: (json['value'] as num?)?.toDouble(),
-  isInTop1Percent: json['is_in_top1_percent'] as bool?,
-  isInTop10Percent: json['is_in_top10_percent'] as bool?,
+  isInTop1Percent: json['isInTop1Percent'] as bool?,
+  isInTop10Percent: json['isInTop10Percent'] as bool?,
 );
 
 Map<String, dynamic> _$CitationNormalizedPercentileDtoToJson(
   _CitationNormalizedPercentileDto instance,
 ) => <String, dynamic>{
   'value': instance.value,
-  'is_in_top1_percent': instance.isInTop1Percent,
-  'is_in_top10_percent': instance.isInTop10Percent,
+  'isInTop1Percent': instance.isInTop1Percent,
+  'isInTop10Percent': instance.isInTop10Percent,
 };
 
 _IntRangeDto _$IntRangeDtoFromJson(Map<String, dynamic> json) => _IntRangeDto(

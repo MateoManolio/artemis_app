@@ -201,8 +201,8 @@ return $default(_that.year,_that.citedByCount);case _:
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class _CountByYearDto implements CountByYearDto {
    _CountByYearDto({this.year, this.citedByCount});
   factory _CountByYearDto.fromJson(Map<String, dynamic> json) => _$CountByYearDtoFromJson(json);

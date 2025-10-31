@@ -204,8 +204,8 @@ return $default(_that.openalex,_that.doi,_that.mag,_that.pmid,_that.pmcid);case 
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class _WorkIdsDto implements WorkIdsDto {
   const _WorkIdsDto({this.openalex, @UriConverter() this.doi, this.mag, @UriConverter() this.pmid, @UriConverter() this.pmcid});
   factory _WorkIdsDto.fromJson(Map<String, dynamic> json) => _$WorkIdsDtoFromJson(json);

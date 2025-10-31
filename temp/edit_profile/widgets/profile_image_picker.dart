@@ -16,7 +16,6 @@ class ProfileImagePicker extends ConsumerWidget {
       child: GestureDetector(
         onTap: () {
           // TODO: Implementar selección de imagen
-          // Por ahora solo mostramos el avatar
         },
         child: Stack(
           clipBehavior: Clip.none,
@@ -56,10 +55,7 @@ class ProfileImagePicker extends ConsumerWidget {
                 decoration: BoxDecoration(
                   color: colorScheme.primary,
                   shape: BoxShape.circle,
-                  border: Border.all(
-                    color: colorScheme.surface,
-                    width: 3,
-                  ),
+                  border: Border.all(color: colorScheme.surface, width: 3),
                 ),
                 padding: const EdgeInsets.all(8),
                 child: Icon(
@@ -75,4 +71,3 @@ class ProfileImagePicker extends ConsumerWidget {
     );
   }
 }
-

@@ -204,8 +204,8 @@ return $default(_that.id,_that.wikidata,_that.displayName,_that.level,_that.scor
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class _ConceptDto implements ConceptDto {
   const _ConceptDto({this.id, this.wikidata, this.displayName, this.level, this.score});
   factory _ConceptDto.fromJson(Map<String, dynamic> json) => _$ConceptDtoFromJson(json);

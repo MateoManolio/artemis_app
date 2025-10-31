@@ -20,7 +20,6 @@ part 'work_dto.g.dart';
 /// https://docs.openalex.org/api-entities/works/work-object
 @freezed
 sealed class WorkDto with _$WorkDto {
-  @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
   const factory WorkDto({
     String? id,
     @UriConverter() Uri? doi,
@@ -68,7 +67,7 @@ sealed class WorkDto with _$WorkDto {
     List<String>? relatedWorks,
 
     /// OpenAlex entrega el abstract como inverted index (no texto plano).
-    /// Lo modelamos como Map<String, List<int>> y lo reconstruimos fuera.
+    /// Lo modelamos como Map\<String, List\<int\>\> y lo reconstruimos fuera.
     Map<String, List<int>>? abstractInvertedIndex,
     List<CountByYearDto>? countsByYear,
     @DateTimeConverter() DateTime? updatedDate,

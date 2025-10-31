@@ -5,7 +5,6 @@ part 'keyword_dto.g.dart';
 
 @freezed
 sealed class KeywordDto with _$KeywordDto {
-  @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
   factory KeywordDto({String? id, String? displayName, double? score}) =
       _KeywordDto;
 

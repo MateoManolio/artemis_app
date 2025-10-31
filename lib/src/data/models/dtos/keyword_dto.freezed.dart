@@ -202,8 +202,8 @@ return $default(_that.id,_that.displayName,_that.score);case _:
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class _KeywordDto implements KeywordDto {
    _KeywordDto({this.id, this.displayName, this.score});
   factory _KeywordDto.fromJson(Map<String, dynamic> json) => _$KeywordDtoFromJson(json);

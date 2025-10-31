@@ -212,8 +212,8 @@ return $default(_that.id,_that.displayName,_that.issnL,_that.issn,_that.isOa,_th
 }
 
 /// @nodoc
+@JsonSerializable()
 
-@JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class _SourceDto implements SourceDto {
   const _SourceDto({this.id, this.displayName, this.issnL, final  List<String>? issn, this.isOa, this.isInDoaj, this.isIndexedInScopus, this.isCore, this.hostOrganization, this.hostOrganizationName, final  List<String>? hostOrganizationLineage, final  List<String>? hostOrganizationLineageNames, this.type}): _issn = issn,_hostOrganizationLineage = hostOrganizationLineage,_hostOrganizationLineageNames = hostOrganizationLineageNames;
   factory _SourceDto.fromJson(Map<String, dynamic> json) => _$SourceDtoFromJson(json);

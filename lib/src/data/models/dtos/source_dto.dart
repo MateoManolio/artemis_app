@@ -5,7 +5,6 @@ part 'source_dto.g.dart';
 
 @freezed
 sealed class SourceDto with _$SourceDto {
-  @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
   const factory SourceDto({
     String? id,
     String? displayName,
