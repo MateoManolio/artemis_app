@@ -1,4 +1,5 @@
 import 'package:artemis_app/src/data/datasource/contracts/db_datasource.dart';
+import 'package:artemis_app/src/data/models/db/article_db_model.dart';
 import 'package:artemis_app/src/domain/contracts/favorites_repository.dart';
 import 'package:artemis_app/src/domain/entity/article.dart';
 
@@ -9,17 +10,22 @@ class FavoritesRepositoryImpl implements IFavoritesRepository {
 
   @override
   void addFavorite(Article article) {
-    // TODO: implement addFavorite
+    dbDataSource.insertArticle(ArticleDbModel.fromDomain(article));
   }
 
   @override
-  List<Article> getAllFavorites() {
-    // TODO: implement getAllFavorites
-    throw UnimplementedError();
+  Future<List<Article>> getAllFavorites() async {
+    final articles = await dbDataSource.getAllFavorites();
+    return articles.map((e) => e.toDomain()).toList();
   }
 
   @override
   void removeFavorite(String id) {
-    // TODO: implement removeFavorite
+    dbDataSource.deleteArticle(id);
+  }
+
+  @override
+  Future<void> toggleFavorite(String articleId, bool isFavorite) async {
+    await dbDataSource.toggleFavorite(articleId, isFavorite);
   }
 }

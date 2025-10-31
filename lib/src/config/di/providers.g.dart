@@ -50,6 +50,39 @@ final class OpenAlexDioClientProvider
 
 String _$openAlexDioClientHash() => r'831adc8597a7167001cfd975fb9fb9db05b5317b';
 
+@ProviderFor(isar)
+const isarProvider = IsarProvider._();
+
+final class IsarProvider
+    extends $FunctionalProvider<AsyncValue<Isar>, Isar, FutureOr<Isar>>
+    with $FutureModifier<Isar>, $FutureProvider<Isar> {
+  const IsarProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'isarProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$isarHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<Isar> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<Isar> create(Ref ref) {
+    return isar(ref);
+  }
+}
+
+String _$isarHash() => r'10aeb1dc4a5e84bea6658c44e6ef6762f20a4ed8';
+
 @ProviderFor(firebaseAuthService)
 const firebaseAuthServiceProvider = FirebaseAuthServiceProvider._();
 
@@ -472,6 +505,198 @@ final class GetRandomArticleUsecaseProvider
 String _$getRandomArticleUsecaseHash() =>
     r'c53d7da14ef2bfcbc7f3b512515fb88ca11b9d55';
 
+@ProviderFor(addFavoriteUsecase)
+const addFavoriteUsecaseProvider = AddFavoriteUsecaseProvider._();
+
+final class AddFavoriteUsecaseProvider
+    extends
+        $FunctionalProvider<
+          AddFavoriteUsecase,
+          AddFavoriteUsecase,
+          AddFavoriteUsecase
+        >
+    with $Provider<AddFavoriteUsecase> {
+  const AddFavoriteUsecaseProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'addFavoriteUsecaseProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$addFavoriteUsecaseHash();
+
+  @$internal
+  @override
+  $ProviderElement<AddFavoriteUsecase> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  AddFavoriteUsecase create(Ref ref) {
+    return addFavoriteUsecase(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(AddFavoriteUsecase value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<AddFavoriteUsecase>(value),
+    );
+  }
+}
+
+String _$addFavoriteUsecaseHash() =>
+    r'c4b46be2fc3598b8558a7b6ce8fcbce8d9c3a99e';
+
+@ProviderFor(removeFavoriteUsecase)
+const removeFavoriteUsecaseProvider = RemoveFavoriteUsecaseProvider._();
+
+final class RemoveFavoriteUsecaseProvider
+    extends
+        $FunctionalProvider<
+          RemoveFavoriteUsecase,
+          RemoveFavoriteUsecase,
+          RemoveFavoriteUsecase
+        >
+    with $Provider<RemoveFavoriteUsecase> {
+  const RemoveFavoriteUsecaseProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'removeFavoriteUsecaseProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$removeFavoriteUsecaseHash();
+
+  @$internal
+  @override
+  $ProviderElement<RemoveFavoriteUsecase> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  RemoveFavoriteUsecase create(Ref ref) {
+    return removeFavoriteUsecase(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(RemoveFavoriteUsecase value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<RemoveFavoriteUsecase>(value),
+    );
+  }
+}
+
+String _$removeFavoriteUsecaseHash() =>
+    r'7aaea017a4899c9835b5fdaff552faac0612fb17';
+
+@ProviderFor(getAllFavoritesUsecase)
+const getAllFavoritesUsecaseProvider = GetAllFavoritesUsecaseProvider._();
+
+final class GetAllFavoritesUsecaseProvider
+    extends
+        $FunctionalProvider<
+          GetAllFavoritesUsecase,
+          GetAllFavoritesUsecase,
+          GetAllFavoritesUsecase
+        >
+    with $Provider<GetAllFavoritesUsecase> {
+  const GetAllFavoritesUsecaseProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'getAllFavoritesUsecaseProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$getAllFavoritesUsecaseHash();
+
+  @$internal
+  @override
+  $ProviderElement<GetAllFavoritesUsecase> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  GetAllFavoritesUsecase create(Ref ref) {
+    return getAllFavoritesUsecase(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(GetAllFavoritesUsecase value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<GetAllFavoritesUsecase>(value),
+    );
+  }
+}
+
+String _$getAllFavoritesUsecaseHash() =>
+    r'cc8a704e9907c9cc95062072193d01825db36642';
+
+@ProviderFor(toggleFavoriteUsecase)
+const toggleFavoriteUsecaseProvider = ToggleFavoriteUsecaseProvider._();
+
+final class ToggleFavoriteUsecaseProvider
+    extends
+        $FunctionalProvider<
+          ToggleFavoriteUsecase,
+          ToggleFavoriteUsecase,
+          ToggleFavoriteUsecase
+        >
+    with $Provider<ToggleFavoriteUsecase> {
+  const ToggleFavoriteUsecaseProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'toggleFavoriteUsecaseProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$toggleFavoriteUsecaseHash();
+
+  @$internal
+  @override
+  $ProviderElement<ToggleFavoriteUsecase> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  ToggleFavoriteUsecase create(Ref ref) {
+    return toggleFavoriteUsecase(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ToggleFavoriteUsecase value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ToggleFavoriteUsecase>(value),
+    );
+  }
+}
+
+String _$toggleFavoriteUsecaseHash() =>
+    r'8af811da6f5f8f28184741a28c98f04c8aa7ff71';
+
 @ProviderFor(articleApiDatasource)
 const articleApiDatasourceProvider = ArticleApiDatasourceProvider._();
 
@@ -566,3 +791,92 @@ final class ArticleRepositoryProvider
 }
 
 String _$articleRepositoryHash() => r'ded0f76ca2d7aaa2da155408082b49852fd4c103';
+
+@ProviderFor(dbDataSource)
+const dbDataSourceProvider = DbDataSourceProvider._();
+
+final class DbDataSourceProvider
+    extends $FunctionalProvider<DbDataSource, DbDataSource, DbDataSource>
+    with $Provider<DbDataSource> {
+  const DbDataSourceProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'dbDataSourceProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$dbDataSourceHash();
+
+  @$internal
+  @override
+  $ProviderElement<DbDataSource> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  DbDataSource create(Ref ref) {
+    return dbDataSource(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(DbDataSource value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<DbDataSource>(value),
+    );
+  }
+}
+
+String _$dbDataSourceHash() => r'2f7e97b23d8989c5c8a580bfc59c2655b278a976';
+
+@ProviderFor(favoritesRepository)
+const favoritesRepositoryProvider = FavoritesRepositoryProvider._();
+
+final class FavoritesRepositoryProvider
+    extends
+        $FunctionalProvider<
+          IFavoritesRepository,
+          IFavoritesRepository,
+          IFavoritesRepository
+        >
+    with $Provider<IFavoritesRepository> {
+  const FavoritesRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'favoritesRepositoryProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$favoritesRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<IFavoritesRepository> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  IFavoritesRepository create(Ref ref) {
+    return favoritesRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(IFavoritesRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<IFavoritesRepository>(value),
+    );
+  }
+}
+
+String _$favoritesRepositoryHash() =>
+    r'94325c2c04fddd5c6802c399fdcf59e91267defc';

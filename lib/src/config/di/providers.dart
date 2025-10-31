@@ -1,20 +1,30 @@
 import 'package:artemis_app/src/core/network/dio_client.dart';
 import 'package:artemis_app/src/data/datasource/contracts/article_api_datasource.dart';
+import 'package:artemis_app/src/data/datasource/local/articles_dao.dart';
+import 'package:artemis_app/src/data/datasource/local/isar_storage.dart';
 import 'package:artemis_app/src/data/datasource/remote/firebase_auth_service.dart';
 import 'package:artemis_app/src/data/datasource/remote/openalex_api_service.dart';
 import 'package:artemis_app/src/data/repository/article_repository_impl.dart';
 import 'package:artemis_app/src/data/repository/auth_repository_impl.dart';
 import 'package:artemis_app/src/domain/contracts/article_repository.dart';
 import 'package:artemis_app/src/domain/contracts/auth_repository.dart';
+import 'package:artemis_app/src/domain/contracts/favorites_repository.dart';
+import 'package:artemis_app/src/domain/usecase/add_favorite_usecase.dart';
+import 'package:artemis_app/src/domain/usecase/get_all_favorites_usecase.dart';
 import 'package:artemis_app/src/domain/usecase/get_articles_details_usecase.dart';
 import 'package:artemis_app/src/domain/usecase/get_articles_usecase.dart';
 import 'package:artemis_app/src/domain/usecase/get_autocomplete_articles_usecase.dart';
 import 'package:artemis_app/src/domain/usecase/get_random_article_usecase.dart';
 import 'package:artemis_app/src/domain/usecase/observe_auth_state_usecase.dart';
+import 'package:artemis_app/src/domain/usecase/remove_favorite_usecase.dart';
 import 'package:artemis_app/src/domain/usecase/sign_out_usecase.dart';
 import 'package:artemis_app/src/domain/usecase/sign_in_with_google_usecase.dart';
+import 'package:artemis_app/src/domain/usecase/toggle_favorite_usecase.dart';
+import 'package:artemis_app/src/data/repository/favorites_repository_impl.dart';
+import 'package:artemis_app/src/data/datasource/contracts/db_datasource.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:isar_community/isar.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'providers.g.dart';
@@ -28,6 +38,9 @@ DioClient openAlexDioClient(Ref ref) => DioClient(
   baseUrl: 'https://api.openalex.org',
   timeout: Duration(seconds: 30),
 );
+
+@Riverpod(keepAlive: true)
+Future<Isar> isar(Ref ref) async => await IsarStorage.getInstance();
 
 // ============================================================================
 // AUTH - Datasources, Repositories
@@ -75,6 +88,22 @@ GetAutocompletedArticlesUsecase getAutocompleteArticlesUsecase(Ref ref) =>
 GetRandomArticleUsecase getRandomArticleUsecase(Ref ref) =>
     GetRandomArticleUsecase(ref.watch(articleRepositoryProvider));
 
+@riverpod
+AddFavoriteUsecase addFavoriteUsecase(Ref ref) =>
+    AddFavoriteUsecase(ref.watch(favoritesRepositoryProvider));
+
+@riverpod
+RemoveFavoriteUsecase removeFavoriteUsecase(Ref ref) =>
+    RemoveFavoriteUsecase(ref.watch(favoritesRepositoryProvider));
+
+@riverpod
+GetAllFavoritesUsecase getAllFavoritesUsecase(Ref ref) =>
+    GetAllFavoritesUsecase(ref.watch(favoritesRepositoryProvider));
+
+@riverpod
+ToggleFavoriteUsecase toggleFavoriteUsecase(Ref ref) =>
+    ToggleFavoriteUsecase(ref.watch(favoritesRepositoryProvider));
+
 // ============================================================================
 // ARTICLES - Datasources, Repositories
 // ============================================================================
@@ -86,3 +115,23 @@ IArticleApiDatasource articleApiDatasource(Ref ref) =>
 @Riverpod(keepAlive: true)
 IArticleRepository articleRepository(Ref ref) =>
     ArticleRepositoryImpl(service: ref.watch(articleApiDatasourceProvider));
+
+// ============================================================================
+// FAVORITES - Datasources, Repositories & UseCases
+// ============================================================================
+
+@Riverpod(keepAlive: true)
+DbDataSource dbDataSource(Ref ref) {
+  final isarAsync = ref.watch(isarProvider);
+
+  return isarAsync.when(
+    data: (isar) => ArticlesDao(isar),
+    loading: () => throw StateError('Database is initializing. Please wait.'),
+    error: (err, stack) =>
+        throw Exception('Failed to initialize database: $err'),
+  );
+}
+
+@Riverpod(keepAlive: true)
+IFavoritesRepository favoritesRepository(Ref ref) =>
+    FavoritesRepositoryImpl(dbDataSource: ref.watch(dbDataSourceProvider));
