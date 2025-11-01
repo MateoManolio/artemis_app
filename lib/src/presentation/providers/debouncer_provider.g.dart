@@ -40,7 +40,7 @@ final class DebouncerProvider extends $NotifierProvider<Debouncer, void> {
   }
 }
 
-String _$debouncerHash() => r'76af0d0d47aa24a57f027ec1f3d20cb83950d8d6';
+String _$debouncerHash() => r'afa08373b32829a031e342d3d1f55c3158336015';
 
 abstract class _$Debouncer extends $Notifier<void> {
   void build();

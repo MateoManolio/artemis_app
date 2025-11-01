@@ -1,5 +1,5 @@
 import 'package:artemis_app/src/presentation/pages/articles/providers/articles_data_provider.dart';
-import 'package:artemis_app/src/presentation/pages/articles/providers/debouncer_provider.dart';
+import 'package:artemis_app/src/presentation/providers/debouncer_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -25,7 +25,6 @@ class _ArticlesPageState extends ConsumerState<ArticlesPage> {
   @override
   void initState() {
     super.initState();
-    // Cargar datos solo si no hay datos cacheados
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(articlesDataProvider.notifier).fetchArticles();
     });

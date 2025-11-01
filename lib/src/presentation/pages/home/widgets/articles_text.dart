@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
 
 class ArticlesText extends StatelessWidget {
-  static const double padding = 16;
+  static const double _titleFontSize = 18.0;
+  static const double _subtitleFontSize = 14.0;
+  static const double _verticalSpacing = 4.0;
+  static const double _iconSize = 16.0;
+  static const double _iconBorderRadius = 16.0;
+  static const double _iconShadowBlur = 2.0;
+  static const double _iconShadowOffsetY = 1.0;
+  static const double _iconSpacing = 8.0;
+  static const double _subtitleOpacity = 0.6;
+  static const double _iconShadowOpacity = 0.1;
+  static const double padding = 16.0;
+
   const ArticlesText({
     super.key,
     required this.title,
@@ -26,54 +37,65 @@ class ArticlesText extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                spacing: 8,
+                spacing: _iconSpacing,
                 children: [
-                  Text(
-                    title,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: theme.colorScheme.onSurface,
+                  Flexible(
+                    child: Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: _titleFontSize,
+                        fontWeight: FontWeight.bold,
+                        color: theme.colorScheme.onSurface,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   if (isOa)
                     Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(_iconBorderRadius),
                         color: Colors.blueAccent,
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.1),
-                            blurRadius: 2,
-                            offset: Offset(0, 1),
+                            color: Colors.black.withValues(
+                              alpha: _iconShadowOpacity,
+                            ),
+                            blurRadius: _iconShadowBlur,
+                            offset: const Offset(0, _iconShadowOffsetY),
                           ),
                         ],
                       ),
-                      child: Icon(
+                      child: const Icon(
                         Icons.check_circle,
                         color: Colors.white,
-                        size: 16,
+                        size: _iconSize,
                       ),
                     ),
                 ],
               ),
-              SizedBox(height: 4),
+              const SizedBox(height: _verticalSpacing),
               Text(
                 domain,
                 style: TextStyle(
-                  fontSize: 14,
-                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                  fontSize: _subtitleFontSize,
+                  color: theme.colorScheme.onSurface.withValues(
+                    alpha: _subtitleOpacity,
+                  ),
                 ),
+                overflow: TextOverflow.ellipsis,
               ),
             ],
           ),
         ),
-        SizedBox(width: padding),
+        const SizedBox(width: padding),
         Text(
           type,
           style: TextStyle(
-            fontSize: 14,
-            color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+            fontSize: _subtitleFontSize,
+            color: theme.colorScheme.onSurface.withValues(
+              alpha: _subtitleOpacity,
+            ),
           ),
         ),
       ],

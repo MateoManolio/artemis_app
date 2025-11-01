@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'debouncer_provider.g.dart';
@@ -10,6 +9,7 @@ part 'debouncer_provider.g.dart';
 class Debouncer extends _$Debouncer {
   Timer? _debounceTimer;
   CancelToken? _cancelToken;
+  static const int _debouncingTime = 500;
 
   @override
   void build() {}
@@ -20,8 +20,7 @@ class Debouncer extends _$Debouncer {
   ) {
     _debounceTimer?.cancel();
     cancelCurrentRequest();
-    debugPrint('debounceSearch: $query');
-    _debounceTimer = Timer(const Duration(milliseconds: 500), () {
+    _debounceTimer = Timer(const Duration(milliseconds: _debouncingTime), () {
       _cancelToken = CancelToken();
       onSearch(query, _cancelToken!);
     });

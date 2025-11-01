@@ -13,10 +13,7 @@ class ArticlesSearchBar extends StatelessWidget {
 
     return TextField(
       controller: controller,
-      onChanged: (value) {
-        debugPrint('value: $value');
-        onChanged?.call(value);
-      },
+      onChanged: onChanged,
       decoration: InputDecoration(
         hintText: 'Search articles',
         prefixIcon: const Icon(Icons.search),

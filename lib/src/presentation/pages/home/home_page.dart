@@ -15,7 +15,6 @@ class HomePage extends ConsumerWidget {
   static const String routeName = '/home';
   static const double paddingHorizontal = 16;
   static const double spacing = 16;
-
   final String? name;
 
   const HomePage({super.key, required this.name});
@@ -48,7 +47,13 @@ class HomePage extends ConsumerWidget {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  CustomSearchBar(),
+                  CustomSearchBar(
+                    favorites: favorites.when(
+                      data: (data) => data,
+                      error: (error, stackTrace) => [],
+                      loading: () => [],
+                    ),
+                  ),
                   SizedBox(width: spacing),
                   LookArticle(),
                 ],
