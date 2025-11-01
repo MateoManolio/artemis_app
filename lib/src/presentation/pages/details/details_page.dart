@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:artemis_app/l10n/app_localizations.dart';
 import 'package:artemis_app/src/domain/entity/article.dart';
 import 'package:artemis_app/src/presentation/pages/details/widgets/article_title.dart';
 import 'package:artemis_app/src/presentation/pages/details/widgets/article_tags.dart';
@@ -51,6 +52,8 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    
     // Si no hay artículo, mostrar error
     if (widget.article == null) {
       return Scaffold(
@@ -60,7 +63,7 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
             onPressed: () => context.pop(),
           ),
         ),
-        body: const Center(child: Text('Article not found')),
+        body: Center(child: Text(l10n.articleNotFound)),
       );
     }
 
@@ -69,16 +72,16 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
       widget.article!.type.displayName,
       widget.article!.year.toString(),
       widget.article!.language,
-      if (widget.article!.openAccess) 'Open Access',
+      if (widget.article!.openAccess) l10n.openAccess,
     ];
 
     final metrics = {
-      'Citations': widget.article!.citedBy.toString(),
-      'FWCI': widget.article!.fwci.toStringAsFixed(1),
-      'Percentile': widget.article!.citationPercentile > 99
-          ? 'Top 1%'
+      l10n.citations: widget.article!.citedBy.toString(),
+      l10n.fwci: widget.article!.fwci.toStringAsFixed(1),
+      l10n.percentile: widget.article!.citationPercentile > 99
+          ? l10n.topPercent('1')
           : widget.article!.citationPercentile > 90
-          ? 'Top 10%'
+          ? l10n.topPercent('10')
           : '${widget.article!.citationPercentile.toStringAsFixed(0)}%',
     };
 
@@ -151,15 +154,15 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SectionTitle(title: 'Key topics'),
+                  SectionTitle(title: l10n.keyTopics),
                   const SizedBox(height: _spacing),
                   ArticleTags(tags: widget.article!.topics, borderRadius: 12.0),
                   const SizedBox(height: _spacingLarge),
                 ],
               ),
 
-            const AbstractSection(
-              abstract: 'Abstract not available for this article yet.',
+            AbstractSection(
+              abstract: l10n.abstractNotAvailable,
             ),
             const SizedBox(height: _spacingLarge),
 

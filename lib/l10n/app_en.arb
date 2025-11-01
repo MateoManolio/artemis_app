@@ -1,0 +1,186 @@
+{
+  "@@locale": "en",
+  
+  "welcome": "Welcome",
+  "signInToExplore": "Sign in to explore a world of knowledge",
+  "signInWithGoogle": "Sign in with Google",
+  "skip": "SKIP",
+  "errorLogin": "Error: {error}",
+  "@errorLogin": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  
+  "hello": "Hello",
+  "helloName": "Hello, {name}",
+  "@helloName": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "readArticlesThisWeek": "Read {count} articles this week",
+  "@readArticlesThisWeek": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "discoverNewIdeas": "Discover new ideas",
+  "exploreInterestingTopics": "Explore a variety of interesting topics",
+  "favorites": "Favorites",
+  "noFavoritesYet": "No favorites yet",
+  "startExploringArticles": "Start exploring articles and save your favorites here",
+  "noResultsFound": "No results found",
+  "startTypingToSearch": "Start typing to search",
+  "tryDifferentSearchTerm": "Try a different search term",
+  "lookAtRandomArticle": "Look at a random article",
+  "errorLoadingArticle": "Error loading article: {error}",
+  "@errorLoadingArticle": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "errorGeneric": "Error: {error}",
+  "@errorGeneric": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  
+  "articleExplorer": "Article Explorer",
+  "filters": "FILTERS",
+  "noArticlesFound": "No articles found",
+  "retry": "Retry",
+  "searchArticles": "Search articles",
+  "openAccess": "Open Access",
+  
+  "articleNotFound": "Article not found",
+  "openAccessPdf": "Open Access • PDF",
+  "viewSource": "View source",
+  "metrics": "Metrics",
+  "citations": "Citations",
+  "fwci": "FWCI",
+  "percentile": "Percentile",
+  "topPercent": "Top {percent}%",
+  "@topPercent": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "keyTopics": "Key topics",
+  "abstractNotAvailable": "Abstract not available for this article yet.",
+  "doiPdf": "DOI • PDF",
+  "related": "Related {count} >",
+  "@related": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "references": "references {count} >",
+  "@references": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  
+  "settings": "Settings",
+  "account": "ACCOUNT",
+  "appearance": "APPEARANCE",
+  "reading": "READING",
+  "about": "ABOUT",
+  "artemisArticleExplorer": "Artemis - Article Explorer",
+  "yourCompanionForResearch": "Your companion for discovering research",
+  
+  "guestUser": "Guest User",
+  "signInToAccessAccount": "Sign in to access your account",
+  "noEmail": "No email",
+  "signIn": "Sign In",
+  "signInWithAccount": "Sign in with your account",
+  "editProfile": "Edit Profile",
+  "updateProfileInfo": "Update your profile information",
+  "editProfileComingSoon": "Edit profile feature coming soon",
+  "signOut": "Sign Out",
+  "signOutOfAccount": "Sign out of your account",
+  
+  "darkTheme": "Dark Theme",
+  "currentlyDark": "Currently dark",
+  "currentlyLight": "Currently light",
+  "language": "Language",
+  "changeLanguage": "Change language",
+  "english": "English",
+  "spanish": "Spanish",
+  "portuguese": "Portuguese",
+  
+  "weeklyGoal": "Weekly Goal",
+  "setReadingGoal": "Set your reading goal",
+  "articlesCount": "{count} articles",
+  "@articlesCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "setWeeklyGoal": "Set Weekly Goal",
+  "numberOfArticles": "Number of articles",
+  "cancel": "Cancel",
+  "save": "Save",
+  "weeklyGoalSet": "Weekly goal set to {count} articles",
+  "@weeklyGoalSet": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "pleaseEnterValidNumber": "Please enter a valid positive number",
+  "fontSize": "Font Size",
+  "adjustReadingComfort": "Adjust reading comfort",
+  "medium": "Medium",
+  "fontSizeComingSoon": "Font size feature coming soon",
+  "readingMode": "Reading Mode",
+  "chooseHowToRead": "Choose how to read articles",
+  "distractionFree": "Distraction-free",
+  "readingModeComingSoon": "Reading mode feature coming soon",
+  
+  "appVersion": "App Version",
+  "versionInfo": "Version 1.0.0 (Build 1)",
+  "termsOfService": "Terms of Service",
+  "legalInformation": "Legal information",
+  "privacyPolicy": "Privacy Policy",
+  "howWeHandleData": "How we handle your data",
+  "comingSoon": "Coming soon",
+  
+  "clear": "Clear",
+  "publicationYear": "Publication year",
+  "publicationType": "Publication type",
+  "articles": "Articles",
+  "journals": "Journals",
+  "conferences": "Conferences",
+  "access": "Access",
+  "applyFilters": "Apply filters",
+  
+  "typeArticle": "Article",
+  "typeJournal": "Journal",
+  "typeBook": "Book",
+  "typeConference": "Conference",
+  "typeDataset": "Dataset",
+  "typePreprint": "Preprint",
+  "typeUnknown": "Unknown"
+}

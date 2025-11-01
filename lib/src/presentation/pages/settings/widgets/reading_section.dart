@@ -1,6 +1,7 @@
 import 'package:artemis_app/src/presentation/providers/weekly_goal_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:artemis_app/l10n/app_localizations.dart';
 import 'setting_option.dart';
 
 class ReadingSection extends ConsumerWidget {
@@ -9,13 +10,15 @@ class ReadingSection extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final weeklyGoal = ref.watch(weeklyGoalProvider);
+    final l10n = AppLocalizations.of(context)!;
+    
     return Column(
       children: [
         SettingOption(
           icon: Icons.timer_outlined,
-          title: 'Weekly Goal',
-          subtitle: 'Set your reading goal',
-          value: '$weeklyGoal articles',
+          title: l10n.weeklyGoal,
+          subtitle: l10n.setReadingGoal,
+          value: l10n.articlesCount(weeklyGoal),
           onTap: () async {
             await showDialog<int>(
               context: context,
@@ -35,9 +38,9 @@ class ReadingSection extends ConsumerWidget {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Text(
-                          'Set Weekly Goal',
-                          style: TextStyle(
+                        Text(
+                          l10n.setWeeklyGoal,
+                          style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
@@ -47,9 +50,9 @@ class ReadingSection extends ConsumerWidget {
                           controller: controller,
                           autofocus: true,
                           keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(
-                            labelText: 'Number of articles',
-                            border: OutlineInputBorder(),
+                          decoration: InputDecoration(
+                            labelText: l10n.numberOfArticles,
+                            border: const OutlineInputBorder(),
                           ),
                         ),
                         const SizedBox(height: 24),
@@ -60,7 +63,7 @@ class ReadingSection extends ConsumerWidget {
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
-                              child: const Text('Cancel'),
+                              child: Text(l10n.cancel),
                             ),
                             const SizedBox(width: 12),
                             ElevatedButton(
@@ -74,21 +77,21 @@ class ReadingSection extends ConsumerWidget {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
-                                        'Weekly goal set to $value articles',
+                                        l10n.weeklyGoalSet(value),
                                       ),
                                     ),
                                   );
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
+                                    SnackBar(
                                       content: Text(
-                                        'Please enter a valid positive number',
+                                        l10n.pleaseEnterValidNumber,
                                       ),
                                     ),
                                   );
                                 }
                               },
-                              child: const Text('Save'),
+                              child: Text(l10n.save),
                             ),
                           ],
                         ),
@@ -103,26 +106,26 @@ class ReadingSection extends ConsumerWidget {
         const SizedBox(height: 8),
         SettingOption(
           icon: Icons.text_fields_outlined,
-          title: 'Font Size',
-          subtitle: 'Adjust reading comfort',
-          value: 'Medium',
+          title: l10n.fontSize,
+          subtitle: l10n.adjustReadingComfort,
+          value: l10n.medium,
           onTap: () {
             // TODO: Implement font size selector
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Font size feature coming soon')),
+              SnackBar(content: Text(l10n.fontSizeComingSoon)),
             );
           },
         ),
         const SizedBox(height: 8),
         SettingOption(
           icon: Icons.auto_stories_outlined,
-          title: 'Reading Mode',
-          subtitle: 'Choose how to read articles',
-          value: 'Distraction-free',
+          title: l10n.readingMode,
+          subtitle: l10n.chooseHowToRead,
+          value: l10n.distractionFree,
           onTap: () {
             // TODO: Implement reading mode selector
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Reading mode feature coming soon')),
+              SnackBar(content: Text(l10n.readingModeComingSoon)),
             );
           },
         ),

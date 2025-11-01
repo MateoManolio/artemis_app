@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:artemis_app/l10n/app_localizations.dart';
 import 'articles_search_bar.dart';
 
 class ArticlesHeader extends StatelessWidget {
@@ -15,6 +16,8 @@ class ArticlesHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -34,7 +37,7 @@ class ArticlesHeader extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
-              child: const Text('FILTERS'),
+              child: Text(l10n.filters),
             ),
           ],
         ),

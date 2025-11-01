@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:artemis_app/l10n/app_localizations.dart';
 import 'package:artemis_app/src/presentation/pages/details/widgets/metric_card.dart';
 
 class MetricsSection extends StatelessWidget {
@@ -15,11 +16,13 @@ class MetricsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final entries = metrics.entries.toList();
+    final l10n = AppLocalizations.of(context)!;
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Metrics',
+          l10n.metrics,
           style: TextStyle(
             fontSize: _fontSize,
             fontWeight: FontWeight.bold,

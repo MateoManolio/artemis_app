@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:artemis_app/l10n/app_localizations.dart';
 
 class ArticlesRead extends StatelessWidget {
 
@@ -13,6 +14,8 @@ class ArticlesRead extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    
     return SizedBox(
       width: double.infinity,
       child: Card(
@@ -22,7 +25,7 @@ class ArticlesRead extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             spacing: spacing,
             children: [
-              Text('Read $articlesRead articles this week'),
+              Text(l10n.readArticlesThisWeek(articlesRead)),
               LinearProgressIndicator(
                 value: articlesRead / weekGoal,
                 color: Theme.of(context).colorScheme.primary,

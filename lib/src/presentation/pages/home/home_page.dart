@@ -7,6 +7,7 @@ import 'package:artemis_app/src/presentation/providers/weekly_goal_provider.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:artemis_app/l10n/app_localizations.dart';
 import 'package:artemis_app/src/presentation/pages/home/widgets/articles_read.dart';
 import 'package:artemis_app/src/presentation/pages/home/widgets/custom_search_bar.dart';
 import 'package:artemis_app/src/presentation/pages/home/widgets/new_ideas.dart';
@@ -23,9 +24,11 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final favorites = ref.watch(getFavoritesProvider);
     final weeklyGoal = ref.watch(weeklyGoalProvider);
+    final l10n = AppLocalizations.of(context)!;
+    
     return Scaffold(
       appBar: AppBar(
-        title: name != null ? Text('Hello, $name') : Text('Hello'),
+        title: name != null ? Text(l10n.helloName(name!)) : Text(l10n.hello),
         centerTitle: false,
         actions: [
           IconButton(
@@ -61,7 +64,7 @@ class HomePage extends ConsumerWidget {
               NewIdeas(),
               favorites.when(
                 data: (data) => FavoritesList(articles: data),
-                error: (error, stackTrace) => Text('Error: $error'),
+                error: (error, stackTrace) => Text(l10n.errorGeneric(error.toString())),
                 loading: () => const Center(child: CircularProgressIndicator()),
               ),
             ],

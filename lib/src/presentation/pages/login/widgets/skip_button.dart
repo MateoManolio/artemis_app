@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:artemis_app/l10n/app_localizations.dart';
 
 class SkipButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -11,6 +12,7 @@ class SkipButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
     
     return TextButton(
       onPressed: onPressed,
@@ -18,7 +20,7 @@ class SkipButton extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
       ),
       child: Text(
-        'SKIP',
+        l10n.skip,
         style: theme.textTheme.titleMedium?.copyWith(
           color: theme.colorScheme.onSurfaceVariant,
           fontWeight: FontWeight.w500,

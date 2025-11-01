@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:artemis_app/l10n/app_localizations.dart';
 
 class AboutSection extends StatelessWidget {
   const AboutSection({super.key});
@@ -7,6 +8,7 @@ class AboutSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final l10n = AppLocalizations.of(context)!;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -15,20 +17,20 @@ class AboutSection extends StatelessWidget {
         children: [
           _AboutText(
             icon: Icons.info_outline,
-            title: 'App Version',
-            subtitle: 'Version 1.0.0 (Build 1)',
+            title: l10n.appVersion,
+            subtitle: l10n.versionInfo,
             colorScheme: colorScheme,
           ),
           const SizedBox(height: 16),
           _AboutText(
             icon: Icons.description_outlined,
-            title: 'Terms of Service',
-            subtitle: 'Legal information',
+            title: l10n.termsOfService,
+            subtitle: l10n.legalInformation,
             colorScheme: colorScheme,
             onTap: () {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Coming soon'),
+                SnackBar(
+                  content: Text(l10n.comingSoon),
                 ),
               );
             },
@@ -36,13 +38,13 @@ class AboutSection extends StatelessWidget {
           const SizedBox(height: 16),
           _AboutText(
             icon: Icons.privacy_tip_outlined,
-            title: 'Privacy Policy',
-            subtitle: 'How we handle your data',
+            title: l10n.privacyPolicy,
+            subtitle: l10n.howWeHandleData,
             colorScheme: colorScheme,
             onTap: () {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Coming soon'),
+                SnackBar(
+                  content: Text(l10n.comingSoon),
                 ),
               );
             },

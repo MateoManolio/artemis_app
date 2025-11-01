@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:artemis_app/l10n/app_localizations.dart';
 
 class OpenAccessButton extends StatelessWidget {
   final VoidCallback? onViewPdf;
@@ -19,6 +20,7 @@ class OpenAccessButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final isSourceEnabled = onViewSource != null;
     final isPdfEnabled = onViewPdf != null;
+    final l10n = AppLocalizations.of(context)!;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -41,7 +43,7 @@ class OpenAccessButton extends StatelessWidget {
                     Icon(Icons.book_online, size: 18, color: Colors.white),
                     SizedBox(width: _spacing),
                     Text(
-                      'Open Access • PDF',
+                      l10n.openAccessPdf,
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
@@ -83,7 +85,7 @@ class OpenAccessButton extends StatelessWidget {
                   ),
                   SizedBox(width: _spacing),
                   Text(
-                    'View source',
+                    l10n.viewSource,
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,

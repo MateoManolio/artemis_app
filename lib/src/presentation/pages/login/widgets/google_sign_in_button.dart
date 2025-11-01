@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:artemis_app/src/presentation/widgets/safe_svg_picture.dart';
+import 'package:artemis_app/l10n/app_localizations.dart';
 
 class GoogleSignInButton extends StatelessWidget {
   static const String googleIconPath = 'assets/svg/google_icon_logo.svg';
@@ -9,6 +10,8 @@ class GoogleSignInButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    
     return Container(
       width: double.infinity,
       height: 56,
@@ -53,9 +56,9 @@ class GoogleSignInButton extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 12),
-                const Text(
-                  'Sign in with Google',
-                  style: TextStyle(
+                Text(
+                  l10n.signInWithGoogle,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
                     fontWeight: FontWeight.w600,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:artemis_app/l10n/app_localizations.dart';
 import 'package:artemis_app/src/presentation/providers/user_provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -13,6 +14,7 @@ class AccountSection extends ConsumerWidget {
     final user = ref.watch(userProvider);
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final l10n = AppLocalizations.of(context)!;
     
     final isGuest = user?.uid == 'guest' || user == null;
 
@@ -59,8 +61,8 @@ class AccountSection extends ConsumerWidget {
                     children: [
                       Text(
                         isGuest 
-                            ? 'Guest User' 
-                            : user.displayName ?? user.email ?? 'Guest',
+                            ? l10n.guestUser 
+                            : user.displayName ?? user.email ?? l10n.guestUser,
                         style: theme.textTheme.titleLarge?.copyWith(
                           color: colorScheme.onSurface,
                           fontWeight: FontWeight.bold,
@@ -69,8 +71,8 @@ class AccountSection extends ConsumerWidget {
                       const SizedBox(height: 4),
                       Text(
                         isGuest 
-                            ? 'Sign in to access your account' 
-                            : user.email ?? 'No email',
+                            ? l10n.signInToAccessAccount 
+                            : user.email ?? l10n.noEmail,
                         style: theme.textTheme.bodyMedium?.copyWith(
                           color: colorScheme.onSurfaceVariant,
                         ),
@@ -88,8 +90,8 @@ class AccountSection extends ConsumerWidget {
         if (isGuest)
           SettingTile(
             icon: Icons.login,
-            title: 'Sign In',
-            subtitle: 'Sign in with your account',
+            title: l10n.signIn,
+            subtitle: l10n.signInWithAccount,
             onTap: () {
               ref.read(userProvider.notifier).deleteUser();
               context.go('/login');
@@ -98,12 +100,12 @@ class AccountSection extends ConsumerWidget {
         else ...[
           SettingTile(
             icon: Icons.edit_outlined,
-            title: 'Edit Profile',
-            subtitle: 'Update your profile information',
+            title: l10n.editProfile,
+            subtitle: l10n.updateProfileInfo,
             onTap: () {
               ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Edit profile feature coming soon'),
+              SnackBar(
+                content: Text(l10n.editProfileComingSoon),
               ),
             );
             },
@@ -113,8 +115,8 @@ class AccountSection extends ConsumerWidget {
           
           SettingTile(
             icon: Icons.logout_outlined,
-            title: 'Sign Out',
-            subtitle: 'Sign out of your account',
+            title: l10n.signOut,
+            subtitle: l10n.signOutOfAccount,
             onTap: () async {
               await ref.read(userProvider.notifier).signOut();
               if (context.mounted) {

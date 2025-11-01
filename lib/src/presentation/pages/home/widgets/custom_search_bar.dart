@@ -6,6 +6,7 @@ import 'package:artemis_app/src/presentation/providers/debouncer_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:artemis_app/l10n/app_localizations.dart';
 
 class CustomSearchBar extends ConsumerWidget {
   static const double _emptyStatePadding = 24.0;
@@ -22,6 +23,8 @@ class CustomSearchBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
+    
     return Expanded(
       child: SearchAnchor(
         builder: (_, controller) => SearchBar(
@@ -94,7 +97,7 @@ class CustomSearchBar extends ConsumerWidget {
                       ),
                       const SizedBox(height: _emptyStateSpacing),
                       Text(
-                        'No results found',
+                        l10n.noResultsFound,
                         style: TextStyle(
                           fontSize: _emptyStateTitleFontSize,
                           fontWeight: FontWeight.w600,
@@ -104,8 +107,8 @@ class CustomSearchBar extends ConsumerWidget {
                       const SizedBox(height: _emptyStateSmallSpacing),
                       Text(
                         currentQuery.isEmpty
-                            ? 'Start typing to search'
-                            : 'Try a different search term',
+                            ? l10n.startTypingToSearch
+                            : l10n.tryDifferentSearchTerm,
                         style: TextStyle(
                           fontSize: _emptyStateSubtitleFontSize,
                           color: Theme.of(context).colorScheme.onSurfaceVariant,

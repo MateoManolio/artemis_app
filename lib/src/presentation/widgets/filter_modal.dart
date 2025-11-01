@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:artemis_app/l10n/app_localizations.dart';
 import 'package:artemis_app/src/presentation/providers/articles_filters_provider.dart';
 import 'custom_modal.dart';
 
@@ -73,35 +74,36 @@ class _FilterModalState extends ConsumerState<FilterModal> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
 
     return CustomModal(
-      title: 'Filters',
-      headerActions: _buildClearButton(context, theme),
-      footer: _buildFooter(context, theme),
+      title: l10n.filters,
+      headerActions: _buildClearButton(context, theme, l10n),
+      footer: _buildFooter(context, theme, l10n),
       child: SingleChildScrollView(
         padding: EdgeInsets.all(_spacingLarge),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Publication year filter
-            _buildPublicationYearFilter(theme),
+            _buildPublicationYearFilter(theme, l10n),
 
             SizedBox(height: _spacingXLarge),
 
             // Publication type filter
-            _buildPublicationTypeFilter(),
+            _buildPublicationTypeFilter(l10n),
 
             SizedBox(height: _spacingXLarge),
 
             // Access filter
-            _buildAccessFilter(theme),
+            _buildAccessFilter(theme, l10n),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildClearButton(BuildContext context, ThemeData theme) {
+  Widget _buildClearButton(BuildContext context, ThemeData theme, AppLocalizations l10n) {
     return TextButton(
       onPressed: () {
         setState(() {
@@ -113,7 +115,7 @@ class _FilterModalState extends ConsumerState<FilterModal> {
         ref.read(articlesFiltersNotifierProvider.notifier).reset();
       },
       child: Text(
-        'Clear',
+        l10n.clear,
         style: TextStyle(
           color: theme.colorScheme.primary,
           fontSize: _fontSizeMedium,
@@ -123,16 +125,16 @@ class _FilterModalState extends ConsumerState<FilterModal> {
     );
   }
 
-  Widget _buildFooter(BuildContext context, ThemeData theme) {
+  Widget _buildFooter(BuildContext context, ThemeData theme, AppLocalizations l10n) {
     return Column(
       children: [
-        _buildApplyButton(context, theme),
+        _buildApplyButton(context, theme, l10n),
         SizedBox(height: _spacingXLarge),
       ],
     );
   }
 
-  Widget _buildPublicationYearFilter(ThemeData theme) {
+  Widget _buildPublicationYearFilter(ThemeData theme, AppLocalizations l10n) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -140,7 +142,7 @@ class _FilterModalState extends ConsumerState<FilterModal> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Publication year',
+              l10n.publicationYear,
               style: TextStyle(
                 fontSize: _fontSizeMedium,
                 fontWeight: FontWeight.bold,
@@ -175,12 +177,12 @@ class _FilterModalState extends ConsumerState<FilterModal> {
     );
   }
 
-  Widget _buildPublicationTypeFilter() {
+  Widget _buildPublicationTypeFilter(AppLocalizations l10n) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Publication type',
+          l10n.publicationType,
           style: TextStyle(
             fontSize: _fontSizeMedium,
             fontWeight: FontWeight.bold,
@@ -190,9 +192,9 @@ class _FilterModalState extends ConsumerState<FilterModal> {
         Row(
           spacing: _spacingSmall,
           children: [
-            _buildPublicationTypeButton('Articles', 'Articles'),
-            _buildPublicationTypeButton('Journals', 'Journals'),
-            _buildPublicationTypeButton('Conferences', 'Conferences'),
+            _buildPublicationTypeButton('Articles', l10n.articles),
+            _buildPublicationTypeButton('Journals', l10n.journals),
+            _buildPublicationTypeButton('Conferences', l10n.conferences),
           ],
         ),
       ],
@@ -244,12 +246,12 @@ class _FilterModalState extends ConsumerState<FilterModal> {
     );
   }
 
-  Widget _buildAccessFilter(ThemeData theme) {
+  Widget _buildAccessFilter(ThemeData theme, AppLocalizations l10n) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Access',
+          l10n.access,
           style: TextStyle(
             fontSize: _fontSizeMedium,
             fontWeight: FontWeight.bold,
@@ -298,7 +300,7 @@ class _FilterModalState extends ConsumerState<FilterModal> {
                 ),
                 SizedBox(width: _spacingSmall),
                 Text(
-                  'Open Access',
+                  l10n.openAccess,
                   style: TextStyle(
                     fontSize: _fontSizeMedium,
                     color: theme.colorScheme.onSurface,
@@ -312,7 +314,7 @@ class _FilterModalState extends ConsumerState<FilterModal> {
     );
   }
 
-  Widget _buildApplyButton(BuildContext context, ThemeData theme) {
+  Widget _buildApplyButton(BuildContext context, ThemeData theme, AppLocalizations l10n) {
     return Padding(
       padding: EdgeInsets.all(_spacingMedium),
       child: SizedBox(
@@ -343,7 +345,7 @@ class _FilterModalState extends ConsumerState<FilterModal> {
             ),
           ),
           child: Text(
-            'Apply filters',
+            l10n.applyFilters,
             style: TextStyle(
               color: Colors.white,
               fontSize: _fontSizeMedium,

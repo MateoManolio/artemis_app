@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:artemis_app/l10n/app_localizations.dart';
 import 'widgets/settings_section.dart';
 import 'widgets/appearance_section.dart';
 import 'widgets/reading_section.dart';
@@ -15,11 +16,12 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Settings',
+          l10n.settings,
           style: theme.textTheme.headlineSmall?.copyWith(
             fontWeight: FontWeight.bold,
             color: colorScheme.onSurface,
@@ -36,7 +38,7 @@ class SettingsPage extends StatelessWidget {
           
           // Account Section
           SettingsSection(
-            title: 'ACCOUNT',
+            title: l10n.account,
             children: [
               const AccountSection(),
             ],
@@ -46,7 +48,7 @@ class SettingsPage extends StatelessWidget {
           
           // Appearance Section
           SettingsSection(
-            title: 'APPEARANCE',
+            title: l10n.appearance,
             children: [
               const AppearanceSection(),
             ],
@@ -56,7 +58,7 @@ class SettingsPage extends StatelessWidget {
           
           // Reading Section
           SettingsSection(
-            title: 'READING',
+            title: l10n.reading,
             children: [
               const ReadingSection(),
             ],
@@ -66,7 +68,7 @@ class SettingsPage extends StatelessWidget {
           
           // About Section
           SettingsSection(
-            title: 'ABOUT',
+            title: l10n.about,
             children: [
               const AboutSection(),
             ],
@@ -81,14 +83,14 @@ class SettingsPage extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    'Artemis - Article Explorer',
+                    l10n.artemisArticleExplorer,
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: colorScheme.onSurfaceVariant,
                     ),
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    'Your companion for discovering research',
+                    l10n.yourCompanionForResearch,
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
                     ),

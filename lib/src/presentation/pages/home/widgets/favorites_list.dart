@@ -2,6 +2,7 @@ import 'package:artemis_app/src/config/route/details_parameters.dart';
 import 'package:artemis_app/src/domain/entity/article.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:artemis_app/l10n/app_localizations.dart';
 import 'package:artemis_app/src/presentation/pages/home/widgets/articles_text.dart';
 
 class FavoritesList extends StatelessWidget {
@@ -14,6 +15,7 @@ class FavoritesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -21,7 +23,7 @@ class FavoritesList extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(bottom: padding),
           child: Text(
-            'Favorites',
+            l10n.favorites,
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -30,7 +32,7 @@ class FavoritesList extends StatelessWidget {
           ),
         ),
         if (articles.isEmpty)
-          _buildEmptyPlaceholder(theme)
+          _buildEmptyPlaceholder(theme, context)
         else
           ListView.separated(
             shrinkWrap: true,
@@ -62,7 +64,9 @@ class FavoritesList extends StatelessWidget {
     );
   }
 
-  Widget _buildEmptyPlaceholder(ThemeData theme) {
+  Widget _buildEmptyPlaceholder(ThemeData theme, BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    
     return Container(
       padding: const EdgeInsets.all(padding * 2),
       decoration: BoxDecoration(
@@ -84,7 +88,7 @@ class FavoritesList extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              'No favorites yet',
+              l10n.noFavoritesYet,
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
@@ -93,7 +97,7 @@ class FavoritesList extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              'Start exploring articles and save your favorites here',
+              l10n.startExploringArticles,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 14,

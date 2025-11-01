@@ -2,6 +2,7 @@ import 'package:artemis_app/src/config/route/details_parameters.dart';
 import 'package:artemis_app/src/presentation/widgets/filter_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:artemis_app/l10n/app_localizations.dart';
 import 'package:artemis_app/src/presentation/pages/home/providers/get_random_article_provider.dart';
 import 'package:go_router/go_router.dart';
 
@@ -19,6 +20,8 @@ class _LookArticleState extends ConsumerState<LookArticle> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    
     return Row(
       children: [
         Card(
@@ -58,14 +61,14 @@ class _LookArticleState extends ConsumerState<LookArticle> {
                       if (!mounted) return;
                       ScaffoldMessenger.of(context).hideCurrentSnackBar();
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Error loading article: $e')),
+                        SnackBar(content: Text(l10n.errorLoadingArticle(e.toString()))),
                       );
                     } finally {
                       if (mounted) setState(() => _isLoading = false);
                     }
                   },
                   icon: const Icon(Icons.casino),
-                  tooltip: 'Look at a random article',
+                  tooltip: l10n.lookAtRandomArticle,
                 ),
         ),
       ],

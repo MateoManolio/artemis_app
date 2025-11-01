@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:artemis_app/l10n/app_localizations.dart';
 
 class ArticleCard extends StatelessWidget {
   const ArticleCard({
@@ -22,6 +23,7 @@ class ArticleCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final l10n = AppLocalizations.of(context)!;
 
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
@@ -69,7 +71,7 @@ class ArticleCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Text(
-                        'Open Access',
+                        l10n.openAccess,
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: colorScheme.onTertiary,
                           fontWeight: FontWeight.w600,

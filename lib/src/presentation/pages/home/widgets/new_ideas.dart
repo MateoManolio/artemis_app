@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:artemis_app/src/presentation/widgets/safe_svg_picture.dart';
+import 'package:artemis_app/l10n/app_localizations.dart';
 
 class NewIdeas extends StatelessWidget {
   const NewIdeas({super.key});
@@ -9,10 +10,12 @@ class NewIdeas extends StatelessWidget {
   static const double padding = 16;
   static const double iconSize = 80;
   static const String newIdeasIconPath = 'assets/svg/discover_new_ideas.svg';
+  
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final cardColor = theme.colorScheme.primary;
+    final l10n = AppLocalizations.of(context)!;
 
     return SizedBox(
       width: double.infinity,
@@ -36,7 +39,7 @@ class NewIdeas extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Discover new ideas',
+                        l10n.discoverNewIdeas,
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -45,7 +48,7 @@ class NewIdeas extends StatelessWidget {
                       ),
                       SizedBox(height: 4),
                       Text(
-                        'Explore a variety of interesting topics',
+                        l10n.exploreInterestingTopics,
                         style: TextStyle(fontSize: 14, color: Colors.grey[800]),
                       ),
                     ],

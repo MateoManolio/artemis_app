@@ -2,6 +2,7 @@ import 'package:artemis_app/src/presentation/pages/login/providers/login_provide
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:artemis_app/l10n/app_localizations.dart';
 import 'widgets/welcome_avatar.dart';
 import 'widgets/welcome_text.dart';
 import 'widgets/google_sign_in_button.dart';
@@ -22,9 +23,10 @@ class LoginPage extends ConsumerWidget {
     } catch (e) {
       // Handle error
       if (context.mounted) {
+        final l10n = AppLocalizations.of(context)!;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Error: ${e.toString()}'),
+            content: Text(l10n.errorLogin(e.toString())),
             backgroundColor: Colors.red,
           ),
         );

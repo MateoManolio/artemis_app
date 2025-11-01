@@ -3,6 +3,7 @@ import 'package:artemis_app/src/presentation/providers/debouncer_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:artemis_app/l10n/app_localizations.dart';
 import 'package:artemis_app/src/domain/entity/article.dart';
 import 'package:artemis_app/src/config/route/details_parameters.dart';
 import 'package:artemis_app/src/presentation/widgets/filter_modal.dart';
@@ -59,6 +60,7 @@ class _ArticlesPageState extends ConsumerState<ArticlesPage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final l10n = AppLocalizations.of(context)!;
 
     ref.listen<ArticlesFilters>(articlesFiltersNotifierProvider, (
       previous,
@@ -73,7 +75,7 @@ class _ArticlesPageState extends ConsumerState<ArticlesPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Article Explorer',
+          l10n.articleExplorer,
           style: theme.textTheme.headlineSmall?.copyWith(
             fontWeight: FontWeight.bold,
             color: colorScheme.onSurface,
@@ -109,7 +111,7 @@ class _ArticlesPageState extends ConsumerState<ArticlesPage> {
             child: articlesState.when(
               data: (articles) {
                 if (articles.isEmpty) {
-                  return const Center(child: Text('No articles found'));
+                  return Center(child: Text(l10n.noArticlesFound));
                 }
 
                 return ArticlesList(
@@ -149,7 +151,7 @@ class _ArticlesPageState extends ConsumerState<ArticlesPage> {
                               .fetchArticles();
                         },
                         icon: const Icon(Icons.refresh),
-                        label: const Text('Retry'),
+                        label: Text(l10n.retry),
                       ),
                     ],
                   ),
