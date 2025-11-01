@@ -1,0 +1,102 @@
+name: CD - Android Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build-android-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # para crear/adjuntar al release
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Pub cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.pub-cache
+            .dart_tool
+          key: pub-${{ runner.os }}-${{ hashFiles('pubspec.lock') }}
+
+      - name: Gradle cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            gradle-${{ runner.os }}-
+
+      # Firebase opcional
+      - name: Decode google-services.json
+        if: env.FIREBASE_ANDROID_JSON_B64 != ''
+        env:
+          FIREBASE_ANDROID_JSON_B64: ${{ secrets.FIREBASE_ANDROID_JSON_B64 }}
+        run: |
+          echo "$FIREBASE_ANDROID_JSON_B64" | base64 -d > android/app/google-services.json
+
+      - name: Flutter Pub Get
+        run: flutter pub get
+
+      - name: Build Runner
+        run: dart run build_runner build --delete-conflicting-outputs
+
+      - name: Generate l10n
+        run: flutter gen-l10n
+
+      # --- Signing opcional ---
+      - name: Prepare Keystore (optional)
+        if: env.ANDROID_KEYSTORE_B64 != ''
+        env:
+          ANDROID_KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_B64 }}
+        run: |
+          mkdir -p $HOME/.android
+          echo "$ANDROID_KEYSTORE_B64" | base64 -d > $HOME/.android/upload-keystore.jks
+
+      - name: Configure signing gradle properties (optional)
+        if: env.ANDROID_KEYSTORE_B64 != ''
+        env:
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          echo "MY_STORE_FILE=${HOME}/.android/upload-keystore.jks" >> android/gradle.properties
+          echo "MY_STORE_PASSWORD=${ANDROID_KEYSTORE_PASSWORD}"   >> android/gradle.properties
+          echo "MY_KEY_ALIAS=${ANDROID_KEY_ALIAS}"                >> android/gradle.properties
+          echo "MY_KEY_PASSWORD=${ANDROID_KEY_PASSWORD}"          >> android/gradle.properties
+
+      - name: Build APK (release)
+        run: |
+          # Si no hay signing, esto genera un release no firmado (igual sirve para validar build)
+          flutter build apk --release
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release
+          path: build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 30
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/app/outputs/flutter-apk/app-release.apk
+          generate_release_notes: true
