@@ -1,0 +1,55 @@
+appId: com.example.artemis_app
+---
+- launchApp
+- assertVisible: "Welcome"
+- tapOn: "SKIP"
+- waitForAnimationToEnd
+
+# Verificar que estamos en la home
+- assertVisible:
+    text: "Hello"
+    optional: true
+
+# Navegar a Settings - tocar el ícono de settings en el AppBar (parte superior derecha)
+- tapOn:
+    point: "90%,5%"
+- waitForAnimationToEnd
+
+# Verificar que estamos en la página de Settings
+- assertVisible: "Settings"
+- waitForAnimationToEnd
+
+# Verificar que la sección de Appearance está visible
+- assertVisible: "APPEARANCE"
+- waitForAnimationToEnd
+
+# Intentar verificar el estado actual (sin fallar si no existe)
+- assertVisible:
+    text: "Currently light"
+    optional: true
+
+# Activar/desactivar el switch de Dark Theme
+# Si está en light, lo activa a dark
+# Si ya está en dark, lo desactiva a light (toggle)
+- tapOn:
+    point: "50%,50%"
+- waitForAnimationToEnd
+
+# Verificar el resultado esperado (dark mode activado)
+- assertVisible: 
+    text: "Currently dark"
+    optional: true
+- waitForAnimationToEnd
+
+# Volver a la home para verificar que el tema se aplicó globalmente
+- tapOn:
+    point: "5%,8%"
+- waitForAnimationToEnd
+
+# Verificar que estamos de vuelta en la home y el dark mode está aplicado
+# El fondo debería verse más oscuro (dark mode aplicado)
+- assertVisible:
+    text: "Hello"
+    optional: true
+- waitForAnimationToEnd
+

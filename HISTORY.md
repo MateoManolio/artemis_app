@@ -15,7 +15,7 @@ Octavo dia:
     - [x] Debounce para el campo de búsqueda
     - [x] Cancelación de request al cambiar búsqueda
  - [x] Favoritos
- - [ ] Localitation
+ - [x] Localitation
  - [x] Svgs y logos
  - [x] Articles read
  - [ ] Testing
@@ -23,6 +23,7 @@ Octavo dia:
  - [ ] Competar README
  - [ ] Arreglar el color
  - [ ] Poner el ícono a la app
+ - [ ] Critical fix: traer artículos 
  
  ## Opcionales
  - [x] Random article

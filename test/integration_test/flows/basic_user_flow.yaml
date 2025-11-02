@@ -1,0 +1,10 @@
+appId: com.example.artemis_app
+---
+- launchApp
+- assertVisible: "Welcome"
+- tapOn: "SKIP"
+- waitForAnimationToEnd
+- tapOn:
+    text: "Search articles"
+    optional: true
+

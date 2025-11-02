@@ -1,0 +1,12 @@
+# Maestro configuration file
+appId: com.example.artemis_app
+
+# Para Android, asegúrate de que el appId coincida con el package name en android/app/build.gradle.kts
+# Para iOS, asegúrate de que coincida con el bundle identifier
+
+flows:
+  - test/integration_test/flows/basic_user_flow.yaml
+  - test/integration_test/flows/favorite_persistence.yaml
+  - test/integration_test/flows/complete_user_flow.yaml
+  - test/integration_test/flows/dark_mode_test.yaml
+

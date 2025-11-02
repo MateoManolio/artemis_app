@@ -1,0 +1,46 @@
+﻿
+=== RESUMEN GENERAL DE COBERTURA ===
+
+Archivos analizados: 26 widgets/p├íginas
+L├¡neas totales (LF): 2660
+L├¡neas cubiertas (LH): 851
+Cobertura General: 31.99%
+
+=== COBERTURA DE WIDGETS (Top 20) ===
+
+articles_header.dart                               100.0% (17/17)
+articles_search_bar.dart                           100.0% (18/18)
+article_card.dart                                  100.0% (36/36)
+metric_card.dart                                   100.0% (25/25)
+open_access_button.dart                            100.0% (43/43)
+articles_read.dart                                 100.0% (15/15)
+articles_text.dart                                 100.0% (30/30)
+favorites_list.dart                                100.0% (49/49)
+new_ideas.dart                                     100.0% (28/28)
+google_sign_in_button.dart                         100.0% (23/23)
+skip_button.dart                                   100.0% (11/11)
+welcome_avatar.dart                                100.0% (6/6)
+welcome_text.dart                                  100.0% (14/14)
+setting_option.dart                                100.0% (9/9)
+setting_tile.dart                                  100.0% (29/29)
+setting_switch.dart                                100.0% (10/10)
+custom_modal.dart                                  96.6% (28/29)
+safe_svg_picture.dart                              78.6% (11/14)
+get_articles_plus_notifier.dart                    66.7% (4/6)
+articles_list.dart                                 65.9% (27/41)
+
+=== WIDGETS CON BAJA COBERTURA (< 50%) ===
+
+articles_data_provider.dart                        0.0% (0/31)
+get_random_article_provider.dart                   0.0% (0/5)
+filter_modal.dart                                  0.6% (1/169)
+custom_search_bar.dart                             44.3% (31/70)
+
+=== ESTAD├ìSTICAS POR CATEGOR├ìA ===
+
+Home Widgets: 8 widgets, Cobertura promedio: 70.9%
+Login Widgets: 4 widgets, Cobertura promedio: 100.0%
+Settings Widgets: 3 widgets, Cobertura promedio: 100.0%
+Articles Widgets: 9 widgets, Cobertura promedio: 75.9%
+Details Widgets: 2 widgets, Cobertura promedio: 100.0%
+Shared Widgets: 22 widgets, Cobertura promedio: 88.3%

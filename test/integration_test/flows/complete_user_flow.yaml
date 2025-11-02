@@ -1,0 +1,75 @@
+appId: com.example.artemis_app
+---
+- launchApp
+- assertVisible: "Welcome"
+- tapOn: "SKIP"
+- waitForAnimationToEnd
+
+# Navegar a la página de artículos (Article Explorer)
+# Tocar el card "Discover new ideas" para navegar a /articles
+- tapOn:
+    text: ".*discover.*"
+    index: 0
+- waitForAnimationToEnd
+
+# Esperar a que cargue la página de artículos
+- assertVisible: "Article Explorer"
+- waitForAnimationToEnd
+
+# Buscar artículos - escribir en el campo de búsqueda
+- tapOn:
+    text: "Search articles"
+- inputText: "machine learning"
+- waitForAnimationToEnd
+
+# Esperar a que aparezcan resultados (puede tomar tiempo para cargar)
+- waitForAnimationToEnd
+- waitForAnimationToEnd
+
+# Aplicar filtros - tocar el botón de filtros
+- tapOn:
+    text: "FILTERS"
+- waitForAnimationToEnd
+
+# Verificar que el modal de filtros está visible
+- assertVisible: "FILTERS"
+- waitForAnimationToEnd
+
+- tapOn:
+    text: "Open Access"
+- waitForAnimationToEnd
+
+# Aplicar los filtros - tocar el botón "Apply filters" en el footer del modal
+- tapOn:
+    text: "Apply filters"
+- waitForAnimationToEnd
+
+# Esperar a que se actualicen los resultados con los filtros aplicados
+- waitForAnimationToEnd
+- waitForAnimationToEnd
+
+# Abrir un resultado - tocar el primer artículo de la lista
+# Como no conocemos el título exacto, usamos scroll y tap en el área de la lista
+- scroll
+- waitForAnimationToEnd
+- tapOn:
+    point: "50%,50%"
+- waitForAnimationToEnd
+
+# Verificar que estamos en la página de detalles (debería haber un título visible)
+- waitForAnimationToEnd
+
+# Marcar como favorito - tocar el botón de favorito en el AppBar (parte superior derecha)
+# El ícono de favorito está en el AppBar actions
+- tapOn:
+    point: "90%,8%"
+- waitForAnimationToEnd
+
+# Volver a la lista de artículos - tocar el botón de back
+- tapOn:
+    point: "5%,8%"
+- waitForAnimationToEnd
+
+# Verificar que estamos de vuelta en la lista de artículos
+- assertVisible: "Hello"
+

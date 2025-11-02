@@ -7,9 +7,21 @@ import 'package:artemis_app/src/presentation/pages/home/providers/get_random_art
 import 'package:go_router/go_router.dart';
 
 class LookArticle extends ConsumerStatefulWidget {
-  const LookArticle({super.key});
+  const LookArticle({
+    super.key,
+    this.onFilterPressed,
+    this.onRandomArticlePressed,
+  });
 
   static const double padding = 4;
+  
+  /// Optional callback when filter button is pressed
+  /// If provided, this will be called instead of showing FilterModal
+  final VoidCallback? onFilterPressed;
+  
+  /// Optional callback when random article button is pressed
+  /// If provided, this will be called instead of fetching random article
+  final VoidCallback? onRandomArticlePressed;
 
   @override
   ConsumerState<LookArticle> createState() => _LookArticleState();
@@ -26,7 +38,7 @@ class _LookArticleState extends ConsumerState<LookArticle> {
       children: [
         Card(
           child: IconButton(
-            onPressed: () => FilterModal.show(context),
+            onPressed: widget.onFilterPressed ?? () => FilterModal.show(context),
             icon: const Icon(Icons.filter_list),
           ),
         ),
@@ -41,32 +53,37 @@ class _LookArticleState extends ConsumerState<LookArticle> {
                   ),
                 )
               : IconButton(
-                  onPressed: () async {
-                    if (_isLoading) return;
-                    setState(() => _isLoading = true);
-                    try {
-                      final article = await ref.refresh(
-                        getRandomArticleProviderProvider.future,
-                      );
-                      if (!mounted) return;
-                      // Si ya no estamos en la ruta actual, no navegar
-                      final isCurrentRoute =
-                          ModalRoute.of(context)?.isCurrent ?? false;
-                      if (!isCurrentRoute) return;
-                      context.push(
-                        '/details',
-                        extra: DetailsParameters(article: article),
-                      );
-                    } catch (e) {
-                      if (!mounted) return;
-                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(l10n.errorLoadingArticle(e.toString()))),
-                      );
-                    } finally {
-                      if (mounted) setState(() => _isLoading = false);
-                    }
-                  },
+                  onPressed: widget.onRandomArticlePressed != null
+                      ? () {
+                          if (_isLoading) return;
+                          widget.onRandomArticlePressed!();
+                        }
+                      : () async {
+                          if (_isLoading) return;
+                          setState(() => _isLoading = true);
+                          try {
+                            final article = await ref.refresh(
+                              getRandomArticleProviderProvider.future,
+                            );
+                            if (!mounted) return;
+                            // Si ya no estamos en la ruta actual, no navegar
+                            final isCurrentRoute =
+                                ModalRoute.of(context)?.isCurrent ?? false;
+                            if (!isCurrentRoute) return;
+                            context.push(
+                              '/details',
+                              extra: DetailsParameters(article: article),
+                            );
+                          } catch (e) {
+                            if (!mounted) return;
+                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(l10n.errorLoadingArticle(e.toString()))),
+                            );
+                          } finally {
+                            if (mounted) setState(() => _isLoading = false);
+                          }
+                        },
                   icon: const Icon(Icons.casino),
                   tooltip: l10n.lookAtRandomArticle,
                 ),
