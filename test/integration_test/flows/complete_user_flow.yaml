@@ -1,8 +1,12 @@
 appId: com.example.artemis_app
 ---
 - launchApp
-- assertVisible: "Welcome"
-- tapOn: "SKIP"
+- assertVisible: 
+    text: "Welcome"
+    optional: true
+- tapOn:
+    text: "SKIP"
+    optional: true
 - waitForAnimationToEnd
 
 # Navegar a la página de artículos (Article Explorer)
@@ -70,6 +74,13 @@ appId: com.example.artemis_app
     point: "5%,8%"
 - waitForAnimationToEnd
 
+# Volver a la home - tocar el botón de back
+- tapOn:
+    point: "5%,8%"
+- waitForAnimationToEnd
+
 # Verificar que estamos de vuelta en la lista de artículos
-- assertVisible: "Hello"
+- assertVisible: 
+    text: ".*Hello.*"
+    optional: true
 

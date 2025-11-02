@@ -502,13 +502,13 @@ return $default(_that.count,_that.dbResponseTimeMs,_that.page,_that.perPage,_tha
 @JsonSerializable()
 
 class _OpenAlexMeta implements OpenAlexMeta {
-   _OpenAlexMeta({required this.count, this.dbResponseTimeMs, required this.page, required this.perPage, this.groupsCount});
+   _OpenAlexMeta({this.count = 0, this.dbResponseTimeMs, this.page = 1, this.perPage = 10, this.groupsCount});
   factory _OpenAlexMeta.fromJson(Map<String, dynamic> json) => _$OpenAlexMetaFromJson(json);
 
-@override final  int count;
+@override@JsonKey() final  int count;
 @override final  int? dbResponseTimeMs;
-@override final  int page;
-@override final  int perPage;
+@override@JsonKey() final  int page;
+@override@JsonKey() final  int perPage;
 @override final  int? groupsCount;
 
 /// Create a copy of OpenAlexMeta

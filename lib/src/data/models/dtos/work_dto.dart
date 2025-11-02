@@ -1,6 +1,7 @@
 import 'package:artemis_app/src/core/converters/uri_converter.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:artemis_app/src/core/converters/datetime_converter.dart';
+import 'package:artemis_app/src/core/converters/abstract_inverted_index_converter.dart';
 import 'package:artemis_app/src/data/models/dtos/work_ids_dto.dart';
 import 'package:artemis_app/src/data/models/dtos/primary_location_dto.dart';
 import 'package:artemis_app/src/data/models/dtos/open_access_dto.dart';
@@ -20,6 +21,7 @@ part 'work_dto.g.dart';
 /// https://docs.openalex.org/api-entities/works/work-object
 @freezed
 sealed class WorkDto with _$WorkDto {
+  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory WorkDto({
     String? id,
     @UriConverter() Uri? doi,
@@ -68,6 +70,7 @@ sealed class WorkDto with _$WorkDto {
 
     /// OpenAlex entrega el abstract como inverted index (no texto plano).
     /// Lo modelamos como Map\<String, List\<int\>\> y lo reconstruimos fuera.
+    @AbstractInvertedIndexConverter()
     Map<String, List<int>>? abstractInvertedIndex,
     List<CountByYearDto>? countsByYear,
     @DateTimeConverter() DateTime? updatedDate,

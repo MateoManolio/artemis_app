@@ -28,10 +28,10 @@ Map<String, dynamic> _$OpenAlexResponseToJson<E>(
 
 _OpenAlexMeta _$OpenAlexMetaFromJson(Map<String, dynamic> json) =>
     _OpenAlexMeta(
-      count: (json['count'] as num).toInt(),
+      count: (json['count'] as num?)?.toInt() ?? 0,
       dbResponseTimeMs: (json['dbResponseTimeMs'] as num?)?.toInt(),
-      page: (json['page'] as num).toInt(),
-      perPage: (json['perPage'] as num).toInt(),
+      page: (json['page'] as num?)?.toInt() ?? 1,
+      perPage: (json['perPage'] as num?)?.toInt() ?? 10,
       groupsCount: (json['groupsCount'] as num?)?.toInt(),
     );
 

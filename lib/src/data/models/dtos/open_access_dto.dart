@@ -6,6 +6,7 @@ part 'open_access_dto.g.dart';
 
 @freezed
 sealed class OpenAccessDto with _$OpenAccessDto {
+  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory OpenAccessDto({
     bool? isOa,
     String? oaStatus,

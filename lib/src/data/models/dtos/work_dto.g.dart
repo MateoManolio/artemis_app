@@ -10,69 +10,69 @@ _WorkDto _$WorkDtoFromJson(Map<String, dynamic> json) => _WorkDto(
   id: json['id'] as String?,
   doi: const UriConverter().fromJson(json['doi'] as String?),
   title: json['title'] as String?,
-  displayName: json['displayName'] as String?,
-  publicationYear: (json['publicationYear'] as num?)?.toInt(),
+  displayName: json['display_name'] as String?,
+  publicationYear: (json['publication_year'] as num?)?.toInt(),
   publicationDate: const DateTimeConverter().fromJson(
-    json['publicationDate'] as String?,
+    json['publication_date'] as String?,
   ),
   ids: json['ids'] == null
       ? null
       : WorkIdsDto.fromJson(json['ids'] as Map<String, dynamic>),
   language: json['language'] as String?,
-  primaryLocation: json['primaryLocation'] == null
+  primaryLocation: json['primary_location'] == null
       ? null
       : PrimaryLocationDto.fromJson(
-          json['primaryLocation'] as Map<String, dynamic>,
+          json['primary_location'] as Map<String, dynamic>,
         ),
   type: json['type'] as String?,
-  typeCrossref: json['typeCrossref'] as String?,
-  indexedIn: (json['indexedIn'] as List<dynamic>?)
+  typeCrossref: json['type_crossref'] as String?,
+  indexedIn: (json['indexed_in'] as List<dynamic>?)
       ?.map((e) => e as String)
       .toList(),
-  openAccess: json['openAccess'] == null
+  openAccess: json['open_access'] == null
       ? null
-      : OpenAccessDto.fromJson(json['openAccess'] as Map<String, dynamic>),
+      : OpenAccessDto.fromJson(json['open_access'] as Map<String, dynamic>),
   authorships: (json['authorships'] as List<dynamic>?)
       ?.map((e) => AuthorshipDto.fromJson(e as Map<String, dynamic>))
       .toList(),
-  countriesDistinctCount: (json['countriesDistinctCount'] as num?)?.toInt(),
-  institutionsDistinctCount: (json['institutionsDistinctCount'] as num?)
+  countriesDistinctCount: (json['countries_distinct_count'] as num?)?.toInt(),
+  institutionsDistinctCount: (json['institutions_distinct_count'] as num?)
       ?.toInt(),
-  correspondingAuthorIds: (json['correspondingAuthorIds'] as List<dynamic>?)
+  correspondingAuthorIds: (json['corresponding_author_ids'] as List<dynamic>?)
       ?.map((e) => e as String)
       .toList(),
   correspondingInstitutionIds:
-      (json['correspondingInstitutionIds'] as List<dynamic>?)
+      (json['corresponding_institution_ids'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
-  apcList: json['apcList'] == null
+  apcList: json['apc_list'] == null
       ? null
-      : MoneyDto.fromJson(json['apcList'] as Map<String, dynamic>),
-  apcPaid: json['apcPaid'] == null
+      : MoneyDto.fromJson(json['apc_list'] as Map<String, dynamic>),
+  apcPaid: json['apc_paid'] == null
       ? null
-      : MoneyDto.fromJson(json['apcPaid'] as Map<String, dynamic>),
+      : MoneyDto.fromJson(json['apc_paid'] as Map<String, dynamic>),
   fwci: (json['fwci'] as num?)?.toDouble(),
-  hasFulltext: json['hasFulltext'] as bool?,
-  fulltextOrigin: json['fulltextOrigin'] as String?,
-  citedByCount: (json['citedByCount'] as num?)?.toInt(),
-  citationNormalizedPercentile: json['citationNormalizedPercentile'] == null
+  hasFulltext: json['has_fulltext'] as bool?,
+  fulltextOrigin: json['fulltext_origin'] as String?,
+  citedByCount: (json['cited_by_count'] as num?)?.toInt(),
+  citationNormalizedPercentile: json['citation_normalized_percentile'] == null
       ? null
       : CitationNormalizedPercentileDto.fromJson(
-          json['citationNormalizedPercentile'] as Map<String, dynamic>,
+          json['citation_normalized_percentile'] as Map<String, dynamic>,
         ),
-  citedByPercentileYear: json['citedByPercentileYear'] == null
+  citedByPercentileYear: json['cited_by_percentile_year'] == null
       ? null
       : IntRangeDto.fromJson(
-          json['citedByPercentileYear'] as Map<String, dynamic>,
+          json['cited_by_percentile_year'] as Map<String, dynamic>,
         ),
   biblio: json['biblio'] == null
       ? null
       : BiblioDto.fromJson(json['biblio'] as Map<String, dynamic>),
-  isRetracted: json['isRetracted'] as bool?,
-  isParatext: json['isParatext'] as bool?,
-  primaryTopic: json['primaryTopic'] == null
+  isRetracted: json['is_retracted'] as bool?,
+  isParatext: json['is_paratext'] as bool?,
+  primaryTopic: json['primary_topic'] == null
       ? null
-      : TopicDto.fromJson(json['primaryTopic'] as Map<String, dynamic>),
+      : TopicDto.fromJson(json['primary_topic'] as Map<String, dynamic>),
   topics: (json['topics'] as List<dynamic>?)
       ?.map((e) => TopicDto.fromJson(e as Map<String, dynamic>))
       .toList(),
@@ -83,40 +83,36 @@ _WorkDto _$WorkDtoFromJson(Map<String, dynamic> json) => _WorkDto(
       ?.map((e) => ConceptDto.fromJson(e as Map<String, dynamic>))
       .toList(),
   mesh: json['mesh'] as List<dynamic>?,
-  locationsCount: (json['locationsCount'] as num?)?.toInt(),
+  locationsCount: (json['locations_count'] as num?)?.toInt(),
   locations: (json['locations'] as List<dynamic>?)
       ?.map((e) => LocationDto.fromJson(e as Map<String, dynamic>))
       .toList(),
-  bestOaLocation: json['bestOaLocation'] == null
+  bestOaLocation: json['best_oa_location'] == null
       ? null
-      : LocationDto.fromJson(json['bestOaLocation'] as Map<String, dynamic>),
+      : LocationDto.fromJson(json['best_oa_location'] as Map<String, dynamic>),
   sustainableDevelopmentGoals:
-      json['sustainableDevelopmentGoals'] as List<dynamic>?,
+      json['sustainable_development_goals'] as List<dynamic>?,
   grants: json['grants'] as List<dynamic>?,
   datasets: json['datasets'] as List<dynamic>?,
   versions: json['versions'] as List<dynamic>?,
-  referencedWorksCount: (json['referencedWorksCount'] as num?)?.toInt(),
-  referencedWorks: (json['referencedWorks'] as List<dynamic>?)
+  referencedWorksCount: (json['referenced_works_count'] as num?)?.toInt(),
+  referencedWorks: (json['referenced_works'] as List<dynamic>?)
       ?.map((e) => e as String)
       .toList(),
-  relatedWorks: (json['relatedWorks'] as List<dynamic>?)
+  relatedWorks: (json['related_works'] as List<dynamic>?)
       ?.map((e) => e as String)
       .toList(),
-  abstractInvertedIndex:
-      (json['abstractInvertedIndex'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(
-          k,
-          (e as List<dynamic>).map((e) => (e as num).toInt()).toList(),
-        ),
-      ),
-  countsByYear: (json['countsByYear'] as List<dynamic>?)
+  abstractInvertedIndex: const AbstractInvertedIndexConverter().fromJson(
+    json['abstract_inverted_index'] as Map<String, dynamic>?,
+  ),
+  countsByYear: (json['counts_by_year'] as List<dynamic>?)
       ?.map((e) => CountByYearDto.fromJson(e as Map<String, dynamic>))
       .toList(),
   updatedDate: const DateTimeConverter().fromJson(
-    json['updatedDate'] as String?,
+    json['updated_date'] as String?,
   ),
   createdDate: const DateTimeConverter().fromJson(
-    json['createdDate'] as String?,
+    json['created_date'] as String?,
   ),
 );
 
@@ -124,49 +120,53 @@ Map<String, dynamic> _$WorkDtoToJson(_WorkDto instance) => <String, dynamic>{
   'id': instance.id,
   'doi': const UriConverter().toJson(instance.doi),
   'title': instance.title,
-  'displayName': instance.displayName,
-  'publicationYear': instance.publicationYear,
-  'publicationDate': const DateTimeConverter().toJson(instance.publicationDate),
+  'display_name': instance.displayName,
+  'publication_year': instance.publicationYear,
+  'publication_date': const DateTimeConverter().toJson(
+    instance.publicationDate,
+  ),
   'ids': instance.ids,
   'language': instance.language,
-  'primaryLocation': instance.primaryLocation,
+  'primary_location': instance.primaryLocation,
   'type': instance.type,
-  'typeCrossref': instance.typeCrossref,
-  'indexedIn': instance.indexedIn,
-  'openAccess': instance.openAccess,
+  'type_crossref': instance.typeCrossref,
+  'indexed_in': instance.indexedIn,
+  'open_access': instance.openAccess,
   'authorships': instance.authorships,
-  'countriesDistinctCount': instance.countriesDistinctCount,
-  'institutionsDistinctCount': instance.institutionsDistinctCount,
-  'correspondingAuthorIds': instance.correspondingAuthorIds,
-  'correspondingInstitutionIds': instance.correspondingInstitutionIds,
-  'apcList': instance.apcList,
-  'apcPaid': instance.apcPaid,
+  'countries_distinct_count': instance.countriesDistinctCount,
+  'institutions_distinct_count': instance.institutionsDistinctCount,
+  'corresponding_author_ids': instance.correspondingAuthorIds,
+  'corresponding_institution_ids': instance.correspondingInstitutionIds,
+  'apc_list': instance.apcList,
+  'apc_paid': instance.apcPaid,
   'fwci': instance.fwci,
-  'hasFulltext': instance.hasFulltext,
-  'fulltextOrigin': instance.fulltextOrigin,
-  'citedByCount': instance.citedByCount,
-  'citationNormalizedPercentile': instance.citationNormalizedPercentile,
-  'citedByPercentileYear': instance.citedByPercentileYear,
+  'has_fulltext': instance.hasFulltext,
+  'fulltext_origin': instance.fulltextOrigin,
+  'cited_by_count': instance.citedByCount,
+  'citation_normalized_percentile': instance.citationNormalizedPercentile,
+  'cited_by_percentile_year': instance.citedByPercentileYear,
   'biblio': instance.biblio,
-  'isRetracted': instance.isRetracted,
-  'isParatext': instance.isParatext,
-  'primaryTopic': instance.primaryTopic,
+  'is_retracted': instance.isRetracted,
+  'is_paratext': instance.isParatext,
+  'primary_topic': instance.primaryTopic,
   'topics': instance.topics,
   'keywords': instance.keywords,
   'concepts': instance.concepts,
   'mesh': instance.mesh,
-  'locationsCount': instance.locationsCount,
+  'locations_count': instance.locationsCount,
   'locations': instance.locations,
-  'bestOaLocation': instance.bestOaLocation,
-  'sustainableDevelopmentGoals': instance.sustainableDevelopmentGoals,
+  'best_oa_location': instance.bestOaLocation,
+  'sustainable_development_goals': instance.sustainableDevelopmentGoals,
   'grants': instance.grants,
   'datasets': instance.datasets,
   'versions': instance.versions,
-  'referencedWorksCount': instance.referencedWorksCount,
-  'referencedWorks': instance.referencedWorks,
-  'relatedWorks': instance.relatedWorks,
-  'abstractInvertedIndex': instance.abstractInvertedIndex,
-  'countsByYear': instance.countsByYear,
-  'updatedDate': const DateTimeConverter().toJson(instance.updatedDate),
-  'createdDate': const DateTimeConverter().toJson(instance.createdDate),
+  'referenced_works_count': instance.referencedWorksCount,
+  'referenced_works': instance.referencedWorks,
+  'related_works': instance.relatedWorks,
+  'abstract_inverted_index': const AbstractInvertedIndexConverter().toJson(
+    instance.abstractInvertedIndex,
+  ),
+  'counts_by_year': instance.countsByYear,
+  'updated_date': const DateTimeConverter().toJson(instance.updatedDate),
+  'created_date': const DateTimeConverter().toJson(instance.createdDate),
 };

@@ -24,10 +24,10 @@ sealed class OpenAlexResponse<E> with _$OpenAlexResponse<E> {
 @freezed
 sealed class OpenAlexMeta with _$OpenAlexMeta {
   factory OpenAlexMeta({
-    required int count,
+    @Default(0) int count,
     int? dbResponseTimeMs,
-    required int page,
-    required int perPage,
+    @Default(1) int page,
+    @Default(10) int perPage,
     int? groupsCount,
   }) = _OpenAlexMeta;
 
