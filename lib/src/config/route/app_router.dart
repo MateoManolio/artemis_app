@@ -1,3 +1,4 @@
+import 'package:artemis_app/src/domain/entity/user.dart';
 import 'package:artemis_app/src/presentation/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -15,18 +16,29 @@ part 'app_router.g.dart';
 GoRouter appRouter(Ref ref) {
   return GoRouter(
     initialLocation: '/login',
+    redirect: (context, state) {
+      final user = ref.read(userProvider);
+      final isLoggedIn = user != null && user.uid != User.guest().uid;
+      final isOnLoginPage = state.uri.path == LoginPage.routeName;
+
+      // If user is logged in and tries to access login, redirect to home
+      if (isLoggedIn && isOnLoginPage) {
+        return HomePage.routeName;
+      }
+
+      // If user is not logged in and tries to access protected routes, redirect to login
+      if (!isLoggedIn && !isOnLoginPage) {
+        return LoginPage.routeName;
+      }
+
+      // No redirect needed
+      return null;
+    },
     routes: [
       GoRoute(
         path: LoginPage.routeName,
         name: 'login',
-        builder: (context, state) {
-          final user = ref.read(userProvider);
-      
-          if (user != null) {
-            return HomePage(name: user.displayName);
-          }
-           return const LoginPage();
-        },
+        builder: (context, state) => const LoginPage(),
       ),
       GoRoute(
         path: HomePage.routeName,
@@ -46,7 +58,7 @@ GoRouter appRouter(Ref ref) {
       ),
       GoRoute(
         path: ArticlesPage.routeName,
-        name: 'favorites',
+        name: 'articles',
         builder: (context, state) => const ArticlesPage(),
       ),
       GoRoute(

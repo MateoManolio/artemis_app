@@ -5,7 +5,7 @@ Cuarto día: Se implementó el login con Firebase Authentication, la IA se utili
 Quinto día: Se implementó la conexión a la API, muchos problemas difíciles de solucionar. Mucho tiempo con un provider que no compilaba porque su nombre contenía Autocomplete, después el get_articles_provider dió muchos dolores de cabeza porque no manejaba bien los errores y se reconstruia en vez de pasar su estado, mucho colaboración la ia para solucionar este tema.
 Sexto día: Arranqué a la madrugada para terminar de dejar andando freeze, porque no había forma de que me corriera el autogenerado, problema que me llevó muchas horas. Se solucionó cuando dejé de usar la ia y me puse a leer documentación e issues en GitHub manualmente, a la "vieja usanza". Después durante el resto del día me puse a hacer la conexión con el correcto mappeo de la entidad y arreglar varios problemas de caching, sumando el infinite scrolling y el filtrado y la búsqueda. Todo esto lo hice primero con ia pero me generó tanto boilerplate que lo borré todo y lo hice manualmente para que quede un código mucho más pequeño y sencillo.
 Séptimo día: Arranqué con problemas en las dependencias, ya que Isar no se actualiza en dos años, leyendo en foros vi que la comunidad hizo un fork, así que instalé ese. Termine haciendo todo el resto sin internet, pero pude completar la base de datos para que agregue una tupla cuando se guarda como favorita o eliminandola si no se desea mas como favorita.
-Octavo dia: 
+Octavo dia:  Lo que hice basicamente fue hacer testing y limpiar la app. Esto al principio fue sencillo salvo cuando se tuvo que hacer los tests de integración, al principio prové con los tests automáticos de Flutter pero como en la consigna decía usar una herramienta como Maestro mejor decidí borrar todo y empezar de vuelta. Esto yo no lo sabía hacer, así que apoyado por la IA fui aprendiendo a crear los workflows, el principal problema que llevó la mayoría del tiempo, fue la instalación de Maestro, de hecho borré sin querer casi toda las variables de entorno y después no podía ejecutar flutter. Una vez que terminé con eso me centré en que todo el código quedara muy prolijo ya pensando en la entrega, esto significa una unificación de comentarios, imports o clases que no se usan, magic numbers y constantes en código que fueron refactorizadas. Seguí afinando unos últimos detalles en la ui y me puse a ver métricas de rendimiento.
 
 
 # TODOs
@@ -18,12 +18,12 @@ Octavo dia:
  - [x] Localitation
  - [x] Svgs y logos
  - [x] Articles read
- - [ ] Testing
- - [ ] Github CI/CD
+ - [x] Testing
+ - [x] Github CI/CD
  - [ ] Competar README
- - [ ] Arreglar el color
+ - [x] Arreglar el color
  - [ ] Poner el ícono a la app
- - [ ] Critical fix: traer artículos 
+ - [x] Critical fix: traer artículos 
  
  ## Opcionales
  - [x] Random article
@@ -33,6 +33,6 @@ Octavo dia:
  - [ ] Cambiar la splash screen
 
  ## Bugs
- - [ ] El no hay artículos al inicio de Article Explorer
+ - [x] El no hay artículos al inicio de Article Explorer
  - [ ] Aumento del performance
- - [ ] Search en el menu
+ - [x] Search en el menu
