@@ -1,5 +1,7 @@
 import 'package:artemis_app/src/config/route/details_parameters.dart';
+import 'package:artemis_app/src/config/theme/app_theme.dart';
 import 'package:artemis_app/src/domain/entity/article.dart';
+import 'package:artemis_app/src/presentation/pages/details/details_page.dart';
 import 'package:artemis_app/src/presentation/pages/home/providers/get_articles_plus_notifier.dart';
 import 'package:artemis_app/src/presentation/pages/home/widgets/articles_text.dart';
 import 'package:artemis_app/src/presentation/providers/debouncer_provider.dart';
@@ -9,14 +11,6 @@ import 'package:go_router/go_router.dart';
 import 'package:artemis_app/l10n/app_localizations.dart';
 
 class CustomSearchBar extends ConsumerWidget {
-  static const double _emptyStatePadding = 24.0;
-  static const double _emptyStateIconSize = 48.0;
-  static const double _emptyStateSpacing = 16.0;
-  static const double _emptyStateSmallSpacing = 8.0;
-  static const double _emptyStateTitleFontSize = 16.0;
-  static const double _emptyStateSubtitleFontSize = 14.0;
-  static const double _suggestionItemPadding = 16.0;
-
   const CustomSearchBar({super.key, required this.favorites});
 
   final List<Article> favorites;
@@ -24,7 +18,7 @@ class CustomSearchBar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
-    
+
     return Expanded(
       child: SearchAnchor(
         builder: (_, controller) => SearchBar(
@@ -83,35 +77,36 @@ class CustomSearchBar extends ConsumerWidget {
                 }).toList();
 
           if (filteredArticles.isEmpty) {
+            final theme = Theme.of(context);
+            final colorScheme = theme.colorScheme;
+
             return [
               Padding(
-                padding: const EdgeInsets.all(_emptyStatePadding),
+                padding: const EdgeInsets.all(AppSpacing.xl),
                 child: Center(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(
                         Icons.search_off,
-                        size: _emptyStateIconSize,
-                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        size: AppIconSize.xxl,
+                        color: colorScheme.onSurfaceVariant,
                       ),
-                      const SizedBox(height: _emptyStateSpacing),
+                      const SizedBox(height: AppSpacing.lg),
                       Text(
                         l10n.noResultsFound,
-                        style: TextStyle(
-                          fontSize: _emptyStateTitleFontSize,
+                        style: theme.textTheme.labelLarge?.copyWith(
                           fontWeight: FontWeight.w600,
-                          color: Theme.of(context).colorScheme.onSurface,
+                          color: colorScheme.onSurface,
                         ),
                       ),
-                      const SizedBox(height: _emptyStateSmallSpacing),
+                      const SizedBox(height: AppSpacing.sm),
                       Text(
                         currentQuery.isEmpty
                             ? l10n.startTypingToSearch
                             : l10n.tryDifferentSearchTerm,
-                        style: TextStyle(
-                          fontSize: _emptyStateSubtitleFontSize,
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: colorScheme.onSurfaceVariant,
                         ),
                       ),
                     ],
@@ -126,12 +121,12 @@ class CustomSearchBar extends ConsumerWidget {
               onTap: () {
                 controller.closeView('');
                 context.push(
-                  '/details',
+                  DetailsPage.routeName,
                   extra: DetailsParameters(article: article),
                 );
               },
               child: Padding(
-                padding: const EdgeInsets.all(_suggestionItemPadding),
+                padding: const EdgeInsets.all(AppSpacing.lg),
                 child: ArticlesText(
                   title: article.title,
                   domain: article.domain,

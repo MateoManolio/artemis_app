@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/// Modelo para filtros de búsqueda de artículos
-/// Preparado para extensión futura con filtros de OpenAlex
+/// Model for article search filters
+/// Prepared for future extension with OpenAlex filters
 class ArticlesFilters {
   final List<String>? types;
   final List<String>? openAccessStatus;
@@ -49,7 +49,7 @@ class ArticlesFilters {
     );
   }
 
-  /// Verifica si hay filtros activos
+  /// Checks if there are active filters
   bool get hasActiveFilters =>
       types != null ||
       openAccessStatus != null ||
@@ -61,7 +61,7 @@ class ArticlesFilters {
       topics != null ||
       sort != null;
 
-  /// Convierte los filtros a query parameters para OpenAlex API
+  /// Converts filters to query parameters for OpenAlex API
   Map<String, dynamic> toQueryParams() {
     final params = <String, dynamic>{};
 
@@ -97,50 +97,50 @@ class ArticlesFilters {
   }
 }
 
-/// Provider para gestionar los filtros de artículos
+/// Provider to manage article filters
 class ArticlesFiltersNotifier extends Notifier<ArticlesFilters> {
   @override
   ArticlesFilters build() {
     return const ArticlesFilters();
   }
 
-  /// Actualiza los tipos de artículo
+  /// Updates article types
   void updateTypes(List<String> types) {
     state = state.copyWith(types: types);
   }
 
-  /// Actualiza el estado de open access
+  /// Updates open access status
   void updateOpenAccessStatus(List<String> status) {
     state = state.copyWith(openAccessStatus: status);
   }
 
-  /// Actualiza el rango de años
+  /// Updates year range
   void updateYearRange({int? fromYear, int? toYear}) {
     state = state.copyWith(fromYear: fromYear, toYear: toYear);
   }
 
-  /// Filtra solo open access
+  /// Filters only open access
   void setOnlyOpenAccess(bool value) {
     state = state.copyWith(isOa: value);
   }
 
-  /// Actualiza el ordenamiento
+  /// Updates sorting
   void updateSort(String sort) {
     state = state.copyWith(sort: sort);
   }
 
-  /// Resetea todos los filtros
+  /// Resets all filters
   void reset() {
     state = const ArticlesFilters();
   }
 
-  /// Aplica múltiples filtros a la vez
+  /// Applies multiple filters at once
   void applyFilters(ArticlesFilters filters) {
     state = filters;
   }
 }
 
-// Provider explícito sin codegen para evitar dependencias del archivo generado
+// Explicit provider without codegen to avoid dependencies on generated file
 final articlesFiltersNotifierProvider =
     NotifierProvider<ArticlesFiltersNotifier, ArticlesFilters>(
       ArticlesFiltersNotifier.new,

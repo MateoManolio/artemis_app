@@ -83,7 +83,7 @@ class ArticleDbModel {
       ..createdAt = DateTime.now();
   }
 
-  /// Convierte el modelo de base de datos a la entidad de dominio
+  /// Convert the database model to the domain entity
   Article toDomain() {
     return Article(
       id: articleId,
@@ -110,7 +110,7 @@ class ArticleDbModel {
     );
   }
 
-  /// Parsea el string del tipo de artículo al enum
+  /// Parse the article type string to the enum
   ArticleType _parseArticleType(String typeString) {
     try {
       return ArticleType.values.firstWhere(
@@ -122,13 +122,13 @@ class ArticleDbModel {
     }
   }
 
-  /// Actualiza el timestamp de modificación
+  /// Update the modification timestamp
   ArticleDbModel updateTimestamp() {
     updatedAt = DateTime.now();
     return this;
   }
 
-  /// Copia el modelo con campos modificados
+  /// Copy the model with modified fields
   ArticleDbModel copyWith({
     String? articleId,
     String? title,

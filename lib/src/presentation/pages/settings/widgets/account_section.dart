@@ -1,6 +1,8 @@
+import 'package:artemis_app/src/presentation/pages/login/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:artemis_app/l10n/app_localizations.dart';
+import 'package:artemis_app/src/config/theme/app_theme.dart';
 import 'package:artemis_app/src/presentation/providers/user_provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -9,13 +11,16 @@ import 'setting_tile.dart';
 class AccountSection extends ConsumerWidget {
   const AccountSection({super.key});
 
+  static const double avatarRadius = 35;
+  static const double avatarSize = 70;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(userProvider);
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final l10n = AppLocalizations.of(context)!;
-    
+
     final isGuest = user?.uid == 'guest' || user == null;
 
     return Column(
@@ -23,18 +28,18 @@ class AccountSection extends ConsumerWidget {
         Card(
           color: colorScheme.surfaceContainer,
           child: Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(AppSpacing.xl),
             child: Row(
               children: [
                 CircleAvatar(
-                  radius: 35,
+                  radius: avatarRadius,
                   backgroundColor: colorScheme.primaryContainer,
                   child: user?.photoUrl != null
                       ? ClipOval(
                           child: CachedNetworkImage(
                             imageUrl: user!.photoUrl!,
-                            width: 70,
-                            height: 70,
+                            width: avatarSize,
+                            height: avatarSize,
                             fit: BoxFit.cover,
                             placeholder: (context, url) => Center(
                               child: CircularProgressIndicator(
@@ -43,35 +48,35 @@ class AccountSection extends ConsumerWidget {
                             ),
                             errorWidget: (context, url, error) => Icon(
                               Icons.person,
-                              size: 35,
+                              size: avatarSize,
                               color: colorScheme.onPrimaryContainer,
                             ),
                           ),
                         )
                       : Icon(
                           Icons.person,
-                          size: 35,
+                          size: avatarSize,
                           color: colorScheme.onPrimaryContainer,
                         ),
                 ),
-                const SizedBox(width: 16),
+                const SizedBox(width: AppSpacing.lg),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        isGuest 
-                            ? l10n.guestUser 
+                        isGuest
+                            ? l10n.guestUser
                             : user.displayName ?? user.email ?? l10n.guestUser,
                         style: theme.textTheme.titleLarge?.copyWith(
                           color: colorScheme.onSurface,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(height: 4),
+                      const SizedBox(height: AppSpacing.xs),
                       Text(
-                        isGuest 
-                            ? l10n.signInToAccessAccount 
+                        isGuest
+                            ? l10n.signInToAccessAccount
                             : user.email ?? l10n.noEmail,
                         style: theme.textTheme.bodyMedium?.copyWith(
                           color: colorScheme.onSurfaceVariant,
@@ -84,9 +89,9 @@ class AccountSection extends ConsumerWidget {
             ),
           ),
         ),
-        
-        const SizedBox(height: 16),
-        
+
+        const SizedBox(height: AppSpacing.lg),
+
         if (isGuest)
           SettingTile(
             icon: Icons.login,
@@ -94,7 +99,7 @@ class AccountSection extends ConsumerWidget {
             subtitle: l10n.signInWithAccount,
             onTap: () {
               ref.read(userProvider.notifier).deleteUser();
-              context.go('/login');
+              context.go(LoginPage.routeName);
             },
           )
         else ...[
@@ -104,15 +109,13 @@ class AccountSection extends ConsumerWidget {
             subtitle: l10n.updateProfileInfo,
             onTap: () {
               ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(l10n.editProfileComingSoon),
-              ),
-            );
+                SnackBar(content: Text(l10n.editProfileComingSoon)),
+              );
             },
           ),
-          
-          const SizedBox(height: 8),
-          
+
+          const SizedBox(height: AppSpacing.sm),
+
           SettingTile(
             icon: Icons.logout_outlined,
             title: l10n.signOut,
@@ -120,7 +123,7 @@ class AccountSection extends ConsumerWidget {
             onTap: () async {
               await ref.read(userProvider.notifier).signOut();
               if (context.mounted) {
-                context.go('/login');
+                context.go(LoginPage.routeName);
               }
             },
           ),
@@ -129,4 +132,3 @@ class AccountSection extends ConsumerWidget {
     );
   }
 }
-

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:artemis_app/src/config/theme/app_theme.dart';
 
 class MetricCard extends StatelessWidget {
   final String label;
   final String value;
   
   static const double _cardHeight = 90.0;
-  static const double _padding = 16.0;
-  static const double _spacing = 8.0;
-  static const double _cardBorderRadius = 12.0;
+  
   const MetricCard({
     super.key,
     required this.label,
@@ -16,40 +15,40 @@ class MetricCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    
     return Container(
       height: _cardHeight,
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.75),
-        borderRadius: BorderRadius.circular(_cardBorderRadius),
+        color: colorScheme.surfaceContainerLowest.withValues(alpha: 0.75),
+        borderRadius: BorderRadius.circular(AppBorderRadius.md),
         border: Border.all(color: colorScheme.outline),
         boxShadow: [
           BoxShadow(
             color: colorScheme.shadow.withValues(alpha: 0.15),
-            blurRadius: 12,
+            blurRadius: AppSpacing.md,
             offset: Offset(0, 2),
           ),
         ],
       ),
       child: Padding(
-        padding: EdgeInsets.all(_padding),
+        padding: const EdgeInsets.all(AppSpacing.lg),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               label,
-              style: TextStyle(
-                fontSize: 12,
+              style: theme.textTheme.labelSmall?.copyWith(
                 color: colorScheme.onSurface,
               ),
             ),
-            SizedBox(height: _spacing),
+            const SizedBox(height: AppSpacing.sm),
             Text(
               value,
-              style: TextStyle(
-                fontSize: 18,
+              style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
-                color: Colors.grey[900],
+                color: colorScheme.onSurface,
               ),
             ),
           ],

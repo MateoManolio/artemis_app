@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:artemis_app/src/config/theme/app_theme.dart';
 
 class CustomModal extends StatelessWidget {
   final Widget child;
@@ -26,8 +27,8 @@ class CustomModal extends StatelessWidget {
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
         borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(24.0),
-          topRight: Radius.circular(24.0),
+          topLeft: Radius.circular(AppBorderRadius.xl),
+          topRight: Radius.circular(AppBorderRadius.xl),
         ),
       ),
       child: Column(
@@ -46,8 +47,8 @@ class CustomModal extends StatelessWidget {
   Widget _buildHeader(BuildContext context, ThemeData theme) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: 16.0,
-        vertical: 12.0,
+        horizontal: AppSpacing.lg,
+        vertical: AppSpacing.md,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -59,8 +60,7 @@ class CustomModal extends StatelessWidget {
           if (title != null)
             Text(
               title!,
-              style: TextStyle(
-                fontSize: 24.0,
+              style: theme.textTheme.headlineSmall?.copyWith(
                 fontWeight: FontWeight.bold,
                 color: theme.colorScheme.onSurface,
               ),

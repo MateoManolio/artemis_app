@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:artemis_app/l10n/app_localizations.dart';
+import 'package:artemis_app/src/config/theme/app_theme.dart';
 import 'articles_search_bar.dart';
 
 class ArticlesHeader extends StatelessWidget {
@@ -29,12 +30,12 @@ class ArticlesHeader extends StatelessWidget {
                 onChanged: onSearchChanged,
               ),
             ),
-            const SizedBox(width: 8),
+            const SizedBox(width: AppSpacing.sm),
             OutlinedButton(
               onPressed: onFiltersPressed,
               style: OutlinedButton.styleFrom(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(AppBorderRadius.md),
                 ),
               ),
               child: Text(l10n.filters),

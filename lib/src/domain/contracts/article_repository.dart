@@ -4,10 +4,10 @@ import 'package:dio/dio.dart';
 import 'package:artemis_app/src/presentation/providers/articles_filters_provider.dart';
 
 abstract class IArticleRepository {
-  /// Obtiene un artículo por su ID
+  /// Gets an article by its ID
   Future<DataState<Article>> getArticle(String id);
 
-  /// Obtiene una lista de artículos con filtros opcionales
+  /// Gets a list of articles with optional filters
   Future<DataState<List<Article>>> getArticles({
     String? query,
     int? page,
@@ -16,9 +16,9 @@ abstract class IArticleRepository {
     ArticlesFilters? filters,
   });
 
-  /// Obtiene sugerencias de artículos para autocompletado
+  /// Gets autocomplete suggestions for articles
   Future<DataState<List<Article>>> getAutocompleteArticles(String query);
 
-  /// Obtiene un artículo aleatorio
+  /// Gets a random article
   Future<DataState<Article>> getRandomArticle();
 }

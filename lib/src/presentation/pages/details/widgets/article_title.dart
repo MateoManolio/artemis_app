@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class ArticleTitle extends StatelessWidget {
   final String title;
   
-  static const double _fontSize = 24.0;
   static const double _lineHeight = 1.3;
 
   const ArticleTitle({
@@ -13,13 +12,14 @@ class ArticleTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    
     return Text(
       title,
-      style: TextStyle(
-        fontSize: _fontSize,
+      style: theme.textTheme.headlineSmall?.copyWith(
         fontWeight: FontWeight.bold,
-        color: Colors.grey[900],
         height: _lineHeight,
+        color: theme.colorScheme.onSurface,
       ),
     );
   }

@@ -1,23 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:artemis_app/src/config/theme/app_theme.dart';
 
 class BottomActions extends StatelessWidget {
-  static const double _spacing = 16.0;
-  static const double _iconSize = 16.0;
-  static const double _fontSize = 12.0;
-
   const BottomActions({super.key});
+
+  static const String doiPdf = 'DOI • PDF';
+  static const String related = 'Related 10 >';
+  static const String references = 'references 69 >';
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Row(
       children: [
-        Icon(Icons.bar_chart, size: _iconSize),
-        SizedBox(width: 4),
-        Text('DOI • PDF', style: TextStyle(fontSize: _fontSize)),
-        Spacer(),
-        Text('Related 10 >', style: TextStyle(fontSize: _fontSize)),
-        SizedBox(width: _spacing),
-        Text('references 69 >', style: TextStyle(fontSize: _fontSize)),
+        Icon(
+          Icons.bar_chart,
+          size: AppIconSize.sm,
+          color: colorScheme.onSurface,
+        ),
+        const SizedBox(width: AppSpacing.xs),
+        Text(
+          doiPdf,
+          style: theme.textTheme.labelSmall?.copyWith(
+            color: colorScheme.onSurface,
+          ),
+        ),
+        const Spacer(),
+        Text(
+          related,
+          style: theme.textTheme.labelSmall?.copyWith(
+            color: colorScheme.onSurface,
+          ),
+        ),
+        const SizedBox(width: AppSpacing.lg),
+        Text(
+          references,
+          style: theme.textTheme.labelSmall?.copyWith(
+            color: colorScheme.onSurface,
+          ),
+        ),
       ],
     );
   }

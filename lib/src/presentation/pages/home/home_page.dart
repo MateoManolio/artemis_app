@@ -3,6 +3,7 @@ import 'package:artemis_app/src/presentation/pages/home/providers/get_favorites_
 import 'package:artemis_app/src/presentation/pages/home/widgets/favorites_list.dart';
 import 'package:artemis_app/src/presentation/pages/home/widgets/look_article.dart';
 import 'package:artemis_app/src/presentation/providers/weekly_goal_provider.dart';
+import 'package:artemis_app/src/config/theme/app_theme.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,8 +15,6 @@ import 'package:artemis_app/src/presentation/pages/home/widgets/new_ideas.dart';
 
 class HomePage extends ConsumerWidget {
   static const String routeName = '/home';
-  static const double paddingHorizontal = 16;
-  static const double spacing = 16;
   final String? name;
 
   const HomePage({super.key, required this.name});
@@ -39,9 +38,9 @@ class HomePage extends ConsumerWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: paddingHorizontal),
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
           child: Column(
-            spacing: spacing,
+            spacing: AppSpacing.lg,
             children: [
               ArticlesRead(
                 articlesRead: ref.watch(articlesReadProviderProvider),
@@ -57,14 +56,19 @@ class HomePage extends ConsumerWidget {
                       loading: () => [],
                     ),
                   ),
-                  SizedBox(width: spacing),
+                  const SizedBox(width: AppSpacing.lg),
                   LookArticle(),
                 ],
               ),
               NewIdeas(),
               favorites.when(
                 data: (data) => FavoritesList(articles: data),
-                error: (error, stackTrace) => Text(l10n.errorGeneric(error.toString())),
+                error: (error, stackTrace) => Text(
+                  l10n.errorGeneric(error.toString()),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.error,
+                  ),
+                ),
                 loading: () => const Center(child: CircularProgressIndicator()),
               ),
             ],

@@ -3,13 +3,13 @@ import 'package:artemis_app/src/data/models/dtos/location_dto.dart';
 import 'package:artemis_app/src/domain/entity/article.dart';
 
 extension WorkMapper on WorkDto {
-  /// Mapea el tipo de trabajo de OpenAlex al enum ArticleType
+  /// Maps the OpenAlex work type string to the ArticleType enum
   ArticleType _mapArticleType(String? typeString) {
     if (typeString == null || typeString.isEmpty) {
       return ArticleType.other;
     }
 
-    // Normalizar el string a lowercase y quitar guiones
+    // Normalize the string to lowercase and remove hyphens
     final normalized = typeString.toLowerCase().replaceAll('-', '');
 
     switch (normalized) {
@@ -50,7 +50,7 @@ extension WorkMapper on WorkDto {
   }
 
   Article toDomain({bool isFavorite = false}) {
-    // Extraer autores de forma robusta
+    // Extract authors robustly
     final authorsList =
         authorships
             ?.map((authorship) => authorship.author?.displayName ?? '')
@@ -58,7 +58,7 @@ extension WorkMapper on WorkDto {
             .toList() ??
         [];
 
-    // Extraer instituciones únicas de todas las autorías
+    // Extract unique institutions from all author affiliations
     final institutionsList = <String>{};
     authorships?.forEach((authorship) {
       authorship.institutions?.forEach((institution) {
@@ -69,7 +69,7 @@ extension WorkMapper on WorkDto {
       });
     });
 
-    // Extraer topics de la lista completa
+    // Extract topics from the complete list
     final topicsList =
         topics
             ?.map((topic) => topic.displayName ?? '')
@@ -77,7 +77,7 @@ extension WorkMapper on WorkDto {
             .toList() ??
         [];
 
-    // Determinar URLs con prioridad: DOI > Landing Page > ID
+    // Determine URLs with priority: DOI > Landing Page > ID
     final pageUrl =
         doi?.toString() ??
         primaryLocation?.landingPageUrl?.toString() ??
@@ -85,7 +85,7 @@ extension WorkMapper on WorkDto {
         id ??
         '';
 
-    // URL del PDF con múltiples fallbacks
+    // PDF URL with multiple fallbacks
     final pdfUrl =
         bestOaLocation?.pdfUrl?.toString() ??
         openAccess?.oaUrl?.toString() ??
@@ -99,7 +99,7 @@ extension WorkMapper on WorkDto {
             ?.toString() ??
         '';
 
-    // Extraer jerarquía de topics: primaryTopic tiene prioridad
+    // Extract topic hierarchy: primaryTopic has priority
     final mainTopic =
         primaryTopic ?? (topics?.isNotEmpty == true ? topics!.first : null);
 
@@ -107,11 +107,11 @@ extension WorkMapper on WorkDto {
     final field = mainTopic?.field?.displayName ?? '';
     final domain = mainTopic?.domain?.displayName ?? '';
 
-    // Citation percentile con conversión segura
+    // Citation percentile with safe conversion
     final citationPercentile =
         citationNormalizedPercentile?.value?.toDouble() ?? 0.0;
 
-    // Extraer ID de OpenAlex (última parte del URL)
+    // Extract OpenAlex ID (last part of the URL)
     // Ejemplo: "https://openalex.org/W4414161455" -> "W4414161455"
     final articleId =
         id?.split('/').last ??
@@ -142,8 +142,8 @@ extension WorkMapper on WorkDto {
     );
   }
 
-  /// Reconstruye el abstract desde el inverted index de OpenAlex
-  /// Útil para mostrar en la vista de detalle
+  /// Reconstruct the abstract from the OpenAlex inverted index
+  /// Useful to display in the detail view
   String? reconstructAbstract() {
     final invertedIndex = abstractInvertedIndex;
     if (invertedIndex == null || invertedIndex.isEmpty) {
@@ -151,7 +151,7 @@ extension WorkMapper on WorkDto {
     }
 
     try {
-      // Crear mapa de posición -> palabra
+      // Create a map of position -> word
       final Map<int, String> positionToWord = {};
 
       invertedIndex.forEach((word, positions) {
@@ -160,18 +160,18 @@ extension WorkMapper on WorkDto {
         }
       });
 
-      // Ordenar por posición y unir
+      // Sort by position and join
       final sortedPositions = positionToWord.keys.toList()..sort();
       final words = sortedPositions.map((pos) => positionToWord[pos]!);
 
       return words.join(' ');
     } catch (e) {
-      // Si falla la reconstrucción, retornar null
+      // If the reconstruction fails, return null
       return null;
     }
   }
 
-  /// Información adicional útil para vista de detalle
+  /// Additional information useful for the detail view
   Map<String, dynamic> getExtraInfo() {
     return {
       'isRetracted': isRetracted ?? false,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:artemis_app/src/config/theme/app_theme.dart';
 
 class SettingTile extends StatelessWidget {
   const SettingTile({
@@ -25,20 +26,20 @@ class SettingTile extends StatelessWidget {
       color: colorScheme.surfaceContainer,
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(AppBorderRadius.md),
         child: Padding(
           padding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 12,
+            horizontal: AppSpacing.lg,
+            vertical: AppSpacing.md,
           ),
           child: Row(
             children: [
               Icon(
                 icon,
                 color: colorScheme.primary,
-                size: 24,
+                size: AppIconSize.lg,
               ),
-              const SizedBox(width: 16),
+              const SizedBox(width: AppSpacing.lg),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,7 +65,7 @@ class SettingTile extends StatelessWidget {
                 ),
               ),
               if (trailing != null) ...[
-                const SizedBox(width: 8),
+                const SizedBox(width: AppSpacing.sm),
                 trailing!,
               ],
             ],

@@ -8,14 +8,12 @@ import 'package:artemis_app/src/data/repository/auth_repository_impl.dart';
 import 'package:artemis_app/src/domain/contracts/article_repository.dart';
 import 'package:artemis_app/src/domain/contracts/auth_repository.dart';
 import 'package:artemis_app/src/domain/contracts/favorites_repository.dart';
-import 'package:artemis_app/src/domain/usecase/add_favorite_usecase.dart';
 import 'package:artemis_app/src/domain/usecase/get_all_favorites_usecase.dart';
 import 'package:artemis_app/src/domain/usecase/get_articles_details_usecase.dart';
 import 'package:artemis_app/src/domain/usecase/get_articles_usecase.dart';
 import 'package:artemis_app/src/domain/usecase/get_autocomplete_articles_usecase.dart';
 import 'package:artemis_app/src/domain/usecase/get_random_article_usecase.dart';
 import 'package:artemis_app/src/domain/usecase/observe_auth_state_usecase.dart';
-import 'package:artemis_app/src/domain/usecase/remove_favorite_usecase.dart';
 import 'package:artemis_app/src/domain/usecase/sign_out_usecase.dart';
 import 'package:artemis_app/src/domain/usecase/sign_in_with_google_usecase.dart';
 import 'package:artemis_app/src/domain/usecase/toggle_favorite_usecase.dart';
@@ -88,14 +86,6 @@ GetAutocompletedArticlesUsecase getAutocompleteArticlesUsecase(Ref ref) =>
 @riverpod
 GetRandomArticleUsecase getRandomArticleUsecase(Ref ref) =>
     GetRandomArticleUsecase(ref.watch(articleRepositoryProvider));
-
-@riverpod
-AddFavoriteUsecase addFavoriteUsecase(Ref ref) =>
-    AddFavoriteUsecase(ref.watch(favoritesRepositoryProvider));
-
-@riverpod
-RemoveFavoriteUsecase removeFavoriteUsecase(Ref ref) =>
-    RemoveFavoriteUsecase(ref.watch(favoritesRepositoryProvider));
 
 @riverpod
 GetAllFavoritesUsecase getAllFavoritesUsecase(Ref ref) =>

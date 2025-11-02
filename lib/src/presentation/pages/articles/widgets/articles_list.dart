@@ -1,4 +1,5 @@
 import 'package:artemis_app/src/domain/entity/article.dart';
+import 'package:artemis_app/src/config/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'article_card.dart';
 
@@ -31,7 +32,7 @@ class _ArticlesListState extends State<ArticlesList> {
   @override
   void didUpdateWidget(ArticlesList oldWidget) {
     super.didUpdateWidget(oldWidget);
-    // Reset del flag cuando llegan nuevos artículos
+    // Reset flag when new articles arrive
     if (oldWidget.articles.length != widget.articles.length) {
       _hasTriggeredLoad = false;
     }
@@ -45,7 +46,7 @@ class _ArticlesListState extends State<ArticlesList> {
   }
 
   void _onScroll() {
-    // Verificar si el scroll está en posición válida
+    // Check if scroll is in valid position
     if (!_scrollController.hasClients) return;
 
     final maxScroll = _scrollController.position.maxScrollExtent;
@@ -53,7 +54,7 @@ class _ArticlesListState extends State<ArticlesList> {
     final threshold = maxScroll * 0.65;
 
     if (currentScroll >= threshold) {
-      // Prevenir múltiples llamadas con flag local
+      // Prevent multiple calls with local flag
       if (!_hasTriggeredLoad && widget.onLoadMore != null) {
         setState(() {
           _hasTriggeredLoad = true;
@@ -67,12 +68,12 @@ class _ArticlesListState extends State<ArticlesList> {
   Widget build(BuildContext context) {
     return ListView.builder(
       controller: _scrollController,
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
       itemCount: widget.articles.length + 1,
       itemBuilder: (context, index) {
         if (index == widget.articles.length) {
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 32),
+            padding: const EdgeInsets.symmetric(vertical: AppSpacing.xxl),
             child: Center(
               child: _hasTriggeredLoad
                   ? const CircularProgressIndicator()

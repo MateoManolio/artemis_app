@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:artemis_app/src/config/theme/app_theme.dart';
 
 class PublicationInfo extends StatelessWidget {
   final String publication;
   final String author;
   
-  static const double _spacing = 16.0;
   static const double _avatarRadius = 20.0;
 
   const PublicationInfo({
@@ -15,30 +15,35 @@ class PublicationInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    
     return Row(
       children: [
         CircleAvatar(
           radius: _avatarRadius,
-          backgroundColor: Colors.grey[300],
-          child: Icon(Icons.menu_book, size: 24),
+          backgroundColor: colorScheme.surfaceContainerHighest,
+          child: Icon(
+            Icons.menu_book,
+            size: AppIconSize.lg,
+            color: colorScheme.onSurface,
+          ),
         ),
-        SizedBox(width: _spacing),
+        const SizedBox(width: AppSpacing.lg),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 publication,
-                style: TextStyle(
-                  fontSize: 14,
+                style: theme.textTheme.bodyMedium?.copyWith(
                   fontWeight: FontWeight.w500,
                 ),
               ),
               Text(
                 author,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey[600],
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
                 ),
               ),
             ],

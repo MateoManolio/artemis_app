@@ -1,5 +1,7 @@
 import 'package:artemis_app/src/presentation/pages/articles/providers/articles_data_provider.dart';
+import 'package:artemis_app/src/presentation/pages/details/details_page.dart';
 import 'package:artemis_app/src/presentation/providers/debouncer_provider.dart';
+import 'package:artemis_app/src/config/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -53,7 +55,10 @@ class _ArticlesPageState extends ConsumerState<ArticlesPage> {
   }
 
   void _onArticleTap(Article article) {
-    context.push('/details', extra: DetailsParameters(article: article));
+    context.push(
+      DetailsPage.routeName,
+      extra: DetailsParameters(article: article),
+    );
   }
 
   @override
@@ -100,7 +105,7 @@ class _ArticlesPageState extends ConsumerState<ArticlesPage> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(AppSpacing.lg),
             child: ArticlesHeader(
               searchController: _searchController,
               onSearchChanged: _onSearchChanged,
@@ -128,21 +133,25 @@ class _ArticlesPageState extends ConsumerState<ArticlesPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.error_outline,
-                        size: 64,
-                        color: Colors.red,
+                        size: AppIconSize.xxxl,
+                        color: colorScheme.error,
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: AppSpacing.lg),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 32),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: AppSpacing.xxl,
+                        ),
                         child: Text(
                           error.toString(),
                           textAlign: TextAlign.center,
-                          style: const TextStyle(color: Colors.red),
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            color: colorScheme.error,
+                          ),
                         ),
                       ),
-                      const SizedBox(height: 24),
+                      const SizedBox(height: AppSpacing.xl),
                       ElevatedButton.icon(
                         onPressed: () {
                           ref.read(articlesDataProvider.notifier).refresh();

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:artemis_app/l10n/app_localizations.dart';
+import 'package:artemis_app/src/config/theme/app_theme.dart';
 
 class ArticlesSearchBar extends StatelessWidget {
   const ArticlesSearchBar({super.key, this.onChanged, this.controller});
@@ -22,15 +23,15 @@ class ArticlesSearchBar extends StatelessWidget {
         filled: true,
         fillColor: colorScheme.surfaceContainer,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(AppBorderRadius.md),
           borderSide: BorderSide.none,
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(AppBorderRadius.md),
           borderSide: BorderSide.none,
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(AppBorderRadius.md),
           borderSide: BorderSide(color: colorScheme.primary, width: 2),
         ),
       ),

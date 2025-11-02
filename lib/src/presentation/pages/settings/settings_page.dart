@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:artemis_app/l10n/app_localizations.dart';
+import 'package:artemis_app/src/config/theme/app_theme.dart';
 import 'widgets/settings_section.dart';
 import 'widgets/appearance_section.dart';
 import 'widgets/reading_section.dart';
@@ -9,7 +10,7 @@ import 'widgets/account_section.dart';
 
 class SettingsPage extends StatelessWidget {
   static const String routeName = '/settings';
-  
+
   const SettingsPage({super.key});
 
   @override
@@ -34,52 +35,41 @@ class SettingsPage extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          const SizedBox(height: 16),
-          
+          const SizedBox(height: AppSpacing.lg),
+
           // Account Section
           SettingsSection(
             title: l10n.account,
-            children: [
-              const AccountSection(),
-            ],
+            children: [const AccountSection()],
           ),
-          
-          const SizedBox(height: 24),
-          
+
+          const SizedBox(height: AppSpacing.xl),
+
           // Appearance Section
           SettingsSection(
             title: l10n.appearance,
-            children: [
-              const AppearanceSection(),
-            ],
+            children: [const AppearanceSection()],
           ),
-          
-          const SizedBox(height: 24),
-          
+
+          const SizedBox(height: AppSpacing.xl),
+
           // Reading Section
           SettingsSection(
             title: l10n.reading,
-            children: [
-              const ReadingSection(),
-            ],
+            children: [const ReadingSection()],
           ),
-          
-          const SizedBox(height: 24),
-          
+
+          const SizedBox(height: AppSpacing.xl),
+
           // About Section
-          SettingsSection(
-            title: l10n.about,
-            children: [
-              const AboutSection(),
-            ],
-          ),
-          
-          const SizedBox(height: 32),
-          
+          SettingsSection(title: l10n.about, children: [const AboutSection()]),
+
+          const SizedBox(height: AppSpacing.xxl),
+
           // Footer
           Center(
             child: Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(AppSpacing.lg),
               child: Column(
                 children: [
                   Text(
@@ -88,19 +78,21 @@ class SettingsPage extends StatelessWidget {
                       color: colorScheme.onSurfaceVariant,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: AppSpacing.xs),
                   Text(
                     l10n.yourCompanionForResearch,
                     style: theme.textTheme.bodySmall?.copyWith(
-                      color: colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
+                      color: colorScheme.onSurfaceVariant.withValues(
+                        alpha: 0.7,
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
           ),
-          
-          const SizedBox(height: 32),
+
+          const SizedBox(height: AppSpacing.xxl),
         ],
       ),
     );

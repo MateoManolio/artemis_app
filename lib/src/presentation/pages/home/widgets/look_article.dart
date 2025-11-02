@@ -1,4 +1,5 @@
 import 'package:artemis_app/src/config/route/details_parameters.dart';
+import 'package:artemis_app/src/config/theme/app_theme.dart';
 import 'package:artemis_app/src/presentation/widgets/filter_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,8 +13,6 @@ class LookArticle extends ConsumerStatefulWidget {
     this.onFilterPressed,
     this.onRandomArticlePressed,
   });
-
-  static const double padding = 4;
   
   /// Optional callback when filter button is pressed
   /// If provided, this will be called instead of showing FilterModal
@@ -45,10 +44,10 @@ class _LookArticleState extends ConsumerState<LookArticle> {
         Card(
           child: _isLoading
               ? const Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(AppSpacing.sm),
                   child: SizedBox(
-                    width: 24,
-                    height: 24,
+                    width: AppIconSize.lg,
+                    height: AppIconSize.lg,
                     child: CircularProgressIndicator(strokeWidth: 2),
                   ),
                 )
@@ -66,7 +65,7 @@ class _LookArticleState extends ConsumerState<LookArticle> {
                               getRandomArticleProviderProvider.future,
                             );
                             if (!mounted) return;
-                            // Si ya no estamos en la ruta actual, no navegar
+                            // Don't navigate if we're no longer on current route
                             final isCurrentRoute =
                                 ModalRoute.of(context)?.isCurrent ?? false;
                             if (!isCurrentRoute) return;

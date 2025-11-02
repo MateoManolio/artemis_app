@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:artemis_app/l10n/app_localizations.dart';
+import 'package:artemis_app/src/config/theme/app_theme.dart';
 
 class OpenAccessButton extends StatelessWidget {
   final VoidCallback? onViewPdf;
   final VoidCallback? onViewSource;
   final bool hasPdf;
 
-  static const double _buttonHeight = 48.0;
-  static const double _spacing = 12.0;
-
+  static const double isPdfEnabledOpacity = 1.0;
+  static const double isSourceEnabledOpacity = 1.0;
+  static const double disabledOpacity = 0.5;
   const OpenAccessButton({
     super.key,
     this.onViewPdf,
@@ -18,6 +19,8 @@ class OpenAccessButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
     final isSourceEnabled = onViewSource != null;
     final isPdfEnabled = onViewPdf != null;
     final l10n = AppLocalizations.of(context)!;
@@ -25,29 +28,32 @@ class OpenAccessButton extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        // Botón PDF - siempre visible
+        // PDF button - always visible
         if (hasPdf)
           Opacity(
-            opacity: isPdfEnabled ? 1.0 : 0.5,
+            opacity: isPdfEnabled ? isPdfEnabledOpacity : disabledOpacity,
             child: GestureDetector(
               onTap: isPdfEnabled ? onViewPdf : null,
               child: Container(
-                height: _buttonHeight,
+                height: AppButtonHeight.md,
                 decoration: BoxDecoration(
-                  color: Colors.green[700],
-                  borderRadius: BorderRadius.circular(8),
+                  color: colorScheme.tertiary,
+                  borderRadius: BorderRadius.circular(AppBorderRadius.sm),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.book_online, size: 18, color: Colors.white),
-                    SizedBox(width: _spacing),
+                    Icon(
+                      Icons.book_online,
+                      size: AppIconSize.md,
+                      color: colorScheme.onTertiary,
+                    ),
+                    const SizedBox(width: AppSpacing.md),
                     Text(
                       l10n.openAccessPdf,
-                      style: TextStyle(
-                        color: Colors.white,
+                      style: theme.textTheme.labelLarge?.copyWith(
+                        color: colorScheme.onTertiary,
                         fontWeight: FontWeight.w600,
-                        fontSize: 15,
                       ),
                     ),
                   ],
@@ -55,43 +61,42 @@ class OpenAccessButton extends StatelessWidget {
               ),
             ),
           ),
-        SizedBox(height: _spacing),
+        const SizedBox(height: AppSpacing.md),
 
-        // Botón View Source - siempre visible, más grande
+        // View Source button - always visible, larger
         Opacity(
-          opacity: isSourceEnabled ? 1.0 : 0.5,
+          opacity: isSourceEnabled ? isSourceEnabledOpacity : disabledOpacity,
           child: GestureDetector(
             onTap: isSourceEnabled ? onViewSource : null,
             child: Container(
-              height: _buttonHeight,
+              height: AppButtonHeight.md,
               decoration: BoxDecoration(
                 border: Border.all(
                   color: isSourceEnabled
-                      ? Colors.grey[700]!
-                      : Colors.grey[400]!,
+                      ? colorScheme.outline
+                      : colorScheme.outlineVariant,
                   width: 1.5,
                 ),
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(AppBorderRadius.sm),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
                     Icons.open_in_new,
-                    size: 18,
+                    size: AppIconSize.md,
                     color: isSourceEnabled
-                        ? Colors.grey[800]
-                        : Colors.grey[500],
+                        ? colorScheme.onSurface
+                        : colorScheme.onSurfaceVariant,
                   ),
-                  SizedBox(width: _spacing),
+                  const SizedBox(width: AppSpacing.md),
                   Text(
                     l10n.viewSource,
-                    style: TextStyle(
-                      fontSize: 15,
+                    style: theme.textTheme.labelLarge?.copyWith(
                       fontWeight: FontWeight.w600,
                       color: isSourceEnabled
-                          ? Colors.grey[800]
-                          : Colors.grey[500],
+                          ? colorScheme.onSurface
+                          : colorScheme.onSurfaceVariant,
                     ),
                   ),
                 ],

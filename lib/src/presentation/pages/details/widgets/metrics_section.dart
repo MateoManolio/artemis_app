@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:artemis_app/l10n/app_localizations.dart';
+import 'package:artemis_app/src/config/theme/app_theme.dart';
 import 'package:artemis_app/src/presentation/pages/details/widgets/metric_card.dart';
 
 class MetricsSection extends StatelessWidget {
   final Map<String, String> metrics;
-  
-  static const double _spacing = 16.0;
-  static const double _fontSize = 18.0;
 
   const MetricsSection({
     super.key,
@@ -15,6 +13,7 @@ class MetricsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final entries = metrics.entries.toList();
     final l10n = AppLocalizations.of(context)!;
     
@@ -23,12 +22,11 @@ class MetricsSection extends StatelessWidget {
       children: [
         Text(
           l10n.metrics,
-          style: TextStyle(
-            fontSize: _fontSize,
+          style: theme.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.bold,
           ),
         ),
-        SizedBox(height: _spacing),
+        const SizedBox(height: AppSpacing.lg),
         Row(
           children: List.generate(
             entries.length * 2 - 1,
@@ -41,7 +39,7 @@ class MetricsSection extends StatelessWidget {
                   ),
                 );
               } else {
-                return SizedBox(width: _spacing);
+                return const SizedBox(width: AppSpacing.lg);
               }
             },
           ),

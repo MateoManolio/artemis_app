@@ -1,5 +1,6 @@
 import 'package:artemis_app/src/presentation/pages/details/providers/toogle_favorite_provider.dart';
 import 'package:artemis_app/src/presentation/providers/articles_read_provider.dart';
+import 'package:artemis_app/src/config/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,12 +29,11 @@ class DetailsPage extends ConsumerStatefulWidget {
 }
 
 class _DetailsPageState extends ConsumerState<DetailsPage> {
-  // Constants
-  static const double _spacing = 16.0;
-  static const double _spacingLarge = 24.0;
   bool _isFavorite = false;
 
-  /// Abre una URL en el navegador externo
+  static const String unknown = 'Unknown';
+
+  /// Opens a URL in the external browser
   Future<void> _launchUrl(String url) async {
     ref.read(articlesReadProviderProvider.notifier).incrementArticlesRead();
     if (url.isEmpty) return;
@@ -53,8 +53,8 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    
-    // Si no hay artículo, mostrar error
+
+    // Show error if there's no article
     if (widget.article == null) {
       return Scaffold(
         appBar: AppBar(
@@ -67,7 +67,7 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
       );
     }
 
-    // Preparar datos del artículo
+    // Prepare article data
     final tags = [
       widget.article!.type.displayName,
       widget.article!.year.toString(),
@@ -94,7 +94,7 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
         ),
         backgroundColor: Colors.transparent,
         elevation: 3,
-        systemOverlayStyle: const SystemUiOverlayStyle(
+        systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
         ),
         actions: [
@@ -112,29 +112,29 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.only(
-          top: MediaQuery.of(context).padding.top + 80,
-          left: _spacing,
-          right: _spacing,
-          bottom: _spacing,
+          top: MediaQuery.of(context).padding.top + AppSpacing.xxxxl,
+          left: AppSpacing.lg,
+          right: AppSpacing.lg,
+          bottom: AppSpacing.lg,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ArticleTitle(title: widget.article!.title),
-            const SizedBox(height: _spacingLarge),
+            const SizedBox(height: AppSpacing.xl),
 
             ArticleTags(tags: tags),
-            const SizedBox(height: _spacingLarge),
+            const SizedBox(height: AppSpacing.xl),
 
             PublicationInfo(
               publication: widget.article!.institutions.isNotEmpty
                   ? widget.article!.institutions.first
-                  : 'Unknown',
+                  : unknown,
               author: widget.article!.authors.isNotEmpty
                   ? widget.article!.authors.first
-                  : 'Unknown',
+                  : unknown,
             ),
-            const SizedBox(height: _spacingLarge),
+            const SizedBox(height: AppSpacing.xl),
 
             OpenAccessButton(
               hasPdf: true,
@@ -145,26 +145,27 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                   ? () => _launchUrl(widget.article!.pageUrl)
                   : null,
             ),
-            const SizedBox(height: _spacingLarge),
+            const SizedBox(height: AppSpacing.xl),
 
             MetricsSection(metrics: metrics),
-            const SizedBox(height: _spacingLarge),
+            const SizedBox(height: AppSpacing.xl),
 
             if (widget.article!.topics.isNotEmpty)
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SectionTitle(title: l10n.keyTopics),
-                  const SizedBox(height: _spacing),
-                  ArticleTags(tags: widget.article!.topics, borderRadius: 12.0),
-                  const SizedBox(height: _spacingLarge),
+                  const SizedBox(height: AppSpacing.lg),
+                  ArticleTags(
+                    tags: widget.article!.topics,
+                    borderRadius: AppBorderRadius.md,
+                  ),
+                  const SizedBox(height: AppSpacing.xl),
                 ],
               ),
 
-            AbstractSection(
-              abstract: l10n.abstractNotAvailable,
-            ),
-            const SizedBox(height: _spacingLarge),
+            AbstractSection(abstract: l10n.abstractNotAvailable),
+            const SizedBox(height: AppSpacing.xl),
 
             const BottomActions(),
           ],

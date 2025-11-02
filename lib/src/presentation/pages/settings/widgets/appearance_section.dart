@@ -1,4 +1,5 @@
 import 'package:artemis_app/src/presentation/pages/settings/widgets/setting_dropdown_button.dart';
+import 'package:artemis_app/src/config/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:artemis_app/l10n/app_localizations.dart';
@@ -14,7 +15,6 @@ class AppearanceSection extends ConsumerWidget {
     final themeMode = ref.watch(themeModeProvider);
     final l10n = AppLocalizations.of(context)!;
 
-    // Determinar si está en dark mode o no
     final isDarkMode = themeMode == ThemeMode.dark;
 
     void toggleTheme() {
@@ -34,7 +34,7 @@ class AppearanceSection extends ConsumerWidget {
           value: isDarkMode,
           onChanged: (_) => toggleTheme(),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: AppSpacing.lg),
         SettingDropdownButton(),
       ],
     );

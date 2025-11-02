@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:artemis_app/l10n/app_localizations.dart';
+import 'package:artemis_app/src/config/theme/app_theme.dart';
 import 'package:artemis_app/src/presentation/providers/articles_filters_provider.dart';
 import 'custom_modal.dart';
 
@@ -23,25 +24,6 @@ class FilterModal extends ConsumerStatefulWidget {
 }
 
 class _FilterModalState extends ConsumerState<FilterModal> {
-  // Layout constants
-  static const double _spacingSmall = 12.0;
-  static const double _spacingMedium = 16.0;
-  static const double _spacingLarge = 24.0;
-  static const double _spacingXLarge = 32.0;
-
-  // Border radius constants
-  static const double _radiusSmall = 8.0;
-  static const double _radiusMedium = 12.0;
-
-  // Font size constants
-  static const double _fontSizeSmall = 14.0;
-  static const double _fontSizeMedium = 16.0;
-
-  // Icon and component sizes
-  static const double _iconSizeSmall = 16.0;
-  static const double _iconSizeMedium = 24.0;
-  static const double _buttonHeight = 56.0;
-
   // Year range constants
   static const double _minYear = 2000.0;
   static const double _maxYear = 2024.0;
@@ -55,7 +37,7 @@ class _FilterModalState extends ConsumerState<FilterModal> {
   @override
   void initState() {
     super.initState();
-    // Inicializar con los valores actuales del provider de filtros
+    // Initialize with current filter provider values
     final filters = ref.read(articlesFiltersNotifierProvider);
     if (filters.fromYear != null) {
       _startYear = filters.fromYear!.toDouble();
@@ -81,19 +63,19 @@ class _FilterModalState extends ConsumerState<FilterModal> {
       headerActions: _buildClearButton(context, theme, l10n),
       footer: _buildFooter(context, theme, l10n),
       child: SingleChildScrollView(
-        padding: EdgeInsets.all(_spacingLarge),
+        padding: const EdgeInsets.all(AppSpacing.xl),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Publication year filter
             _buildPublicationYearFilter(theme, l10n),
 
-            SizedBox(height: _spacingXLarge),
+            const SizedBox(height: AppSpacing.xxl),
 
             // Publication type filter
-            _buildPublicationTypeFilter(l10n),
+            _buildPublicationTypeFilter(context, theme),
 
-            SizedBox(height: _spacingXLarge),
+            const SizedBox(height: AppSpacing.xxl),
 
             // Access filter
             _buildAccessFilter(theme, l10n),
@@ -116,9 +98,8 @@ class _FilterModalState extends ConsumerState<FilterModal> {
       },
       child: Text(
         l10n.clear,
-        style: TextStyle(
+        style: theme.textTheme.labelLarge?.copyWith(
           color: theme.colorScheme.primary,
-          fontSize: _fontSizeMedium,
           fontWeight: FontWeight.w500,
         ),
       ),
@@ -129,7 +110,7 @@ class _FilterModalState extends ConsumerState<FilterModal> {
     return Column(
       children: [
         _buildApplyButton(context, theme, l10n),
-        SizedBox(height: _spacingXLarge),
+        const SizedBox(height: AppSpacing.xxl),
       ],
     );
   }
@@ -143,22 +124,20 @@ class _FilterModalState extends ConsumerState<FilterModal> {
           children: [
             Text(
               l10n.publicationYear,
-              style: TextStyle(
-                fontSize: _fontSizeMedium,
+              style: theme.textTheme.labelLarge?.copyWith(
                 fontWeight: FontWeight.bold,
                 color: theme.colorScheme.onSurface,
               ),
             ),
             Text(
               '${_startYear.toInt()} - ${_endYear.toInt()}',
-              style: TextStyle(
-                fontSize: _fontSizeSmall,
+              style: theme.textTheme.bodyMedium?.copyWith(
                 color: theme.colorScheme.onSurface,
               ),
             ),
           ],
         ),
-        SizedBox(height: _spacingMedium),
+        const SizedBox(height: AppSpacing.md),
         RangeSlider(
           values: RangeValues(_startYear, _endYear),
           min: _minYear,
@@ -177,20 +156,20 @@ class _FilterModalState extends ConsumerState<FilterModal> {
     );
   }
 
-  Widget _buildPublicationTypeFilter(AppLocalizations l10n) {
+  Widget _buildPublicationTypeFilter(BuildContext context, ThemeData theme) {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           l10n.publicationType,
-          style: TextStyle(
-            fontSize: _fontSizeMedium,
+          style: theme.textTheme.labelLarge?.copyWith(
             fontWeight: FontWeight.bold,
           ),
         ),
-        SizedBox(height: _spacingSmall),
+        const SizedBox(height: AppSpacing.md),
         Row(
-          spacing: _spacingSmall,
+          spacing: AppSpacing.md,
           children: [
             _buildPublicationTypeButton('Articles', l10n.articles),
             _buildPublicationTypeButton('Journals', l10n.journals),
@@ -215,28 +194,27 @@ class _FilterModalState extends ConsumerState<FilterModal> {
           });
         },
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: _spacingSmall),
+          padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
           decoration: BoxDecoration(
             color: isSelected
                 ? Theme.of(context).colorScheme.primary
-                : Colors.white.withValues(alpha: 0.7),
-            borderRadius: BorderRadius.circular(_radiusSmall),
+                : Theme.of(context).colorScheme.surfaceContainerLowest.withValues(alpha: 0.7),
+            borderRadius: BorderRadius.circular(AppBorderRadius.sm),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.1),
+                color: Theme.of(context).colorScheme.shadow.withValues(alpha: 0.1),
                 blurRadius: 2,
-                offset: Offset(0, 1),
+                offset: const Offset(0, 1),
               ),
             ],
           ),
           child: Center(
             child: Text(
               label,
-              style: TextStyle(
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 color: isSelected
-                    ? Colors.white
+                    ? Theme.of(context).colorScheme.onPrimary
                     : Theme.of(context).colorScheme.onSurface,
-                fontSize: _fontSizeSmall,
                 fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
               ),
             ),
@@ -252,13 +230,12 @@ class _FilterModalState extends ConsumerState<FilterModal> {
       children: [
         Text(
           l10n.access,
-          style: TextStyle(
-            fontSize: _fontSizeMedium,
+          style: theme.textTheme.labelLarge?.copyWith(
             fontWeight: FontWeight.bold,
             color: theme.colorScheme.onSurface,
           ),
         ),
-        SizedBox(height: _spacingSmall),
+        const SizedBox(height: AppSpacing.md),
         GestureDetector(
           onTap: () {
             setState(() {
@@ -269,23 +246,23 @@ class _FilterModalState extends ConsumerState<FilterModal> {
             });
           },
           child: Container(
-            padding: EdgeInsets.all(_spacingMedium),
+            padding: const EdgeInsets.all(AppSpacing.md),
             decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.7),
-              borderRadius: BorderRadius.circular(_radiusMedium),
+              color: theme.colorScheme.surfaceContainerLowest.withValues(alpha: 0.7),
+              borderRadius: BorderRadius.circular(AppBorderRadius.md),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.1),
+                  color: theme.colorScheme.shadow.withValues(alpha: 0.1),
                   blurRadius: 2,
-                  offset: Offset(0, 1),
+                  offset: const Offset(0, 1),
                 ),
               ],
             ),
             child: Row(
               children: [
                 Container(
-                  width: _iconSizeMedium,
-                  height: _iconSizeMedium,
+                  width: AppIconSize.lg,
+                  height: AppIconSize.lg,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: _openAccess
@@ -294,15 +271,14 @@ class _FilterModalState extends ConsumerState<FilterModal> {
                   ),
                   child: Icon(
                     _openAccess ? Icons.check : null,
-                    color: _openAccess ? Colors.white : null,
-                    size: _iconSizeSmall,
+                    color: _openAccess ? theme.colorScheme.onPrimary : null,
+                    size: AppIconSize.sm,
                   ),
                 ),
-                SizedBox(width: _spacingSmall),
+                const SizedBox(width: AppSpacing.md),
                 Text(
                   l10n.openAccess,
-                  style: TextStyle(
-                    fontSize: _fontSizeMedium,
+                  style: theme.textTheme.labelLarge?.copyWith(
                     color: theme.colorScheme.onSurface,
                   ),
                 ),
@@ -316,10 +292,10 @@ class _FilterModalState extends ConsumerState<FilterModal> {
 
   Widget _buildApplyButton(BuildContext context, ThemeData theme, AppLocalizations l10n) {
     return Padding(
-      padding: EdgeInsets.all(_spacingMedium),
+      padding: const EdgeInsets.all(AppSpacing.md),
       child: SizedBox(
         width: double.infinity,
-        height: _buttonHeight,
+        height: AppButtonHeight.lg,
         child: ElevatedButton(
           onPressed: () {
             // Map UI state to provider filters
@@ -341,14 +317,13 @@ class _FilterModalState extends ConsumerState<FilterModal> {
           style: ElevatedButton.styleFrom(
             backgroundColor: theme.colorScheme.primary,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(_radiusMedium),
+              borderRadius: BorderRadius.circular(AppBorderRadius.md),
             ),
           ),
           child: Text(
             l10n.applyFilters,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: _fontSizeMedium,
+            style: theme.textTheme.labelLarge?.copyWith(
+              color: theme.colorScheme.onPrimary,
               fontWeight: FontWeight.w600,
             ),
           ),

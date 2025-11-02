@@ -10,13 +10,13 @@ class FirebaseAuthService implements IAuthDatasource {
   FirebaseAuthService({
     required firebase_auth.FirebaseAuth? auth,
     required GoogleSignIn? google,
-  })  : _auth = auth ?? firebase_auth.FirebaseAuth.instance,
-        _google = google ?? GoogleSignIn(scopes: const ['email']);
+  }) : _auth = auth ?? firebase_auth.FirebaseAuth.instance,
+       _google = google ?? GoogleSignIn(scopes: const ['email']);
 
   @override
-  Stream<UserModel?> authState() => _auth
-      .authStateChanges()
-      .map((u) => u == null ? null : UserModel.fromFirebaseUser(u));
+  Stream<UserModel?> authState() => _auth.authStateChanges().map(
+    (u) => u == null ? null : UserModel.fromFirebaseUser(u),
+  );
 
   @override
   Future<UserModel?> signInWithGoogle() async {
@@ -38,12 +38,12 @@ class FirebaseAuthService implements IAuthDatasource {
 
     if (u == null) return null;
 
-    // Si Firebase no tiene el displayName, usar el de Google y actualizarlo
+    // If Firebase does not have a displayName, use Google's and update it
     if (u.displayName == null && acc.displayName != null) {
       await u.updateDisplayName(acc.displayName);
     }
 
-    // Si Firebase no tiene la photoURL, usar el de Google y actualizarlo
+    // If Firebase does not have a photoURL, use Google's and update it
     if (u.photoURL == null && acc.photoUrl != null) {
       await u.updatePhotoURL(acc.photoUrl);
     }

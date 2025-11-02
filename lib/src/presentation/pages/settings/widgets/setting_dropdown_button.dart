@@ -1,5 +1,6 @@
 import 'package:artemis_app/l10n/app_localizations.dart';
 import 'package:artemis_app/src/config/localization/locale_provider.dart';
+import 'package:artemis_app/src/core/util/config_constants.dart';
 import 'package:artemis_app/src/presentation/pages/settings/widgets/setting_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,9 +23,18 @@ class SettingDropdownButton extends ConsumerWidget {
           }
         },
         items: [
-          DropdownMenuItem(value: Locale('en'), child: Text(l10n.english)),
-          DropdownMenuItem(value: Locale('es'), child: Text(l10n.spanish)),
-          DropdownMenuItem(value: Locale('pt'), child: Text(l10n.portuguese)),
+          DropdownMenuItem(
+            value: Locale(ConfigConstants.english),
+            child: Text(l10n.english),
+          ),
+          DropdownMenuItem(
+            value: Locale(ConfigConstants.spanish),
+            child: Text(l10n.spanish),
+          ),
+          DropdownMenuItem(
+            value: Locale(ConfigConstants.portuguese),
+            child: Text(l10n.portuguese),
+          ),
         ],
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-/// Widget que carga un SVG de forma segura con manejo de errores
+/// Widget that safely loads an SVG with error handling
 class SafeSvgPicture extends StatelessWidget {
   final String assetPath;
   final double? width;

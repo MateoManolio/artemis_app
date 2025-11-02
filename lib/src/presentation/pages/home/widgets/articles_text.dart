@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:artemis_app/src/config/theme/app_theme.dart';
 
 class ArticlesText extends StatelessWidget {
-  static const double _titleFontSize = 18.0;
-  static const double _subtitleFontSize = 14.0;
   static const double _verticalSpacing = 4.0;
-  static const double _iconSize = 16.0;
-  static const double _iconBorderRadius = 16.0;
-  static const double _iconShadowBlur = 2.0;
-  static const double _iconShadowOffsetY = 1.0;
-  static const double _iconSpacing = 8.0;
   static const double _subtitleOpacity = 0.6;
   static const double _iconShadowOpacity = 0.1;
-  static const double padding = 16.0;
+  static const double _iconShadowBlur = 2.0;
+  static const double _iconShadowOffsetY = 1.0;
+  static const int _maxLines = 2;
 
   const ArticlesText({
     super.key,
@@ -37,28 +33,27 @@ class ArticlesText extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                spacing: _iconSpacing,
+                spacing: AppSpacing.sm,
                 children: [
                   Flexible(
                     child: Text(
                       title,
-                      style: TextStyle(
-                        fontSize: _titleFontSize,
+                      style: theme.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                         color: theme.colorScheme.onSurface,
                       ),
-                      maxLines: 2,
+                      maxLines: _maxLines,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   if (isOa)
                     Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(_iconBorderRadius),
-                        color: Colors.blueAccent,
+                        borderRadius: BorderRadius.circular(AppBorderRadius.lg),
+                        color: theme.colorScheme.tertiary,
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withValues(
+                            color: theme.colorScheme.shadow.withValues(
                               alpha: _iconShadowOpacity,
                             ),
                             blurRadius: _iconShadowBlur,
@@ -66,10 +61,10 @@ class ArticlesText extends StatelessWidget {
                           ),
                         ],
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.check_circle,
-                        color: Colors.white,
-                        size: _iconSize,
+                        color: theme.colorScheme.surface,
+                        size: AppIconSize.sm,
                       ),
                     ),
                 ],
@@ -77,8 +72,7 @@ class ArticlesText extends StatelessWidget {
               const SizedBox(height: _verticalSpacing),
               Text(
                 domain,
-                style: TextStyle(
-                  fontSize: _subtitleFontSize,
+                style: theme.textTheme.bodyMedium?.copyWith(
                   color: theme.colorScheme.onSurface.withValues(
                     alpha: _subtitleOpacity,
                   ),
@@ -88,11 +82,10 @@ class ArticlesText extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(width: padding),
+        const SizedBox(width: AppSpacing.lg),
         Text(
           type,
-          style: TextStyle(
-            fontSize: _subtitleFontSize,
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.colorScheme.onSurface.withValues(
               alpha: _subtitleOpacity,
             ),

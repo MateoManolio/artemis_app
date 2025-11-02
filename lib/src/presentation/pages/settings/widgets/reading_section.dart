@@ -1,4 +1,5 @@
 import 'package:artemis_app/src/presentation/providers/weekly_goal_provider.dart';
+import 'package:artemis_app/src/config/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:artemis_app/l10n/app_localizations.dart';
@@ -11,7 +12,7 @@ class ReadingSection extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final weeklyGoal = ref.watch(weeklyGoalProvider);
     final l10n = AppLocalizations.of(context)!;
-    
+
     return Column(
       children: [
         SettingOption(
@@ -23,29 +24,29 @@ class ReadingSection extends ConsumerWidget {
             await showDialog<int>(
               context: context,
               builder: (context) {
+                final theme = Theme.of(context);
                 final TextEditingController controller =
                     TextEditingController();
                 return Dialog(
                   insetPadding: const EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 24,
+                    horizontal: AppSpacing.xl,
+                    vertical: AppSpacing.xl,
                   ),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(AppBorderRadius.lg),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(24.0),
+                    padding: const EdgeInsets.all(AppSpacing.xl),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
                           l10n.setWeeklyGoal,
-                          style: const TextStyle(
-                            fontSize: 20,
+                          style: theme.textTheme.titleLarge?.copyWith(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: AppSpacing.lg),
                         TextField(
                           controller: controller,
                           autofocus: true,
@@ -55,7 +56,7 @@ class ReadingSection extends ConsumerWidget {
                             border: const OutlineInputBorder(),
                           ),
                         ),
-                        const SizedBox(height: 24),
+                        const SizedBox(height: AppSpacing.xl),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -65,7 +66,7 @@ class ReadingSection extends ConsumerWidget {
                               },
                               child: Text(l10n.cancel),
                             ),
-                            const SizedBox(width: 12),
+                            const SizedBox(width: AppSpacing.md),
                             ElevatedButton(
                               onPressed: () {
                                 final value = int.tryParse(controller.text);
@@ -76,9 +77,7 @@ class ReadingSection extends ConsumerWidget {
                                   Navigator.of(context).pop();
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                      content: Text(
-                                        l10n.weeklyGoalSet(value),
-                                      ),
+                                      content: Text(l10n.weeklyGoalSet(value)),
                                     ),
                                   );
                                 } else {
@@ -103,7 +102,7 @@ class ReadingSection extends ConsumerWidget {
             );
           },
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: AppSpacing.sm),
         SettingOption(
           icon: Icons.text_fields_outlined,
           title: l10n.fontSize,
@@ -111,12 +110,12 @@ class ReadingSection extends ConsumerWidget {
           value: l10n.medium,
           onTap: () {
             // TODO: Implement font size selector
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(l10n.fontSizeComingSoon)),
-            );
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text(l10n.fontSizeComingSoon)));
           },
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: AppSpacing.sm),
         SettingOption(
           icon: Icons.auto_stories_outlined,
           title: l10n.readingMode,
@@ -124,9 +123,9 @@ class ReadingSection extends ConsumerWidget {
           value: l10n.distractionFree,
           onTap: () {
             // TODO: Implement reading mode selector
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(l10n.readingModeComingSoon)),
-            );
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text(l10n.readingModeComingSoon)));
           },
         ),
       ],

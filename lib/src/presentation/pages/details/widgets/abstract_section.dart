@@ -1,35 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:artemis_app/src/config/theme/app_theme.dart';
 import 'package:artemis_app/src/presentation/pages/details/widgets/section_title.dart';
 
 class AbstractSection extends StatelessWidget {
   final String abstract;
-  
-  static const double _spacing = 16.0;
-  static const double _fontSize = 14.0;
-  static const double _lineHeight = 1.6;
 
-  const AbstractSection({
-    super.key,
-    required this.abstract,
-  });
+  static const double _lineHeight = 1.6;
+  static const String abstractTitle = 'Abstract';
+  const AbstractSection({super.key, required this.abstract});
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SectionTitle(title: 'Abstract'),
-        SizedBox(height: _spacing),
+        const SectionTitle(title: abstractTitle),
+        const SizedBox(height: AppSpacing.lg),
         Text(
           abstract,
-          style: TextStyle(
-            fontSize: _fontSize,
+          style: theme.textTheme.bodyMedium?.copyWith(
             height: _lineHeight,
-            color: Colors.grey[800],
+            color: theme.colorScheme.onSurface,
           ),
         ),
       ],
     );
   }
 }
-

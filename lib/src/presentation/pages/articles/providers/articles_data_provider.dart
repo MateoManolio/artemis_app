@@ -50,13 +50,13 @@ class ArticlesData extends _$ArticlesData {
     await fetchArticles(false);
   }
 
-  /// Agrega artículos a la lista actual (para infinite scroll)
+  /// Adds articles to the current list (for infinite scroll)
   void appendArticles(List<Article> newArticles) {
     final currentArticles = state.value ?? [];
     state = AsyncData([...currentArticles, ...newArticles]);
   }
 
-  /// Fuerza revalidación
+  /// Forces revalidation
   Future<void> refresh() async {
     query = '';
     ref.invalidateSelf();

@@ -15,7 +15,7 @@ class OpenalexApiService implements IArticleApiDatasource {
   @override
   Future<DataState<WorkDto>> getArticleById(String id) async {
     try {
-      // Limpiar el ID en caso de que venga con el prefijo completo de OpenAlex
+      // Clean the ID in case it comes with the full OpenAlex prefix
       final cleanId = _cleanOpenAlexId(id);
 
       final response = await _client.get('/works/$cleanId');
@@ -48,23 +48,23 @@ class OpenalexApiService implements IArticleApiDatasource {
     try {
       final queryParameters = <String, dynamic>{};
 
-      // Construir el filtro de búsqueda
+      // Build the search filter
       if (query != null && query.isNotEmpty) {
         queryParameters['search'] = query;
       }
 
-      // Paginación
+      // Pagination
       queryParameters['page'] = page ?? 1;
       queryParameters['per-page'] = perPage ?? 25;
 
-      // Filtros tipados
+      // Typed filters
       if (filters != null) {
         queryParameters.addAll(
           OpenAlexFiltersMapper.toQueryParameters(filters),
         );
       }
 
-      // Ordenar por relevancia o fecha de publicación si no lo define el filtro
+      // Sort by relevance or publication date if not defined in the filter
       queryParameters['sort'] =
           queryParameters['sort'] ??
           ((query != null && query.isNotEmpty)
@@ -107,7 +107,7 @@ class OpenalexApiService implements IArticleApiDatasource {
 
       final queryParameters = <String, dynamic>{
         'search': query,
-        'per-page': 10, // Limitar resultados para autocompletado
+        'per-page': 10, // Limit results for autocomplete
         'sort': 'relevance_score:desc',
       };
 
@@ -158,7 +158,7 @@ class OpenalexApiService implements IArticleApiDatasource {
     }
   }
 
-  /// Buscar artículos por autor
+  /// Search articles by author
   Future<DataState<List<WorkDto>>> getArticlesByAuthor({
     required String authorId,
     int? page,
@@ -200,7 +200,7 @@ class OpenalexApiService implements IArticleApiDatasource {
     }
   }
 
-  /// Buscar artículos por tema/topic
+  /// Search articles by topic/topic
   Future<DataState<List<WorkDto>>> getArticlesByTopic({
     required String topicId,
     int? page,
@@ -242,7 +242,7 @@ class OpenalexApiService implements IArticleApiDatasource {
     }
   }
 
-  /// Buscar artículos de acceso abierto
+  /// Search open access articles
   Future<DataState<List<WorkDto>>> getOpenAccessArticles({
     String? query,
     int? page,
@@ -288,7 +288,7 @@ class OpenalexApiService implements IArticleApiDatasource {
     }
   }
 
-  /// Limpia el ID de OpenAlex para extraer solo el identificador
+  /// Clean the OpenAlex ID to extract only the identifier
   /// Ejemplo: "https://openalex.org/W2741809807" -> "W2741809807"
   String _cleanOpenAlexId(String id) {
     if (id.contains('openalex.org/')) {
@@ -297,7 +297,7 @@ class OpenalexApiService implements IArticleApiDatasource {
     return id;
   }
 
-  /// Maneja los errores de Dio y retorna una excepción descriptiva
+  /// Handle the Dio errors and return a descriptive exception
   Exception _handleDioError(DioException error) {
     switch (error.type) {
       case DioExceptionType.connectionTimeout:

@@ -1,13 +1,14 @@
 import 'package:artemis_app/src/config/route/details_parameters.dart';
+import 'package:artemis_app/src/config/theme/app_theme.dart';
 import 'package:artemis_app/src/domain/entity/article.dart';
+import 'package:artemis_app/src/presentation/pages/details/details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:artemis_app/l10n/app_localizations.dart';
 import 'package:artemis_app/src/presentation/pages/home/widgets/articles_text.dart';
 
 class FavoritesList extends StatelessWidget {
-  static const double separatorHeight = 6;
-  static const double padding = 16;
+  static const double separatorHeight = 6.0;
 
   final List<Article> articles;
   const FavoritesList({super.key, required this.articles});
@@ -21,11 +22,10 @@ class FavoritesList extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(bottom: padding),
+          padding: const EdgeInsets.only(bottom: AppSpacing.lg),
           child: Text(
             l10n.favorites,
-            style: TextStyle(
-              fontSize: 20,
+            style: theme.textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.bold,
               color: theme.colorScheme.onSurface,
             ),
@@ -45,11 +45,11 @@ class FavoritesList extends StatelessWidget {
 
               return InkWell(
                 onTap: () => context.push(
-                  '/details',
+                  DetailsPage.routeName,
                   extra: DetailsParameters(article: article),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(padding),
+                  padding: const EdgeInsets.all(AppSpacing.lg),
                   child: ArticlesText(
                     title: article.title,
                     domain: article.domain,
@@ -66,12 +66,12 @@ class FavoritesList extends StatelessWidget {
 
   Widget _buildEmptyPlaceholder(ThemeData theme, BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    
+
     return Container(
-      padding: const EdgeInsets.all(padding * 2),
+      padding: const EdgeInsets.all(AppSpacing.xxl),
       decoration: BoxDecoration(
         color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(AppBorderRadius.md),
         border: Border.all(
           color: theme.colorScheme.outline.withValues(alpha: 0.2),
           width: 1,
@@ -83,24 +83,22 @@ class FavoritesList extends StatelessWidget {
           children: [
             Icon(
               Icons.bookmark_border,
-              size: 64,
+              size: AppIconSize.xxxl,
               color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: AppSpacing.lg),
             Text(
               l10n.noFavoritesYet,
-              style: TextStyle(
-                fontSize: 18,
+              style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w600,
                 color: theme.colorScheme.onSurface,
               ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: AppSpacing.sm),
             Text(
               l10n.startExploringArticles,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 14,
+              style: theme.textTheme.bodyMedium?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),
             ),

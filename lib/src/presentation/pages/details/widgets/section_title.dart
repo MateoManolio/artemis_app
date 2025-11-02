@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 class SectionTitle extends StatelessWidget {
   final String title;
-  
-  static const double _fontSize = 18.0;
 
   const SectionTitle({
     super.key,
@@ -12,10 +10,11 @@ class SectionTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    
     return Text(
       title,
-      style: TextStyle(
-        fontSize: _fontSize,
+      style: theme.textTheme.titleMedium?.copyWith(
         fontWeight: FontWeight.bold,
       ),
     );

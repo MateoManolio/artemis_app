@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:artemis_app/l10n/app_localizations.dart';
+import 'package:artemis_app/src/config/theme/app_theme.dart';
 
 class WelcomeText extends StatelessWidget {
   const WelcomeText({super.key});
@@ -20,7 +21,7 @@ class WelcomeText extends StatelessWidget {
           ),
           textAlign: TextAlign.center,
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: AppSpacing.md),
         Text(
           l10n.signInToExplore,
           style: theme.textTheme.titleMedium?.copyWith(
