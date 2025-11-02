@@ -21,14 +21,14 @@ class ArticlesSearchBar extends StatelessWidget {
         hintText: l10n.searchArticles,
         prefixIcon: const Icon(Icons.search),
         filled: true,
-        fillColor: colorScheme.surfaceContainer,
+        fillColor: colorScheme.surfaceContainerLowest,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppBorderRadius.md),
-          borderSide: BorderSide.none,
+          borderSide: BorderSide(color: colorScheme.outline),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppBorderRadius.md),
-          borderSide: BorderSide.none,
+          borderSide: BorderSide(color: colorScheme.outline),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppBorderRadius.md),

@@ -49,7 +49,7 @@ final class LightThemeProviderProvider
 }
 
 String _$lightThemeProviderHash() =>
-    r'64b8600d2aa92b6b2c07f0840807e7b3bbc9247a';
+    r'6c66d31b5806ae9948e26fe26ab82ba7eb05828b';
 
 @ProviderFor(darkThemeProvider)
 const darkThemeProviderProvider = DarkThemeProviderProvider._();
@@ -90,4 +90,4 @@ final class DarkThemeProviderProvider
   }
 }
 
-String _$darkThemeProviderHash() => r'f7b5caabd3fddcd448dc97ca8f7fe20ac9fb65cb';
+String _$darkThemeProviderHash() => r'5e02ffc012bb08244c23f66623916473469d3873';

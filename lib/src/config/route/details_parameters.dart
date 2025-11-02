@@ -1,6 +1,6 @@
 import 'package:artemis_app/src/domain/entity/article.dart';
 
-/// Parámetros para la navegación a la página de detalles
+/// Parameters for navigation to the details page
 class DetailsParameters {
   final Article article;
 

@@ -18,7 +18,7 @@ class ArticlesHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -34,6 +34,9 @@ class ArticlesHeader extends StatelessWidget {
             OutlinedButton(
               onPressed: onFiltersPressed,
               style: OutlinedButton.styleFrom(
+                backgroundColor: Theme.of(
+                  context,
+                ).colorScheme.surfaceContainerLowest,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(AppBorderRadius.md),
                 ),

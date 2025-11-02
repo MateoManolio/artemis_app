@@ -121,14 +121,29 @@ const _darkColorScheme = ColorScheme(
 
 @riverpod
 ThemeData lightThemeProvider(Ref ref) {
+  final colorScheme = _lightColorScheme;
+
   return ThemeData(
     useMaterial3: true,
-    colorScheme: _lightColorScheme,
+    colorScheme: colorScheme,
     appBarTheme: const AppBarTheme(centerTitle: true, elevation: 0),
     cardTheme: CardThemeData(
       elevation: 2,
+      color: colorScheme.surfaceContainerLowest,
+      surfaceTintColor: Colors.transparent,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppBorderRadius.md),
+      ),
+    ),
+    searchBarTheme: SearchBarThemeData(
+      backgroundColor: WidgetStateProperty.all(
+        colorScheme.surfaceContainerLowest,
+      ),
+      elevation: WidgetStateProperty.all(2),
+      shape: WidgetStateProperty.all(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppBorderRadius.md),
+        ),
       ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -142,20 +157,35 @@ ThemeData lightThemeProvider(Ref ref) {
         ),
       ),
     ),
-    textTheme: _buildTextTheme(_lightColorScheme),
+    textTheme: _buildTextTheme(colorScheme),
   );
 }
 
 @riverpod
 ThemeData darkThemeProvider(Ref ref) {
+  final colorScheme = _darkColorScheme;
+
   return ThemeData(
     useMaterial3: true,
-    colorScheme: _darkColorScheme,
+    colorScheme: colorScheme,
     appBarTheme: const AppBarTheme(centerTitle: true, elevation: 0),
     cardTheme: CardThemeData(
       elevation: 2,
+      color: colorScheme.surfaceContainerLowest,
+      surfaceTintColor: Colors.transparent,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppBorderRadius.md),
+      ),
+    ),
+    searchBarTheme: SearchBarThemeData(
+      backgroundColor: WidgetStateProperty.all(
+        colorScheme.surfaceContainerLowest,
+      ),
+      elevation: WidgetStateProperty.all(0),
+      shape: WidgetStateProperty.all(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppBorderRadius.md),
+        ),
       ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -169,7 +199,7 @@ ThemeData darkThemeProvider(Ref ref) {
         ),
       ),
     ),
-    textTheme: _buildTextTheme(_darkColorScheme),
+    textTheme: _buildTextTheme(colorScheme),
   );
 }
 
