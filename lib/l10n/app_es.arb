@@ -6,6 +6,9 @@
   "signInWithGoogle": "Iniciar sesión con Google",
   "skip": "OMITIR",
   "errorLogin": "Error: {error}",
+  "errorNoGoogleAccount": "La cuenta de Google no está disponible. Por favor añade la cuenta de Google en el dispositivo.",
+  "errorNetwork": "Error de conexión. Por favor revisa tu conexión a internet e intenta nuevamente.",
+  "errorInvalidToken": "El token de autenticación es invalido. Por favor intente nuevamente.",
   
   "hello": "Hola",
   "helloName": "Hola, {name}",

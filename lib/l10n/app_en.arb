@@ -13,6 +13,9 @@
       }
     }
   },
+  "errorNoGoogleAccount": "No Google account available. Please add a Google account to your device.",
+  "errorNetwork": "Network error. Please check your internet connection and try again.",
+  "errorInvalidToken": "Authentication token is invalid. Please try again.",
   
   "hello": "Hello",
   "helloName": "Hello, {name}",

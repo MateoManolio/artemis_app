@@ -27,6 +27,18 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String get errorNoGoogleAccount =>
+      'No Google account available. Please add a Google account to your device.';
+
+  @override
+  String get errorNetwork =>
+      'Network error. Please check your internet connection and try again.';
+
+  @override
+  String get errorInvalidToken =>
+      'Authentication token is invalid. Please try again.';
+
+  @override
   String get hello => 'Hola';
 
   @override

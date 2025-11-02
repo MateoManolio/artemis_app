@@ -27,6 +27,18 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
+  String get errorNoGoogleAccount =>
+      'Nenhuma conta do Google disponível. Por favor, adicione uma conta do Google ao seu dispositivo.';
+
+  @override
+  String get errorNetwork =>
+      'Erro de rede. Por favor, verifique sua conexão com a internet e tente novamente.';
+
+  @override
+  String get errorInvalidToken =>
+      'Token de autenticação inválido. Por favor, tente novamente.';
+
+  @override
   String get hello => 'Olá';
 
   @override

@@ -130,6 +130,24 @@ abstract class AppLocalizations {
   /// **'Error: {error}'**
   String errorLogin(String error);
 
+  /// No description provided for @errorNoGoogleAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'No Google account available. Please add a Google account to your device.'**
+  String get errorNoGoogleAccount;
+
+  /// No description provided for @errorNetwork.
+  ///
+  /// In en, this message translates to:
+  /// **'Network error. Please check your internet connection and try again.'**
+  String get errorNetwork;
+
+  /// No description provided for @errorInvalidToken.
+  ///
+  /// In en, this message translates to:
+  /// **'Authentication token is invalid. Please try again.'**
+  String get errorInvalidToken;
+
   /// No description provided for @hello.
   ///
   /// In en, this message translates to:
