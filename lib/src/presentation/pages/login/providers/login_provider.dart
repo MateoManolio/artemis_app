@@ -9,11 +9,9 @@ part 'login_provider.g.dart';
 
 @Riverpod(keepAlive: true)
 class LoginProvider extends _$LoginProvider {
-
   late final SignInWithGoogleUsecase _signInWithGoogleUsecase;
   late final ObserveAuthStateUsecase _observeAuthState;
   late final IAuthRepository _authRepository;
-
 
   @override
   User? build() {
@@ -21,15 +19,31 @@ class LoginProvider extends _$LoginProvider {
     _observeAuthState = ref.read(observeAuthStateUsecaseProvider);
     _authRepository = ref.read(authRepositoryProvider);
 
+    // Restore session from local storage on initialization
+    _restoreSession();
+
     final sub = _observeAuthState().listen((user) {
       if (!ref.mounted) return;
       state = user;
     });
     ref.onDispose(sub.cancel);
 
+    // Get current user (from Firebase or local storage)
     final currentUser = _authRepository.currentUser;
 
     return currentUser;
+  }
+
+  /// Restore user session from local storage
+  Future<void> _restoreSession() async {
+    if (ref.mounted) {
+      // The currentUser getter already checks local storage as fallback
+      // So we just ensure state is set correctly
+      final user = _authRepository.currentUser;
+      if (user != null) {
+        state = user;
+      }
+    }
   }
 
   Future<void> signInWithGoogle() async {

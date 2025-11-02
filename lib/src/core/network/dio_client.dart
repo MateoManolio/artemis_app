@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
+import 'retry_interceptor.dart';
 
 class DioClient {
   final String baseUrl;
@@ -26,6 +27,20 @@ class DioClient {
   }
 
   void _setupInterceptors() {
+    // Add retry interceptor first (will be executed last in error chain)
+    // Pass Dio instance via request options extra so retry can access it
+    _dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) {
+          options.extra['dio'] = _dio;
+          handler.next(options);
+        },
+      ),
+    );
+
+    _dio.interceptors.add(RetryInterceptor());
+
+    // Add logging interceptor
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) {

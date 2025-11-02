@@ -1,3 +1,4 @@
+import 'package:artemis_app/src/core/error/auth_exception.dart';
 import 'package:artemis_app/src/presentation/pages/login/providers/login_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,8 +23,36 @@ class LoginPage extends ConsumerWidget {
       if (context.mounted) {
         context.go(HomePage.routeName);
       }
+    } on AuthCancelledException {
+      // User cancelled - no need to show error, just silently return
+      return;
+    } on AuthException catch (e) {
+      // Handle specific auth errors
+      if (context.mounted) {
+        final l10n = AppLocalizations.of(context)!;
+        final colorScheme = Theme.of(context).colorScheme;
+        String errorMessage;
+        
+        if (e is NoGoogleAccountException) {
+          errorMessage = l10n.errorNoGoogleAccount;
+        } else if (e is AuthNetworkException) {
+          errorMessage = l10n.errorNetwork;
+        } else if (e is AuthInvalidTokenException) {
+          errorMessage = l10n.errorInvalidToken;
+        } else {
+          errorMessage = l10n.errorLogin(e.message);
+        }
+        
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(errorMessage),
+            backgroundColor: colorScheme.error,
+            duration: const Duration(seconds: 4),
+          ),
+        );
+      }
     } catch (e) {
-      // Handle error
+      // Handle generic errors
       if (context.mounted) {
         final l10n = AppLocalizations.of(context)!;
         final colorScheme = Theme.of(context).colorScheme;
@@ -31,6 +60,7 @@ class LoginPage extends ConsumerWidget {
           SnackBar(
             content: Text(l10n.errorLogin(e.toString())),
             backgroundColor: colorScheme.error,
+            duration: const Duration(seconds: 4),
           ),
         );
       }

@@ -178,7 +178,7 @@ final class AuthRepositoryProvider
   }
 }
 
-String _$authRepositoryHash() => r'67d02216f032c5d49cf91a1c46b9f6935db303d9';
+String _$authRepositoryHash() => r'5d9ed94e328cb62bd8f9d23be828ba5be3c114f0';
 
 @ProviderFor(signInWithGoogleUsecase)
 const signInWithGoogleUsecaseProvider = SignInWithGoogleUsecaseProvider._();
@@ -791,3 +791,49 @@ final class FavoritesRepositoryProvider
 
 String _$favoritesRepositoryHash() =>
     r'94325c2c04fddd5c6802c399fdcf59e91267defc';
+
+@ProviderFor(userLocalService)
+const userLocalServiceProvider = UserLocalServiceProvider._();
+
+final class UserLocalServiceProvider
+    extends
+        $FunctionalProvider<
+          UserLocalService,
+          UserLocalService,
+          UserLocalService
+        >
+    with $Provider<UserLocalService> {
+  const UserLocalServiceProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'userLocalServiceProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$userLocalServiceHash();
+
+  @$internal
+  @override
+  $ProviderElement<UserLocalService> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  UserLocalService create(Ref ref) {
+    return userLocalService(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(UserLocalService value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<UserLocalService>(value),
+    );
+  }
+}
+
+String _$userLocalServiceHash() => r'1f2a950ce2cd22ba349311f651047ceb25c9b7b4';

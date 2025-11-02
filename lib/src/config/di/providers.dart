@@ -19,6 +19,7 @@ import 'package:artemis_app/src/domain/usecase/sign_in_with_google_usecase.dart'
 import 'package:artemis_app/src/domain/usecase/toggle_favorite_usecase.dart';
 import 'package:artemis_app/src/data/repository/favorites_repository_impl.dart';
 import 'package:artemis_app/src/data/datasource/contracts/db_datasource.dart';
+import 'package:artemis_app/src/data/datasource/local/user_local_service.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:isar_community/isar.dart';
@@ -53,7 +54,10 @@ FirebaseAuthService firebaseAuthService(Ref ref) => FirebaseAuthService(
 
 @Riverpod(keepAlive: true)
 IAuthRepository authRepository(Ref ref) =>
-    AuthRepositoryImpl(ref.watch(firebaseAuthServiceProvider));
+    AuthRepositoryImpl(
+      ref.watch(firebaseAuthServiceProvider),
+      ref.watch(userLocalServiceProvider),
+    );
 
 // ============================================================================
 // UseCases
@@ -117,3 +121,13 @@ DbDataSource dbDataSource(Ref ref) => ArticlesDao(ref.watch(isarProvider));
 @Riverpod(keepAlive: true)
 IFavoritesRepository favoritesRepository(Ref ref) =>
     FavoritesRepositoryImpl(dbDataSource: ref.watch(dbDataSourceProvider));
+
+// ============================================================================
+// USER LOCAL STORAGE
+// ============================================================================
+
+@Riverpod(keepAlive: true)
+UserLocalService userLocalService(Ref ref) {
+  final isar = ref.watch(isarProvider);
+  return UserLocalService(isar);
+}

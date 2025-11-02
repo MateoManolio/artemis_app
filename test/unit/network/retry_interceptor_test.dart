@@ -1,64 +1,147 @@
+import 'package:artemis_app/src/core/network/retry_interceptor.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-/// Tests for retry interceptor with exponential backoff
-/// 
-/// NOTE: This test documents the expected behavior for retry/backoff functionality.
-/// The implementation in `lib/src/core/network/retry_interceptor.dart` is not yet complete.
-/// 
-/// Expected behavior:
-/// - Retry failed requests automatically for transient errors (timeout, 5xx, connection errors)
-/// - Use exponential backoff strategy (e.g., 1s, 2s, 4s delays)
-/// - Limit maximum number of retries (e.g., 3 attempts)
-/// - Do not retry for client errors (4xx) except 429 (rate limiting)
 void main() {
   group('RetryInterceptor', () {
-    test('should retry on connection timeout', () {
-      // TODO: Implement when retry_interceptor.dart is completed
-      // Expected: Retry up to 3 times with exponential backoff
-      // - First retry after 1 second
-      // - Second retry after 2 seconds
-      // - Third retry after 4 seconds
-      expect(true, isTrue); // Placeholder
-    });
-
-    test('should retry on 5xx server errors', () {
-      // TODO: Implement when retry_interceptor.dart is completed
-      // Expected: Retry 500, 502, 503, 504 errors
-      // Do not retry other 5xx errors
-      expect(true, isTrue); // Placeholder
-    });
-
-    test('should retry on connection errors', () {
-      // TODO: Implement when retry_interceptor.dart is completed
-      // Expected: Retry when no internet connection
-      expect(true, isTrue); // Placeholder
-    });
-
-    test('should not retry on 4xx client errors', () {
-      // TODO: Implement when retry_interceptor.dart is completed
-      // Expected: Do not retry 400, 401, 403, 404 errors
-      // Exception: Retry 429 (Too Many Requests) with backoff
-      expect(true, isTrue); // Placeholder
-    });
-
-    test('should limit maximum retry attempts', () {
-      // TODO: Implement when retry_interceptor.dart is completed
-      // Expected: Stop retrying after maximum attempts (e.g., 3)
-      expect(true, isTrue); // Placeholder
-    });
-
     test('should use exponential backoff strategy', () {
-      // TODO: Implement when retry_interceptor.dart is completed
-      // Expected: Delays should be exponential: 1s, 2s, 4s, 8s...
-      // With a maximum delay cap (e.g., 30 seconds)
-      expect(true, isTrue); // Placeholder
+      // Arrange
+      final interceptor = RetryInterceptor(
+        maxRetries: 3,
+        baseDelay: const Duration(milliseconds: 100),
+        maxDelay: const Duration(seconds: 10),
+      );
+
+      // Act
+      final delay0 = interceptor.calculateDelay(0);
+      final delay1 = interceptor.calculateDelay(1);
+      final delay2 = interceptor.calculateDelay(2);
+      final delay3 = interceptor.calculateDelay(3);
+
+      // Assert
+      // Should be exponential: 100ms, 200ms, 400ms, 800ms
+      expect(delay0.inMilliseconds, equals(100));
+      expect(delay1.inMilliseconds, equals(200));
+      expect(delay2.inMilliseconds, equals(400));
+      expect(delay3.inMilliseconds, equals(800));
     });
 
-    test('should respect cancel token', () {
-      // TODO: Implement when retry_interceptor.dart is completed
-      // Expected: Stop retrying if request is cancelled
-      expect(true, isTrue); // Placeholder
+    test('should respect max delay cap', () {
+      // Arrange
+      final interceptor = RetryInterceptor(
+        maxRetries: 10,
+        baseDelay: const Duration(seconds: 10),
+        maxDelay: const Duration(seconds: 30),
+      );
+
+      // Act
+      final delay5 = interceptor.calculateDelay(5);
+      final delay10 = interceptor.calculateDelay(10);
+
+      // Assert
+      // Should cap at maxDelay (30s) even if exponential would be higher
+      expect(delay5.inSeconds, lessThanOrEqualTo(30));
+      expect(delay10.inSeconds, lessThanOrEqualTo(30));
+    });
+
+    test('should identify retryable errors - 429', () {
+      // Arrange
+      final interceptor = RetryInterceptor();
+      final error = DioException(
+        requestOptions: RequestOptions(path: '/test'),
+        type: DioExceptionType.badResponse,
+        response: Response(
+          requestOptions: RequestOptions(path: '/test'),
+          statusCode: 429,
+        ),
+      );
+
+      // Act & Assert
+      expect(interceptor.testIsRetryableError(error), isTrue);
+    });
+
+    test('should identify retryable errors - 5xx', () {
+      // Arrange
+      final interceptor = RetryInterceptor();
+      final statusCodes = [500, 502, 503, 504];
+
+      for (final statusCode in statusCodes) {
+        final error = DioException(
+          requestOptions: RequestOptions(path: '/test'),
+          type: DioExceptionType.badResponse,
+          response: Response(
+            requestOptions: RequestOptions(path: '/test'),
+            statusCode: statusCode,
+          ),
+        );
+
+        // Act & Assert
+        expect(
+          interceptor.testIsRetryableError(error),
+          isTrue,
+          reason: 'Status $statusCode should be retryable',
+        );
+      }
+    });
+
+    test('should not retry on 4xx errors (except 429)', () {
+      // Arrange
+      final interceptor = RetryInterceptor();
+      final nonRetryableCodes = [400, 401, 403, 404];
+
+      for (final statusCode in nonRetryableCodes) {
+        final error = DioException(
+          requestOptions: RequestOptions(path: '/test'),
+          type: DioExceptionType.badResponse,
+          response: Response(
+            requestOptions: RequestOptions(path: '/test'),
+            statusCode: statusCode,
+          ),
+        );
+
+        // Act & Assert
+        expect(
+          interceptor.testIsRetryableError(error),
+          isFalse,
+          reason: 'Status $statusCode should not be retryable',
+        );
+      }
+    });
+
+    test('should identify retryable errors - connection timeout', () {
+      // Arrange
+      final interceptor = RetryInterceptor();
+      final error = DioException(
+        requestOptions: RequestOptions(path: '/test'),
+        type: DioExceptionType.connectionTimeout,
+      );
+
+      // Act & Assert
+      expect(interceptor.testIsRetryableError(error), isTrue);
+    });
+
+    test('should identify retryable errors - connection error', () {
+      // Arrange
+      final interceptor = RetryInterceptor();
+      final error = DioException(
+        requestOptions: RequestOptions(path: '/test'),
+        type: DioExceptionType.connectionError,
+      );
+
+      // Act & Assert
+      expect(interceptor.testIsRetryableError(error), isTrue);
+    });
+
+    test('should not retry on cancellation', () {
+      // Arrange
+      final interceptor = RetryInterceptor();
+      final error = DioException(
+        requestOptions: RequestOptions(path: '/test'),
+        type: DioExceptionType.cancel,
+      );
+
+      // Act & Assert
+      expect(interceptor.testIsRetryableError(error), isFalse);
     });
   });
 }
-
