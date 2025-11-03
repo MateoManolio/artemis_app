@@ -41,7 +41,12 @@ class ArticlesData extends _$ArticlesData {
         appendArticles(articles.data!);
       }
     } else if (articles is DataFailure<List<Article>>) {
-      state = AsyncValue.error(articles.error!, StackTrace.current);
+      // If the error is a request cancellation, do not show it in the UI
+      // keep the loading state
+      final errorMessage = articles.error.toString();
+      if (!errorMessage.contains('Request was cancelled')) {
+        state = AsyncValue.error(articles.error!, StackTrace.current);
+      }
     }
   }
 
