@@ -20,10 +20,11 @@ Octavo dia:  Lo que hice basicamente fue hacer testing y limpiar la app. Esto al
  - [x] Articles read
  - [x] Testing
  - [x] Github CI/CD
- - [ ] Competar README
+ - [x] Competar README
  - [x] Arreglar el color
- - [ ] Poner el ícono a la app
  - [x] Critical fix: traer artículos 
+ - [ ] Poner el ícono a la app
+ - [ ] Articles read consistation
  
  ## Opcionales
  - [x] Random article
@@ -31,6 +32,7 @@ Octavo dia:  Lo que hice basicamente fue hacer testing y limpiar la app. Esto al
  - [ ] Skeleton loaders
  - [ ] Que el discover no muestre siempre lo mismo
  - [ ] Cambiar la splash screen
+ - [ ] Mejorar CI/CD, sobretodo el release, aunque también el ci_build para q corra tests
 
  ## Bugs
  - [x] El no hay artículos al inicio de Article Explorer
