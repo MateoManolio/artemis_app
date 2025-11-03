@@ -1,4 +1,4 @@
-import 'package:artemis_app/src/presentation/pages/home/providers/articles_read_provider.dart';
+import 'package:artemis_app/src/presentation/providers/articles_read_provider.dart';
 import 'package:artemis_app/src/presentation/pages/home/providers/get_favorites_provider.dart';
 import 'package:artemis_app/src/presentation/pages/home/widgets/favorites_list.dart';
 import 'package:artemis_app/src/presentation/pages/home/widgets/look_article.dart';
@@ -24,7 +24,7 @@ class HomePage extends ConsumerWidget {
     final favorites = ref.watch(getFavoritesProvider);
     final weeklyGoal = ref.watch(weeklyGoalProvider);
     final l10n = AppLocalizations.of(context)!;
-    
+
     return Scaffold(
       appBar: AppBar(
         title: name != null ? Text(l10n.helloName(name!)) : Text(l10n.hello),

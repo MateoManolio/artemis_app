@@ -1,5 +1,5 @@
 import 'package:artemis_app/src/presentation/pages/details/providers/toogle_favorite_provider.dart';
-import 'package:artemis_app/src/presentation/pages/home/providers/articles_read_provider.dart';
+import 'package:artemis_app/src/presentation/providers/articles_read_provider.dart';
 import 'package:artemis_app/src/config/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
