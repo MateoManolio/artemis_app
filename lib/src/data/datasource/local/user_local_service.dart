@@ -1,14 +1,16 @@
+import 'package:artemis_app/src/data/datasource/contracts/user_local_service_datasource.dart';
 import 'package:artemis_app/src/data/models/db/user_db_model.dart';
 import 'package:artemis_app/src/domain/entity/user.dart';
 import 'package:isar_community/isar.dart';
 
 /// Service for local user data persistence
-class UserLocalService {
+class UserLocalService implements IUserLocalServiceDatasource {
   final Isar _isar;
 
   UserLocalService(this._isar);
 
   /// Save user data locally
+  @override
   Future<void> saveUser(User user) async {
     final userDbModel = UserDbModel.fromDomain(user);
     await _isar.writeTxn(() async {
@@ -20,6 +22,7 @@ class UserLocalService {
   }
 
   /// Load user data from local storage
+  @override
   Future<User?> loadUser() async {
     final userDbModel = await _isar.userDbModels.where().findFirst();
 
@@ -29,6 +32,7 @@ class UserLocalService {
   }
 
   /// Clear user data from local storage
+  @override
   Future<void> clearUser() async {
     await _isar.writeTxn(() async {
       await _isar.userDbModels.clear();
@@ -36,6 +40,7 @@ class UserLocalService {
   }
 
   /// Get current user if exists (synchronous)
+  @override
   User? getCurrentUserSync() {
     final userDbModel = _isar.userDbModels.where().findFirstSync();
 

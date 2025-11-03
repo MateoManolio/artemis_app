@@ -1,11 +1,11 @@
 import 'package:artemis_app/src/data/datasource/contracts/auth_datasource.dart';
-import 'package:artemis_app/src/data/datasource/local/user_local_service.dart';
+import 'package:artemis_app/src/data/datasource/contracts/user_local_service_datasource.dart';
 import 'package:artemis_app/src/domain/contracts/auth_repository.dart';
 import 'package:artemis_app/src/domain/entity/user.dart';
 
 class AuthRepositoryImpl implements IAuthRepository {
   final IAuthDatasource _remote;
-  final UserLocalService _localService;
+  final IUserLocalServiceDatasource _localService;
 
   AuthRepositoryImpl(this._remote, this._localService);
 
@@ -28,12 +28,12 @@ class AuthRepositoryImpl implements IAuthRepository {
   Future<User?> signInWithGoogle() async {
     final userModel = await _remote.signInWithGoogle();
     final user = userModel?.toDomain();
-    
+
     // Save user locally after successful sign in
     if (user != null) {
       await _localService.saveUser(user);
     }
-    
+
     return user;
   }
 

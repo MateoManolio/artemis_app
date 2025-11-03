@@ -3,14 +3,21 @@ import 'package:artemis_app/src/data/repository/auth_repository_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import '../../helpers/mocks.dart';
+import '../../helpers/test_helpers.dart';
 
 void main() {
   late AuthRepositoryImpl repository;
   late MockAuthDatasource mockDatasource;
+  late MockUserLocalServiceDatasource mockUserLocalService;
+
+  setUpAll(() {
+    registerFallbackValue(createTestUser());
+  });
 
   setUp(() {
     mockDatasource = MockAuthDatasource();
-    repository = AuthRepositoryImpl(mockDatasource);
+    mockUserLocalService = MockUserLocalServiceDatasource();
+    repository = AuthRepositoryImpl(mockDatasource, mockUserLocalService);
   });
 
   group('AuthRepositoryImpl', () {
@@ -25,8 +32,12 @@ void main() {
         );
         final expectedUser = userModel.toDomain();
 
-        when(() => mockDatasource.signInWithGoogle())
-            .thenAnswer((_) async => userModel);
+        when(
+          () => mockDatasource.signInWithGoogle(),
+        ).thenAnswer((_) async => userModel);
+        when(
+          () => mockUserLocalService.saveUser(any()),
+        ).thenAnswer((_) async {});
 
         // Act
         final result = await repository.signInWithGoogle();
@@ -40,8 +51,9 @@ void main() {
 
       test('should return null when sign in fails', () async {
         // Arrange
-        when(() => mockDatasource.signInWithGoogle())
-            .thenAnswer((_) async => null);
+        when(
+          () => mockDatasource.signInWithGoogle(),
+        ).thenAnswer((_) async => null);
 
         // Act
         final result = await repository.signInWithGoogle();
@@ -54,8 +66,10 @@ void main() {
     group('signOut', () {
       test('should call datasource signOut', () async {
         // Arrange
-        when(() => mockDatasource.signOut())
-            .thenAnswer((_) async => {});
+        when(() => mockDatasource.signOut()).thenAnswer((_) async => {});
+        when(
+          () => mockUserLocalService.clearUser(),
+        ).thenAnswer((_) async => {});
 
         // Act
         await repository.signOut();
@@ -105,8 +119,7 @@ void main() {
         );
         final userStream = Stream<UserModel?>.value(userModel);
 
-        when(() => mockDatasource.authState())
-            .thenAnswer((_) => userStream);
+        when(() => mockDatasource.authState()).thenAnswer((_) => userStream);
 
         // Act
         final stream = repository.authStateChanges();
@@ -120,4 +133,3 @@ void main() {
     });
   });
 }
-
