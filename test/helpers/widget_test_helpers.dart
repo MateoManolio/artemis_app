@@ -8,7 +8,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 /// Pumps a widget with all necessary providers and localizations
 /// for widget testing
-/// Note: overrides parameter should be List<Override> from riverpod
+/// Note: overrides parameter should be List\<Override\> from riverpod
 Future<void> pumpApp(
   WidgetTester tester,
   Widget widget, {

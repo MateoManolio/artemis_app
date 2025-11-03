@@ -7,7 +7,9 @@ import '../../../helpers/widget_test_helpers.dart';
 
 void main() {
   group('ArticlesList Widget Tests', () {
-    testWidgets('should render list of articles when data is provided', (tester) async {
+    testWidgets('should render list of articles when data is provided', (
+      tester,
+    ) async {
       // Arrange
       final articles = ArticlesFixture.defaultArticles();
 
@@ -15,10 +17,7 @@ void main() {
       await pumpApp(
         tester,
         Scaffold(
-          body: ArticlesList(
-            articles: articles,
-            onArticleTap: (_) {},
-          ),
+          body: ArticlesList(articles: articles, onArticleTap: (_) {}),
         ),
       );
 
@@ -28,7 +27,9 @@ void main() {
       expect(find.text(articles[2].title), findsOneWidget);
     });
 
-    testWidgets('should show empty state when articles list is empty', (tester) async {
+    testWidgets('should show empty state when articles list is empty', (
+      tester,
+    ) async {
       // Arrange
       final emptyArticles = ArticlesFixture.emptyList();
 
@@ -36,10 +37,7 @@ void main() {
       await pumpApp(
         tester,
         Scaffold(
-          body: ArticlesList(
-            articles: emptyArticles,
-            onArticleTap: (_) {},
-          ),
+          body: ArticlesList(articles: emptyArticles, onArticleTap: (_) {}),
         ),
       );
 
@@ -49,7 +47,9 @@ void main() {
       expect(find.byType(ListView), findsOneWidget);
     });
 
-    testWidgets('should call onArticleTap when article is tapped', (tester) async {
+    testWidgets('should call onArticleTap when article is tapped', (
+      tester,
+    ) async {
       // Arrange
       final articles = ArticlesFixture.defaultArticles();
       Article? tappedArticle;
@@ -75,7 +75,9 @@ void main() {
       expect(tappedArticle?.id, equals(articles[0].id));
     });
 
-    testWidgets('should call onLoadMore when scrolling near bottom', (tester) async {
+    testWidgets('should call onLoadMore when scrolling near bottom', (
+      tester,
+    ) async {
       // Arrange
       final articles = ArticlesFixture.defaultArticles();
 
@@ -102,10 +104,11 @@ void main() {
       expect(find.byType(ListView), findsOneWidget);
     });
 
-    testWidgets('should show loading indicator when onLoadMore is triggered', (tester) async {
+    testWidgets('should show loading indicator when onLoadMore is triggered', (
+      tester,
+    ) async {
       // Arrange
       final articles = ArticlesFixture.defaultArticles();
-      bool loadMoreCalled = false;
 
       // Act
       await pumpApp(
@@ -114,9 +117,7 @@ void main() {
           body: ArticlesList(
             articles: articles,
             onArticleTap: (_) {},
-            onLoadMore: () {
-              loadMoreCalled = true;
-            },
+            onLoadMore: () {},
           ),
         ),
       );
@@ -127,7 +128,7 @@ void main() {
       // Get the ListView and ensure it's scrollable
       final listView = find.byType(ListView);
       expect(listView, findsOneWidget);
-      
+
       // Scroll down significantly to trigger load more (65% threshold)
       // Using drag to ensure we scroll past the threshold
       await tester.drag(listView, const Offset(0, -3000));
@@ -143,7 +144,9 @@ void main() {
       // Note: This test verifies the widget structure and scroll functionality
     });
 
-    testWidgets('should display article card with correct information', (tester) async {
+    testWidgets('should display article card with correct information', (
+      tester,
+    ) async {
       // Arrange
       final article = ArticlesFixture.defaultArticles().first;
 
@@ -151,18 +154,17 @@ void main() {
       await pumpApp(
         tester,
         Scaffold(
-          body: ArticlesList(
-            articles: [article],
-            onArticleTap: (_) {},
-          ),
+          body: ArticlesList(articles: [article], onArticleTap: (_) {}),
         ),
       );
 
       // Assert
       expect(find.text(article.title), findsOneWidget);
       expect(find.text(article.authors.join(', ')), findsOneWidget);
-      expect(find.text('${article.type.displayName} · ${article.year}'), findsOneWidget);
+      expect(
+        find.text('${article.type.displayName} · ${article.year}'),
+        findsOneWidget,
+      );
     });
   });
 }
-

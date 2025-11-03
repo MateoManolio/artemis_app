@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:artemis_app/src/config/route/details_parameters.dart';
 import 'package:artemis_app/src/config/theme/app_theme.dart';
 import 'package:artemis_app/src/presentation/widgets/filter_modal.dart';
@@ -13,11 +15,11 @@ class LookArticle extends ConsumerStatefulWidget {
     this.onFilterPressed,
     this.onRandomArticlePressed,
   });
-  
+
   /// Optional callback when filter button is pressed
   /// If provided, this will be called instead of showing FilterModal
   final VoidCallback? onFilterPressed;
-  
+
   /// Optional callback when random article button is pressed
   /// If provided, this will be called instead of fetching random article
   final VoidCallback? onRandomArticlePressed;
@@ -32,12 +34,13 @@ class _LookArticleState extends ConsumerState<LookArticle> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    
+
     return Row(
       children: [
         Card(
           child: IconButton(
-            onPressed: widget.onFilterPressed ?? () => FilterModal.show(context),
+            onPressed:
+                widget.onFilterPressed ?? () => FilterModal.show(context),
             icon: const Icon(Icons.filter_list),
           ),
         ),
@@ -77,7 +80,11 @@ class _LookArticleState extends ConsumerState<LookArticle> {
                             if (!mounted) return;
                             ScaffoldMessenger.of(context).hideCurrentSnackBar();
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(l10n.errorLoadingArticle(e.toString()))),
+                              SnackBar(
+                                content: Text(
+                                  l10n.errorLoadingArticle(e.toString()),
+                                ),
+                              ),
                             );
                           } finally {
                             if (mounted) setState(() => _isLoading = false);
