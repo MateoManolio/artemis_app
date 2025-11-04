@@ -113,7 +113,7 @@ app.*.symbols
 # Environment variables
 .env
 *.env
-*.env.g.dart
+*env.g*
 !.env.example
 
 # Exceptions to above rules.
