@@ -93,7 +93,7 @@ jobs:
         continue-on-error: true
 
       - name: 📁 Archive coverage report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: coverage-report
           path: |
@@ -187,7 +187,7 @@ jobs:
         run: flutter build apk --release
 
       - name: 📁 Upload APK artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: android-apk
           path: build/app/outputs/flutter-apk/app-release.apk
