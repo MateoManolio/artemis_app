@@ -41,7 +41,6 @@ class _ArticlesListState extends State<ArticlesList> {
   @override
   void initState() {
     super.initState();
-    // Only create internal controller if not provided
     if (widget.scrollController == null) {
       _internalScrollController = ScrollController();
     }
@@ -66,7 +65,6 @@ class _ArticlesListState extends State<ArticlesList> {
   @override
   void dispose() {
     _scrollController.removeListener(_onScroll);
-    // Only dispose if we created it
     _internalScrollController?.dispose();
     super.dispose();
   }
@@ -92,7 +90,6 @@ class _ArticlesListState extends State<ArticlesList> {
 
   List<Widget> _buildSlivers() {
     return [
-      // Main articles list using SliverPadding + SliverList
       SliverPadding(
         padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
         sliver: SliverList.builder(
@@ -111,7 +108,7 @@ class _ArticlesListState extends State<ArticlesList> {
         ),
       ),
 
-      // Loading indicator at the bottom (only shown when loading more)
+      // Loading indicator at the bottom
       SliverToBoxAdapter(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: AppSpacing.xxl),
@@ -129,12 +126,10 @@ class _ArticlesListState extends State<ArticlesList> {
   Widget build(BuildContext context) {
     final slivers = _buildSlivers();
 
-    // If used as sliver, return the children directly
     if (widget.asSliver) {
       return SliverMainAxisGroup(slivers: slivers);
     }
 
-    // Otherwise, wrap in CustomScrollView with internal controller
     return CustomScrollView(
       controller: _internalScrollController,
       slivers: slivers,
