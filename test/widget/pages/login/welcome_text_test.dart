@@ -7,12 +7,7 @@ void main() {
   group('WelcomeText Widget Tests', () {
     testWidgets('should display welcome text', (tester) async {
       // Act
-      await pumpApp(
-        tester,
-        const Scaffold(
-          body: WelcomeText(),
-        ),
-      );
+      await pumpApp(tester, const Scaffold(body: WelcomeText()));
 
       // Assert
       expect(find.textContaining('Welcome'), findsOneWidget);
@@ -20,12 +15,7 @@ void main() {
 
     testWidgets('should display sign in to explore text', (tester) async {
       // Act
-      await pumpApp(
-        tester,
-        const Scaffold(
-          body: WelcomeText(),
-        ),
-      );
+      await pumpApp(tester, const Scaffold(body: WelcomeText()));
 
       // Assert
       expect(find.textContaining('Sign in'), findsOneWidget);
@@ -33,40 +23,31 @@ void main() {
 
     testWidgets('should have centered text alignment', (tester) async {
       // Act
-      await pumpApp(
-        tester,
-        const Scaffold(
-          body: WelcomeText(),
-        ),
-      );
+      await pumpApp(tester, const Scaffold(body: WelcomeText()));
 
       // Assert
-      final welcomeText = tester.widget<Text>(find.textContaining('Welcome').first);
+      final welcomeText = tester.widget<Text>(
+        find.textContaining('Welcome').first,
+      );
       expect(welcomeText.textAlign, equals(TextAlign.center));
     });
 
-    testWidgets('should use displayMedium text style for welcome', (tester) async {
+    testWidgets('should use displayMedium text style for welcome', (
+      tester,
+    ) async {
       // Act
-      await pumpApp(
-        tester,
-        const Scaffold(
-          body: WelcomeText(),
-        ),
-      );
+      await pumpApp(tester, const Scaffold(body: WelcomeText()));
 
       // Assert
-      final welcomeText = tester.widget<Text>(find.textContaining('Welcome').first);
+      final welcomeText = tester.widget<Text>(
+        find.textContaining('Welcome').first,
+      );
       expect(welcomeText.style?.fontWeight, equals(FontWeight.bold));
     });
 
     testWidgets('should display both texts in column', (tester) async {
       // Act
-      await pumpApp(
-        tester,
-        const Scaffold(
-          body: WelcomeText(),
-        ),
-      );
+      await pumpApp(tester, const Scaffold(body: WelcomeText()));
 
       // Assert
       expect(find.byType(Column), findsOneWidget);
@@ -75,4 +56,3 @@ void main() {
     });
   });
 }
-

@@ -5,29 +5,15 @@ class DataState<T> {
   final T? data;
   final Exception? error;
 
-  DataState({
-    required this.state,
-    required this.data,
-    required this.error,
-  });
+  DataState({required this.state, required this.data, required this.error});
 }
 
 class DataSuccess<T> extends DataState<T> {
-  DataSuccess({
-    required T data,
-  }) : super(
-          state: Status.success,
-          data: data,
-          error: null,
-        );
+  DataSuccess({required T data})
+    : super(state: Status.success, data: data, error: null);
 }
 
 class DataFailure<T> extends DataState<T> {
-  DataFailure({
-    required Exception error,
-  }) : super(
-          state: Status.error,
-          data: null,
-          error: error,
-        );
+  DataFailure({required Exception error})
+    : super(state: Status.error, data: null, error: error);
 }

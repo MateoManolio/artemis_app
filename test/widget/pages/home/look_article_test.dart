@@ -7,12 +7,7 @@ void main() {
   group('LookArticle Widget Tests', () {
     testWidgets('should display filter button', (tester) async {
       // Act
-      await pumpApp(
-        tester,
-        const Scaffold(
-          body: LookArticle(),
-        ),
-      );
+      await pumpApp(tester, const Scaffold(body: LookArticle()));
 
       // Assert
       expect(find.byIcon(Icons.filter_list), findsOneWidget);
@@ -20,18 +15,15 @@ void main() {
 
     testWidgets('should display random article button', (tester) async {
       // Act
-      await pumpApp(
-        tester,
-        const Scaffold(
-          body: LookArticle(),
-        ),
-      );
+      await pumpApp(tester, const Scaffold(body: LookArticle()));
 
       // Assert
       expect(find.byIcon(Icons.casino), findsOneWidget);
     });
 
-    testWidgets('should call onFilterPressed when filter button is tapped', (tester) async {
+    testWidgets('should call onFilterPressed when filter button is tapped', (
+      tester,
+    ) async {
       // Arrange
       bool filterPressed = false;
 
@@ -39,9 +31,7 @@ void main() {
       await pumpApp(
         tester,
         Scaffold(
-          body: LookArticle(
-            onFilterPressed: () => filterPressed = true,
-          ),
+          body: LookArticle(onFilterPressed: () => filterPressed = true),
         ),
       );
 
@@ -52,28 +42,33 @@ void main() {
       expect(filterPressed, isTrue);
     });
 
-    testWidgets('should call onRandomArticlePressed when random button is tapped', (tester) async {
-      // Arrange
-      bool randomPressed = false;
+    testWidgets(
+      'should call onRandomArticlePressed when random button is tapped',
+      (tester) async {
+        // Arrange
+        bool randomPressed = false;
 
-      // Act
-      await pumpApp(
-        tester,
-        Scaffold(
-          body: LookArticle(
-            onRandomArticlePressed: () => randomPressed = true,
+        // Act
+        await pumpApp(
+          tester,
+          Scaffold(
+            body: LookArticle(
+              onRandomArticlePressed: () => randomPressed = true,
+            ),
           ),
-        ),
-      );
+        );
 
-      await tester.tap(find.byIcon(Icons.casino));
-      await tester.pumpAndSettle();
+        await tester.tap(find.byIcon(Icons.casino));
+        await tester.pumpAndSettle();
 
-      // Assert
-      expect(randomPressed, isTrue);
-    });
+        // Assert
+        expect(randomPressed, isTrue);
+      },
+    );
 
-    testWidgets('should display loading indicator when loading', (tester) async {
+    testWidgets('should display loading indicator when loading', (
+      tester,
+    ) async {
       // Act
       await pumpApp(
         tester,
@@ -95,4 +90,3 @@ void main() {
     });
   });
 }
-

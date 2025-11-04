@@ -53,11 +53,10 @@ FirebaseAuthService firebaseAuthService(Ref ref) => FirebaseAuthService(
 );
 
 @Riverpod(keepAlive: true)
-IAuthRepository authRepository(Ref ref) =>
-    AuthRepositoryImpl(
-      ref.watch(firebaseAuthServiceProvider),
-      ref.watch(userLocalServiceProvider),
-    );
+IAuthRepository authRepository(Ref ref) => AuthRepositoryImpl(
+  ref.watch(firebaseAuthServiceProvider),
+  ref.watch(userLocalServiceProvider),
+);
 
 // ============================================================================
 // UseCases

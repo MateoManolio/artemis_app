@@ -17,30 +17,35 @@ void main() {
   });
 
   group('GetAutocompletedArticlesUsecase', () {
-    test('should return DataSuccess with articles when repository succeeds', () async {
-      // Arrange
-      final testArticles = ArticlesFixture.defaultArticles();
-      const query = 'machine learning';
+    test(
+      'should return DataSuccess with articles when repository succeeds',
+      () async {
+        // Arrange
+        final testArticles = ArticlesFixture.defaultArticles();
+        const query = 'machine learning';
 
-      when(() => mockRepository.getAutocompleteArticles(query))
-          .thenAnswer((_) async => createDataSuccess(testArticles));
+        when(
+          () => mockRepository.getAutocompleteArticles(query),
+        ).thenAnswer((_) async => createDataSuccess(testArticles));
 
-      // Act
-      final result = await useCase.call(query);
+        // Act
+        final result = await useCase.call(query);
 
-      // Assert
-      expect(result, isA<DataSuccess<List<Article>>>());
-      expect((result as DataSuccess).data, equals(testArticles));
-      verify(() => mockRepository.getAutocompleteArticles(query)).called(1);
-    });
+        // Assert
+        expect(result, isA<DataSuccess<List<Article>>>());
+        expect((result as DataSuccess).data, equals(testArticles));
+        verify(() => mockRepository.getAutocompleteArticles(query)).called(1);
+      },
+    );
 
     test('should return DataFailure when repository fails', () async {
       // Arrange
       const query = 'test';
       final exception = Exception('Network error');
 
-      when(() => mockRepository.getAutocompleteArticles(query))
-          .thenAnswer((_) async => createDataFailure<List<Article>>(exception));
+      when(
+        () => mockRepository.getAutocompleteArticles(query),
+      ).thenAnswer((_) async => createDataFailure<List<Article>>(exception));
 
       // Act
       final result = await useCase.call(query);
@@ -54,8 +59,9 @@ void main() {
       // Arrange
       const query = '';
 
-      when(() => mockRepository.getAutocompleteArticles(query))
-          .thenAnswer((_) async => createDataSuccess<List<Article>>([]));
+      when(
+        () => mockRepository.getAutocompleteArticles(query),
+      ).thenAnswer((_) async => createDataSuccess<List<Article>>([]));
 
       // Act
       final result = await useCase.call(query);
@@ -66,4 +72,3 @@ void main() {
     });
   });
 }
-

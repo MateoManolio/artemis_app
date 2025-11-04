@@ -18,8 +18,9 @@ void main() {
       // Arrange
       final testUser = createTestUser();
 
-      when(() => mockRepository.signInWithGoogle())
-          .thenAnswer((_) async => testUser);
+      when(
+        () => mockRepository.signInWithGoogle(),
+      ).thenAnswer((_) async => testUser);
 
       // Act
       final result = await useCase.call();
@@ -31,8 +32,9 @@ void main() {
 
     test('should return null when sign in fails', () async {
       // Arrange
-      when(() => mockRepository.signInWithGoogle())
-          .thenAnswer((_) async => null);
+      when(
+        () => mockRepository.signInWithGoogle(),
+      ).thenAnswer((_) async => null);
 
       // Act
       final result = await useCase.call();
@@ -43,4 +45,3 @@ void main() {
     });
   });
 }
-

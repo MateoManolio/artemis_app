@@ -7,12 +7,7 @@ void main() {
   group('ArticlesHeader Widget Tests', () {
     testWidgets('should display search bar', (tester) async {
       // Act
-      await pumpApp(
-        tester,
-        const Scaffold(
-          body: ArticlesHeader(),
-        ),
-      );
+      await pumpApp(tester, const Scaffold(body: ArticlesHeader()));
 
       // Assert
       expect(find.byType(TextField), findsOneWidget);
@@ -20,19 +15,16 @@ void main() {
 
     testWidgets('should display filters button', (tester) async {
       // Act
-      await pumpApp(
-        tester,
-        const Scaffold(
-          body: ArticlesHeader(),
-        ),
-      );
+      await pumpApp(tester, const Scaffold(body: ArticlesHeader()));
 
       // Assert
       // The text is localized, so we check for the button type instead
       expect(find.byType(OutlinedButton), findsOneWidget);
     });
 
-    testWidgets('should call onSearchChanged when text changes', (tester) async {
+    testWidgets('should call onSearchChanged when text changes', (
+      tester,
+    ) async {
       // Arrange
       String? changedValue;
 
@@ -53,7 +45,9 @@ void main() {
       expect(changedValue, equals('search query'));
     });
 
-    testWidgets('should call onFiltersPressed when filters button is tapped', (tester) async {
+    testWidgets('should call onFiltersPressed when filters button is tapped', (
+      tester,
+    ) async {
       // Arrange
       bool filtersPressed = false;
 
@@ -61,9 +55,7 @@ void main() {
       await pumpApp(
         tester,
         Scaffold(
-          body: ArticlesHeader(
-            onFiltersPressed: () => filtersPressed = true,
-          ),
+          body: ArticlesHeader(onFiltersPressed: () => filtersPressed = true),
         ),
       );
 
@@ -81,11 +73,7 @@ void main() {
       // Act
       await pumpApp(
         tester,
-        Scaffold(
-          body: ArticlesHeader(
-            searchController: controller,
-          ),
-        ),
+        Scaffold(body: ArticlesHeader(searchController: controller)),
       );
 
       // Assert
@@ -94,16 +82,10 @@ void main() {
 
     testWidgets('should have correct layout with Row', (tester) async {
       // Act
-      await pumpApp(
-        tester,
-        const Scaffold(
-          body: ArticlesHeader(),
-        ),
-      );
+      await pumpApp(tester, const Scaffold(body: ArticlesHeader()));
 
       // Assert
       expect(find.byType(Row), findsWidgets);
     });
   });
 }
-

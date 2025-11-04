@@ -4,20 +4,16 @@ import 'package:artemis_app/src/config/theme/app_theme.dart';
 class MetricCard extends StatelessWidget {
   final String label;
   final String value;
-  
+
   static const double _cardHeight = 90.0;
-  
-  const MetricCard({
-    super.key,
-    required this.label,
-    required this.value,
-  });
+
+  const MetricCard({super.key, required this.label, required this.value});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    
+
     return Container(
       height: _cardHeight,
       decoration: BoxDecoration(
@@ -57,4 +53,3 @@ class MetricCard extends StatelessWidget {
     );
   }
 }
-

@@ -9,9 +9,7 @@ void main() {
       // Act
       await pumpApp(
         tester,
-        Scaffold(
-          body: SafeSvgPicture.asset('assets/svg/login.svg'),
-        ),
+        Scaffold(body: SafeSvgPicture.asset('assets/svg/login.svg')),
       );
 
       // Assert
@@ -24,10 +22,7 @@ void main() {
       await pumpApp(
         tester,
         Scaffold(
-          body: SafeSvgPicture.asset(
-            'assets/svg/login.svg',
-            width: 100,
-          ),
+          body: SafeSvgPicture.asset('assets/svg/login.svg', width: 100),
         ),
       );
 
@@ -41,10 +36,7 @@ void main() {
       await pumpApp(
         tester,
         Scaffold(
-          body: SafeSvgPicture.asset(
-            'assets/svg/login.svg',
-            height: 200,
-          ),
+          body: SafeSvgPicture.asset('assets/svg/login.svg', height: 200),
         ),
       );
 
@@ -56,9 +48,7 @@ void main() {
       // Act
       await pumpApp(
         tester,
-        Scaffold(
-          body: SafeSvgPicture.asset('assets/svg/login.svg'),
-        ),
+        Scaffold(body: SafeSvgPicture.asset('assets/svg/login.svg')),
       );
 
       // Assert
@@ -70,10 +60,7 @@ void main() {
       await pumpApp(
         tester,
         Scaffold(
-          body: SafeSvgPicture.asset(
-            'assets/svg/login.svg',
-            fit: BoxFit.cover,
-          ),
+          body: SafeSvgPicture.asset('assets/svg/login.svg', fit: BoxFit.cover),
         ),
       );
 
@@ -85,9 +72,7 @@ void main() {
       // Act
       await pumpApp(
         tester,
-        Scaffold(
-          body: SafeSvgPicture.asset('assets/svg/login.svg'),
-        ),
+        Scaffold(body: SafeSvgPicture.asset('assets/svg/login.svg')),
       );
 
       // Wait a bit for placeholder to potentially show
@@ -99,7 +84,9 @@ void main() {
       expect(find.byType(Builder), findsWidgets);
     });
 
-    testWidgets('should handle color filter when color is provided', (tester) async {
+    testWidgets('should handle color filter when color is provided', (
+      tester,
+    ) async {
       // Act
       await pumpApp(
         tester,
@@ -116,4 +103,3 @@ void main() {
     });
   });
 }
-

@@ -6,7 +6,7 @@ import 'widgets/profile_form.dart';
 
 class EditProfilePage extends ConsumerWidget {
   static const String routeName = '/edit-profile';
-  
+
   const EditProfilePage({super.key});
 
   @override
@@ -43,4 +43,3 @@ class EditProfilePage extends ConsumerWidget {
     );
   }
 }
-

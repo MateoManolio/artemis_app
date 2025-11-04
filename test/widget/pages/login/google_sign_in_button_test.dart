@@ -9,11 +9,7 @@ void main() {
       // Act
       await pumpApp(
         tester,
-        Scaffold(
-          body: GoogleSignInButton(
-            onPressed: () {},
-          ),
-        ),
+        Scaffold(body: GoogleSignInButton(onPressed: () {})),
       );
 
       // Assert
@@ -27,11 +23,7 @@ void main() {
       // Act
       await pumpApp(
         tester,
-        Scaffold(
-          body: GoogleSignInButton(
-            onPressed: () => pressed = true,
-          ),
-        ),
+        Scaffold(body: GoogleSignInButton(onPressed: () => pressed = true)),
       );
 
       // Find the InkWell instead of Material to avoid ambiguity
@@ -46,11 +38,7 @@ void main() {
       // Act
       await pumpApp(
         tester,
-        Scaffold(
-          body: GoogleSignInButton(
-            onPressed: () {},
-          ),
-        ),
+        Scaffold(body: GoogleSignInButton(onPressed: () {})),
       );
 
       // Assert
@@ -62,11 +50,7 @@ void main() {
       // Act
       await pumpApp(
         tester,
-        Scaffold(
-          body: GoogleSignInButton(
-            onPressed: () {},
-          ),
-        ),
+        Scaffold(body: GoogleSignInButton(onPressed: () {})),
       );
 
       // Assert
@@ -78,11 +62,7 @@ void main() {
       // Act
       await pumpApp(
         tester,
-        Scaffold(
-          body: GoogleSignInButton(
-            onPressed: () {},
-          ),
-        ),
+        Scaffold(body: GoogleSignInButton(onPressed: () {})),
       );
 
       // Assert
@@ -95,11 +75,7 @@ void main() {
       // Act
       await pumpApp(
         tester,
-        Scaffold(
-          body: GoogleSignInButton(
-            onPressed: () {},
-          ),
-        ),
+        Scaffold(body: GoogleSignInButton(onPressed: () {})),
       );
 
       // Assert
@@ -109,4 +85,3 @@ void main() {
     });
   });
 }
-

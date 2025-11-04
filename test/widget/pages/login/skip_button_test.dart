@@ -7,14 +7,7 @@ void main() {
   group('SkipButton Widget Tests', () {
     testWidgets('should display skip text', (tester) async {
       // Act
-      await pumpApp(
-        tester,
-        Scaffold(
-          body: SkipButton(
-            onPressed: () {},
-          ),
-        ),
-      );
+      await pumpApp(tester, Scaffold(body: SkipButton(onPressed: () {})));
 
       // Assert
       // The text is localized ("OMITIR" in Spanish)
@@ -28,11 +21,7 @@ void main() {
       // Act
       await pumpApp(
         tester,
-        Scaffold(
-          body: SkipButton(
-            onPressed: () => pressed = true,
-          ),
-        ),
+        Scaffold(body: SkipButton(onPressed: () => pressed = true)),
       );
 
       await tester.tap(find.byType(TextButton));
@@ -44,14 +33,7 @@ void main() {
 
     testWidgets('should use TextButton', (tester) async {
       // Act
-      await pumpApp(
-        tester,
-        Scaffold(
-          body: SkipButton(
-            onPressed: () {},
-          ),
-        ),
-      );
+      await pumpApp(tester, Scaffold(body: SkipButton(onPressed: () {})));
 
       // Assert
       expect(find.byType(TextButton), findsOneWidget);
@@ -59,14 +41,7 @@ void main() {
 
     testWidgets('should have correct text styling', (tester) async {
       // Act
-      await pumpApp(
-        tester,
-        Scaffold(
-          body: SkipButton(
-            onPressed: () {},
-          ),
-        ),
-      );
+      await pumpApp(tester, Scaffold(body: SkipButton(onPressed: () {})));
 
       // Assert
       final textButton = tester.widget<TextButton>(find.byType(TextButton));
@@ -74,4 +49,3 @@ void main() {
     });
   });
 }
-

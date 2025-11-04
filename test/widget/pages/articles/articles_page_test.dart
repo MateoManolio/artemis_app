@@ -32,7 +32,9 @@ void main() {
           // Override with mock that doesn't make API calls
           articlesDataProvider.overrideWith(MockArticlesData.new),
           debouncerProvider.overrideWith(Debouncer.new),
-          articlesFiltersNotifierProvider.overrideWith(ArticlesFiltersNotifier.new),
+          articlesFiltersNotifierProvider.overrideWith(
+            ArticlesFiltersNotifier.new,
+          ),
         ],
       );
       // Wait for post-frame callback to complete
@@ -54,7 +56,9 @@ void main() {
           // Override with mock that doesn't make API calls
           articlesDataProvider.overrideWith(MockArticlesData.new),
           debouncerProvider.overrideWith(Debouncer.new),
-          articlesFiltersNotifierProvider.overrideWith(ArticlesFiltersNotifier.new),
+          articlesFiltersNotifierProvider.overrideWith(
+            ArticlesFiltersNotifier.new,
+          ),
         ],
       );
       // Wait for post-frame callback and settle
@@ -67,4 +71,3 @@ void main() {
     });
   });
 }
-

@@ -85,7 +85,11 @@ class _FilterModalState extends ConsumerState<FilterModal> {
     );
   }
 
-  Widget _buildClearButton(BuildContext context, ThemeData theme, AppLocalizations l10n) {
+  Widget _buildClearButton(
+    BuildContext context,
+    ThemeData theme,
+    AppLocalizations l10n,
+  ) {
     return TextButton(
       onPressed: () {
         setState(() {
@@ -106,7 +110,11 @@ class _FilterModalState extends ConsumerState<FilterModal> {
     );
   }
 
-  Widget _buildFooter(BuildContext context, ThemeData theme, AppLocalizations l10n) {
+  Widget _buildFooter(
+    BuildContext context,
+    ThemeData theme,
+    AppLocalizations l10n,
+  ) {
     return Column(
       children: [
         _buildApplyButton(context, theme, l10n),
@@ -198,11 +206,15 @@ class _FilterModalState extends ConsumerState<FilterModal> {
           decoration: BoxDecoration(
             color: isSelected
                 ? Theme.of(context).colorScheme.primary
-                : Theme.of(context).colorScheme.surfaceContainerLowest.withValues(alpha: 0.7),
+                : Theme.of(
+                    context,
+                  ).colorScheme.surfaceContainerLowest.withValues(alpha: 0.7),
             borderRadius: BorderRadius.circular(AppBorderRadius.sm),
             boxShadow: [
               BoxShadow(
-                color: Theme.of(context).colorScheme.shadow.withValues(alpha: 0.1),
+                color: Theme.of(
+                  context,
+                ).colorScheme.shadow.withValues(alpha: 0.1),
                 blurRadius: 2,
                 offset: const Offset(0, 1),
               ),
@@ -248,7 +260,9 @@ class _FilterModalState extends ConsumerState<FilterModal> {
           child: Container(
             padding: const EdgeInsets.all(AppSpacing.md),
             decoration: BoxDecoration(
-              color: theme.colorScheme.surfaceContainerLowest.withValues(alpha: 0.7),
+              color: theme.colorScheme.surfaceContainerLowest.withValues(
+                alpha: 0.7,
+              ),
               borderRadius: BorderRadius.circular(AppBorderRadius.md),
               boxShadow: [
                 BoxShadow(
@@ -290,7 +304,11 @@ class _FilterModalState extends ConsumerState<FilterModal> {
     );
   }
 
-  Widget _buildApplyButton(BuildContext context, ThemeData theme, AppLocalizations l10n) {
+  Widget _buildApplyButton(
+    BuildContext context,
+    ThemeData theme,
+    AppLocalizations l10n,
+  ) {
     return Padding(
       padding: const EdgeInsets.all(AppSpacing.md),
       child: SizedBox(

@@ -18,50 +18,59 @@ void main() {
   });
 
   group('GetArticlesUsecase', () {
-    test('should return DataSuccess with articles when repository succeeds', () async {
-      // Arrange
-      final testArticles = ArticlesFixture.defaultArticles();
-      final params = GetArticlesParams(
-        query: 'machine learning',
-        page: 1,
-        perPage: 10,
-      );
+    test(
+      'should return DataSuccess with articles when repository succeeds',
+      () async {
+        // Arrange
+        final testArticles = ArticlesFixture.defaultArticles();
+        final params = GetArticlesParams(
+          query: 'machine learning',
+          page: 1,
+          perPage: 10,
+        );
 
-      when(() => mockRepository.getArticles(
+        when(
+          () => mockRepository.getArticles(
             query: params.query,
             page: params.page,
             perPage: params.perPage,
             cancelToken: params.cancelToken,
             filters: params.filters,
-          )).thenAnswer((_) async => createDataSuccess(testArticles));
+          ),
+        ).thenAnswer((_) async => createDataSuccess(testArticles));
 
-      // Act
-      final result = await useCase.call(params);
+        // Act
+        final result = await useCase.call(params);
 
-      // Assert
-      expect(result, isA<DataSuccess<List<Article>>>());
-      expect((result as DataSuccess).data, equals(testArticles));
-      verify(() => mockRepository.getArticles(
+        // Assert
+        expect(result, isA<DataSuccess<List<Article>>>());
+        expect((result as DataSuccess).data, equals(testArticles));
+        verify(
+          () => mockRepository.getArticles(
             query: params.query,
             page: params.page,
             perPage: params.perPage,
             cancelToken: params.cancelToken,
             filters: params.filters,
-          )).called(1);
-    });
+          ),
+        ).called(1);
+      },
+    );
 
     test('should return DataFailure when repository fails', () async {
       // Arrange
       final exception = Exception('Network error');
       final params = GetArticlesParams(query: 'test');
 
-      when(() => mockRepository.getArticles(
-            query: any(named: 'query'),
-            page: any(named: 'page'),
-            perPage: any(named: 'perPage'),
-            cancelToken: any(named: 'cancelToken'),
-            filters: any(named: 'filters'),
-          )).thenAnswer((_) async => createDataFailure<List<Article>>(exception));
+      when(
+        () => mockRepository.getArticles(
+          query: any(named: 'query'),
+          page: any(named: 'page'),
+          perPage: any(named: 'perPage'),
+          cancelToken: any(named: 'cancelToken'),
+          filters: any(named: 'filters'),
+        ),
+      ).thenAnswer((_) async => createDataFailure<List<Article>>(exception));
 
       // Act
       final result = await useCase.call(params);
@@ -73,61 +82,61 @@ void main() {
 
     test('should handle pagination correctly', () async {
       // Arrange
-      final params = GetArticlesParams(
-        query: null,
-        page: 2,
-        perPage: 25,
-      );
+      final params = GetArticlesParams(query: null, page: 2, perPage: 25);
 
-      when(() => mockRepository.getArticles(
-            query: any(named: 'query'),
-            page: 2,
-            perPage: 25,
-            cancelToken: any(named: 'cancelToken'),
-            filters: any(named: 'filters'),
-          )).thenAnswer((_) async => createDataSuccess<List<Article>>([]));
+      when(
+        () => mockRepository.getArticles(
+          query: any(named: 'query'),
+          page: 2,
+          perPage: 25,
+          cancelToken: any(named: 'cancelToken'),
+          filters: any(named: 'filters'),
+        ),
+      ).thenAnswer((_) async => createDataSuccess<List<Article>>([]));
 
       // Act
       await useCase.call(params);
 
       // Assert
-      verify(() => mockRepository.getArticles(
-            query: null,
-            page: 2,
-            perPage: 25,
-            cancelToken: any(named: 'cancelToken'),
-            filters: any(named: 'filters'),
-          )).called(1);
+      verify(
+        () => mockRepository.getArticles(
+          query: null,
+          page: 2,
+          perPage: 25,
+          cancelToken: any(named: 'cancelToken'),
+          filters: any(named: 'filters'),
+        ),
+      ).called(1);
     });
 
     test('should handle cancel token', () async {
       // Arrange
       final cancelToken = CancelToken();
-      final params = GetArticlesParams(
-        query: 'test',
-        cancelToken: cancelToken,
-      );
+      final params = GetArticlesParams(query: 'test', cancelToken: cancelToken);
 
-      when(() => mockRepository.getArticles(
-            query: any(named: 'query'),
-            page: any(named: 'page'),
-            perPage: any(named: 'perPage'),
-            cancelToken: cancelToken,
-            filters: any(named: 'filters'),
-          )).thenAnswer((_) async => createDataSuccess<List<Article>>([]));
+      when(
+        () => mockRepository.getArticles(
+          query: any(named: 'query'),
+          page: any(named: 'page'),
+          perPage: any(named: 'perPage'),
+          cancelToken: cancelToken,
+          filters: any(named: 'filters'),
+        ),
+      ).thenAnswer((_) async => createDataSuccess<List<Article>>([]));
 
       // Act
       await useCase.call(params);
 
       // Assert
-      verify(() => mockRepository.getArticles(
-            query: 'test',
-            page: any(named: 'page'),
-            perPage: any(named: 'perPage'),
-            cancelToken: cancelToken,
-            filters: any(named: 'filters'),
-          )).called(1);
+      verify(
+        () => mockRepository.getArticles(
+          query: 'test',
+          page: any(named: 'page'),
+          perPage: any(named: 'perPage'),
+          cancelToken: cancelToken,
+          filters: any(named: 'filters'),
+        ),
+      ).called(1);
     });
   });
 }
-

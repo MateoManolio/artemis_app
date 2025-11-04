@@ -62,7 +62,9 @@ void main() {
       expect(find.text('Journal Article · 2023'), findsOneWidget);
     });
 
-    testWidgets('should display open access badge when isOpenAccess is true', (tester) async {
+    testWidgets('should display open access badge when isOpenAccess is true', (
+      tester,
+    ) async {
       // Act
       await pumpApp(
         tester,
@@ -82,25 +84,28 @@ void main() {
       expect(find.textContaining('Open Access'), findsOneWidget);
     });
 
-    testWidgets('should not display open access badge when isOpenAccess is false', (tester) async {
-      // Act
-      await pumpApp(
-        tester,
-        Scaffold(
-          body: ArticleCard(
-            title: 'Test Article',
-            authors: 'John Doe',
-            type: 'Article',
-            year: 2024,
-            isOpenAccess: false,
-            onTap: () {},
+    testWidgets(
+      'should not display open access badge when isOpenAccess is false',
+      (tester) async {
+        // Act
+        await pumpApp(
+          tester,
+          Scaffold(
+            body: ArticleCard(
+              title: 'Test Article',
+              authors: 'John Doe',
+              type: 'Article',
+              year: 2024,
+              isOpenAccess: false,
+              onTap: () {},
+            ),
           ),
-        ),
-      );
+        );
 
-      // Assert
-      expect(find.textContaining('Open Access'), findsNothing);
-    });
+        // Assert
+        expect(find.textContaining('Open Access'), findsNothing);
+      },
+    );
 
     testWidgets('should call onTap when card is tapped', (tester) async {
       // Arrange
@@ -166,4 +171,3 @@ void main() {
     });
   });
 }
-

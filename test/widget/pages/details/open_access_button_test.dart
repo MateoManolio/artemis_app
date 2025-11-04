@@ -5,7 +5,9 @@ import '../../../helpers/widget_test_helpers.dart';
 
 void main() {
   group('OpenAccessButton Widget Tests', () {
-    testWidgets('should display PDF button when hasPdf is true', (tester) async {
+    testWidgets('should display PDF button when hasPdf is true', (
+      tester,
+    ) async {
       // Act
       await pumpApp(
         tester,
@@ -23,16 +25,13 @@ void main() {
       expect(find.byIcon(Icons.book_online), findsOneWidget);
     });
 
-    testWidgets('should not display PDF button when hasPdf is false', (tester) async {
+    testWidgets('should not display PDF button when hasPdf is false', (
+      tester,
+    ) async {
       // Act
       await pumpApp(
         tester,
-        Scaffold(
-          body: OpenAccessButton(
-            hasPdf: false,
-            onViewSource: () {},
-          ),
-        ),
+        Scaffold(body: OpenAccessButton(hasPdf: false, onViewSource: () {})),
       );
 
       // Assert
@@ -43,11 +42,7 @@ void main() {
       // Act
       await pumpApp(
         tester,
-        Scaffold(
-          body: OpenAccessButton(
-            onViewSource: () {},
-          ),
-        ),
+        Scaffold(body: OpenAccessButton(onViewSource: () {})),
       );
 
       // Assert
@@ -55,7 +50,9 @@ void main() {
       expect(find.byIcon(Icons.open_in_new), findsOneWidget);
     });
 
-    testWidgets('should call onViewPdf when PDF button is tapped', (tester) async {
+    testWidgets('should call onViewPdf when PDF button is tapped', (
+      tester,
+    ) async {
       // Arrange
       bool pdfPressed = false;
 
@@ -80,7 +77,9 @@ void main() {
       expect(pdfPressed, isTrue);
     });
 
-    testWidgets('should call onViewSource when source button is tapped', (tester) async {
+    testWidgets('should call onViewSource when source button is tapped', (
+      tester,
+    ) async {
       // Arrange
       bool sourcePressed = false;
 
@@ -88,9 +87,7 @@ void main() {
       await pumpApp(
         tester,
         Scaffold(
-          body: OpenAccessButton(
-            onViewSource: () => sourcePressed = true,
-          ),
+          body: OpenAccessButton(onViewSource: () => sourcePressed = true),
         ),
       );
 
@@ -102,7 +99,9 @@ void main() {
       expect(sourcePressed, isTrue);
     });
 
-    testWidgets('should disable buttons when callbacks are null', (tester) async {
+    testWidgets('should disable buttons when callbacks are null', (
+      tester,
+    ) async {
       // Act
       await pumpApp(
         tester,
@@ -138,4 +137,3 @@ void main() {
     });
   });
 }
-

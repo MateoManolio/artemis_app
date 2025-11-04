@@ -25,7 +25,7 @@ class ApiResponsesFixture {
             {
               'id': 'https://openalex.org/I123456789',
               'display_name': 'University of Test',
-            }
+            },
           ],
         },
         {
@@ -37,7 +37,7 @@ class ApiResponsesFixture {
             {
               'id': 'https://openalex.org/I987654321',
               'display_name': 'Institute of Research',
-            }
+            },
           ],
         },
       ],
@@ -57,28 +57,16 @@ class ApiResponsesFixture {
         {
           'id': 'https://openalex.org/T123',
           'display_name': 'Machine Learning',
-          'subfield': {
-            'display_name': 'Computer Science',
-          },
-          'field': {
-            'display_name': 'Computer Science',
-          },
-          'domain': {
-            'display_name': 'Computer Science',
-          },
+          'subfield': {'display_name': 'Computer Science'},
+          'field': {'display_name': 'Computer Science'},
+          'domain': {'display_name': 'Computer Science'},
         },
         {
           'id': 'https://openalex.org/T456',
           'display_name': 'Artificial Intelligence',
-          'subfield': {
-            'display_name': 'Computer Science',
-          },
-          'field': {
-            'display_name': 'Computer Science',
-          },
-          'domain': {
-            'display_name': 'Computer Science',
-          },
+          'subfield': {'display_name': 'Computer Science'},
+          'field': {'display_name': 'Computer Science'},
+          'domain': {'display_name': 'Computer Science'},
         },
       ],
       'related_works': [
@@ -86,9 +74,7 @@ class ApiResponsesFixture {
         'https://openalex.org/W222',
         'https://openalex.org/W333',
       ],
-      'apc_paid': {
-        'value_usd': 1000.0,
-      },
+      'apc_paid': {'value_usd': 1000.0},
     };
   }
 
@@ -114,12 +100,7 @@ class ApiResponsesFixture {
   /// Returns a mock empty response
   static Map<String, dynamic> emptyResponse() {
     return {
-      'meta': {
-        'count': 0,
-        'db_response_time_ms': 5,
-        'page': 1,
-        'per_page': 25,
-      },
+      'meta': {'count': 0, 'db_response_time_ms': 5, 'page': 1, 'per_page': 25},
       'results': [],
     };
   }
@@ -148,4 +129,3 @@ class ApiResponsesFixture {
     };
   }
 }
-

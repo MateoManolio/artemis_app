@@ -23,10 +23,7 @@ class SettingSwitch extends StatelessWidget {
       icon: icon,
       title: title,
       subtitle: subtitle,
-      trailing: Switch.adaptive(
-        value: value,
-        onChanged: onChanged,
-      ),
+      trailing: Switch.adaptive(value: value, onChanged: onChanged),
       onTap: () => onChanged(!value),
     );
   }

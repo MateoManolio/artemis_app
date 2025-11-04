@@ -45,4 +45,3 @@ class FontSizeNotifier extends _$FontSizeNotifier {
 
   double get textScaleFactor => state.scale;
 }
-

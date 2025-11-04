@@ -10,10 +10,7 @@ void main() {
       await pumpApp(
         tester,
         const Scaffold(
-          body: MetricCard(
-            label: 'Citations',
-            value: '150',
-          ),
+          body: MetricCard(label: 'Citations', value: '150'),
         ),
       );
 
@@ -27,10 +24,7 @@ void main() {
       await pumpApp(
         tester,
         const Scaffold(
-          body: MetricCard(
-            label: 'Test',
-            value: '100',
-          ),
+          body: MetricCard(label: 'Test', value: '100'),
         ),
       );
 
@@ -44,10 +38,7 @@ void main() {
       await pumpApp(
         tester,
         const Scaffold(
-          body: MetricCard(
-            label: 'Test',
-            value: '100',
-          ),
+          body: MetricCard(label: 'Test', value: '100'),
         ),
       );
 
@@ -62,10 +53,7 @@ void main() {
       await pumpApp(
         tester,
         const Scaffold(
-          body: MetricCard(
-            label: 'Citations',
-            value: '150',
-          ),
+          body: MetricCard(label: 'Citations', value: '150'),
         ),
       );
 
@@ -79,10 +67,7 @@ void main() {
       await pumpApp(
         tester,
         const Scaffold(
-          body: MetricCard(
-            label: 'Test',
-            value: '100',
-          ),
+          body: MetricCard(label: 'Test', value: '100'),
         ),
       );
 
@@ -99,10 +84,7 @@ void main() {
       await pumpApp(
         tester,
         const Scaffold(
-          body: MetricCard(
-            label: 'Test',
-            value: '100',
-          ),
+          body: MetricCard(label: 'Test', value: '100'),
         ),
       );
 
@@ -111,4 +93,3 @@ void main() {
     });
   });
 }
-

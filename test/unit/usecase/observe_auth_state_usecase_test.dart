@@ -20,8 +20,9 @@ void main() {
       final testUser = createTestUser();
       final userStream = Stream<User?>.value(testUser);
 
-      when(() => mockRepository.authStateChanges())
-          .thenAnswer((_) => userStream);
+      when(
+        () => mockRepository.authStateChanges(),
+      ).thenAnswer((_) => userStream);
 
       // Act
       final stream = useCase.call();
@@ -37,8 +38,9 @@ void main() {
       // Arrange
       final nullStream = Stream<User?>.value(null);
 
-      when(() => mockRepository.authStateChanges())
-          .thenAnswer((_) => nullStream);
+      when(
+        () => mockRepository.authStateChanges(),
+      ).thenAnswer((_) => nullStream);
 
       // Act
       final stream = useCase.call();
@@ -49,4 +51,3 @@ void main() {
     });
   });
 }
-

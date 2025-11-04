@@ -58,9 +58,9 @@ class MainApp extends ConsumerWidget {
       routerConfig: router,
       builder: (context, child) {
         return MediaQuery(
-          data: MediaQuery.of(context).copyWith(
-            textScaler: TextScaler.linear(fontSize.scale),
-          ),
+          data: MediaQuery.of(
+            context,
+          ).copyWith(textScaler: TextScaler.linear(fontSize.scale)),
           child: child!,
         );
       },

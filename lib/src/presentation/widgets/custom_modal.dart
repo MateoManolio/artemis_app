@@ -35,9 +35,9 @@ class CustomModal extends StatelessWidget {
         children: [
           if (title != null || headerActions != null)
             _buildHeader(context, theme),
-          
+
           Expanded(child: child),
-          
+
           if (footer != null) footer!,
         ],
       ),

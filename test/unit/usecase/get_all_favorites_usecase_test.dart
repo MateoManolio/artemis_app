@@ -21,8 +21,9 @@ void main() {
         ArticlesFixture.customArticle(id: '2', favorite: true),
       ];
 
-      when(() => mockRepository.getAllFavorites())
-          .thenAnswer((_) async => favorites);
+      when(
+        () => mockRepository.getAllFavorites(),
+      ).thenAnswer((_) async => favorites);
 
       // Act
       final result = await useCase.call();
@@ -35,8 +36,7 @@ void main() {
 
     test('should return empty list when no favorites', () async {
       // Arrange
-      when(() => mockRepository.getAllFavorites())
-          .thenAnswer((_) async => []);
+      when(() => mockRepository.getAllFavorites()).thenAnswer((_) async => []);
 
       // Act
       final result = await useCase.call();
@@ -47,4 +47,3 @@ void main() {
     });
   });
 }
-

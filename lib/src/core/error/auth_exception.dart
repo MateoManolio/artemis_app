@@ -19,7 +19,9 @@ class NoGoogleAccountException extends AuthException {
 
 /// Network error during sign-in
 class AuthNetworkException extends AuthException {
-  const AuthNetworkException([super.message = 'Network error. Please check your connection']);
+  const AuthNetworkException([
+    super.message = 'Network error. Please check your connection',
+  ]);
 }
 
 /// General authentication error

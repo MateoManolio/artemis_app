@@ -7,12 +7,7 @@ void main() {
   group('WelcomeAvatar Widget Tests', () {
     testWidgets('should display avatar container', (tester) async {
       // Act
-      await pumpApp(
-        tester,
-        const Scaffold(
-          body: WelcomeAvatar(),
-        ),
-      );
+      await pumpApp(tester, const Scaffold(body: WelcomeAvatar()));
 
       // Assert
       expect(find.byType(Container), findsOneWidget);
@@ -20,12 +15,7 @@ void main() {
 
     testWidgets('should have circular decoration', (tester) async {
       // Act
-      await pumpApp(
-        tester,
-        const Scaffold(
-          body: WelcomeAvatar(),
-        ),
-      );
+      await pumpApp(tester, const Scaffold(body: WelcomeAvatar()));
 
       // Assert
       final container = tester.widget<Container>(find.byType(Container));
@@ -35,12 +25,7 @@ void main() {
 
     testWidgets('should have correct dimensions', (tester) async {
       // Act
-      await pumpApp(
-        tester,
-        const Scaffold(
-          body: WelcomeAvatar(),
-        ),
-      );
+      await pumpApp(tester, const Scaffold(body: WelcomeAvatar()));
 
       // Assert
       final container = tester.widget<Container>(find.byType(Container));
@@ -50,12 +35,7 @@ void main() {
 
     testWidgets('should use primaryContainer color', (tester) async {
       // Act
-      await pumpApp(
-        tester,
-        const Scaffold(
-          body: WelcomeAvatar(),
-        ),
-      );
+      await pumpApp(tester, const Scaffold(body: WelcomeAvatar()));
 
       // Assert
       final container = tester.widget<Container>(find.byType(Container));
@@ -64,4 +44,3 @@ void main() {
     });
   });
 }
-

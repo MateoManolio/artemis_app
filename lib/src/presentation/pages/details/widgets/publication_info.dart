@@ -4,7 +4,7 @@ import 'package:artemis_app/src/config/theme/app_theme.dart';
 class PublicationInfo extends StatelessWidget {
   final String publication;
   final String author;
-  
+
   static const double _avatarRadius = 20.0;
 
   const PublicationInfo({
@@ -17,7 +17,7 @@ class PublicationInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    
+
     return Row(
       children: [
         CircleAvatar(
@@ -53,4 +53,3 @@ class PublicationInfo extends StatelessWidget {
     );
   }
 }
-

@@ -12,11 +12,7 @@ void main() {
       // Act
       await pumpApp(
         tester,
-        Scaffold(
-          body: CustomModal(
-            child: const Text(childText),
-          ),
-        ),
+        Scaffold(body: CustomModal(child: const Text(childText))),
       );
 
       // Assert
@@ -31,10 +27,7 @@ void main() {
       await pumpApp(
         tester,
         Scaffold(
-          body: CustomModal(
-            title: title,
-            child: const Text('Content'),
-          ),
+          body: CustomModal(title: title, child: const Text('Content')),
         ),
       );
 
@@ -69,10 +62,7 @@ void main() {
       await pumpApp(
         tester,
         Scaffold(
-          body: CustomModal(
-            footer: footer,
-            child: const Text('Content'),
-          ),
+          body: CustomModal(footer: footer, child: const Text('Content')),
         ),
       );
 
@@ -85,10 +75,7 @@ void main() {
       await pumpApp(
         tester,
         Scaffold(
-          body: CustomModal(
-            title: 'Test',
-            child: const Text('Content'),
-          ),
+          body: CustomModal(title: 'Test', child: const Text('Content')),
         ),
       );
 
@@ -100,11 +87,7 @@ void main() {
       // Act
       await pumpApp(
         tester,
-        Scaffold(
-          body: CustomModal(
-            child: const Text('Content'),
-          ),
-        ),
+        Scaffold(body: CustomModal(child: const Text('Content'))),
       );
 
       // Assert
@@ -117,10 +100,7 @@ void main() {
       await pumpApp(
         tester,
         Scaffold(
-          body: CustomModal(
-            heightRatio: 0.5,
-            child: const Text('Content'),
-          ),
+          body: CustomModal(heightRatio: 0.5, child: const Text('Content')),
         ),
       );
 
@@ -133,11 +113,7 @@ void main() {
       // Act
       await pumpApp(
         tester,
-        Scaffold(
-          body: CustomModal(
-            child: const Text('Content'),
-          ),
-        ),
+        Scaffold(body: CustomModal(child: const Text('Content'))),
       );
 
       // Assert
@@ -148,15 +124,13 @@ void main() {
       expect(borderRadius?.topRight, equals(const Radius.circular(24.0)));
     });
 
-    testWidgets('should not display header when title and actions are null', (tester) async {
+    testWidgets('should not display header when title and actions are null', (
+      tester,
+    ) async {
       // Act
       await pumpApp(
         tester,
-        Scaffold(
-          body: CustomModal(
-            child: const Text('Content'),
-          ),
-        ),
+        Scaffold(body: CustomModal(child: const Text('Content'))),
       );
 
       // Assert
@@ -165,4 +139,3 @@ void main() {
     });
   });
 }
-

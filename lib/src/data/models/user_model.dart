@@ -6,7 +6,12 @@ class UserModel {
   final String? displayName;
   final String? photoUrl;
 
-  const UserModel({required this.uid, this.email, this.displayName, this.photoUrl});
+  const UserModel({
+    required this.uid,
+    this.email,
+    this.displayName,
+    this.photoUrl,
+  });
 
   factory UserModel.fromFirebaseUser(dynamic fUser) => UserModel(
     uid: fUser.uid,
@@ -23,7 +28,10 @@ class UserModel {
   );
 
   Map<String, dynamic> toMap() => {
-    'uid': uid, 'email': email, 'displayName': displayName, 'photoUrl': photoUrl,
+    'uid': uid,
+    'email': email,
+    'displayName': displayName,
+    'photoUrl': photoUrl,
   };
 
   factory UserModel.fromMap(Map<String, dynamic> map) => UserModel(

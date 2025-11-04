@@ -13,17 +13,16 @@ void main() {
       // Act
       await pumpApp(
         tester,
-        const ArticlesRead(
-          articlesRead: articlesRead,
-          weekGoal: weekGoal,
-        ),
+        const ArticlesRead(articlesRead: articlesRead, weekGoal: weekGoal),
       );
 
       // Assert
       expect(find.textContaining('$articlesRead'), findsOneWidget);
     });
 
-    testWidgets('should display progress indicator with correct value', (tester) async {
+    testWidgets('should display progress indicator with correct value', (
+      tester,
+    ) async {
       // Arrange
       const articlesRead = 3;
       const weekGoal = 10;
@@ -31,10 +30,7 @@ void main() {
       // Act
       await pumpApp(
         tester,
-        const ArticlesRead(
-          articlesRead: articlesRead,
-          weekGoal: weekGoal,
-        ),
+        const ArticlesRead(articlesRead: articlesRead, weekGoal: weekGoal),
       );
 
       // Assert
@@ -52,10 +48,7 @@ void main() {
       // Act
       await pumpApp(
         tester,
-        const ArticlesRead(
-          articlesRead: articlesRead,
-          weekGoal: weekGoal,
-        ),
+        const ArticlesRead(articlesRead: articlesRead, weekGoal: weekGoal),
       );
 
       // Assert
@@ -73,10 +66,7 @@ void main() {
       // Act
       await pumpApp(
         tester,
-        const ArticlesRead(
-          articlesRead: articlesRead,
-          weekGoal: weekGoal,
-        ),
+        const ArticlesRead(articlesRead: articlesRead, weekGoal: weekGoal),
       );
 
       // Assert
@@ -92,10 +82,7 @@ void main() {
       // Act
       await pumpApp(
         tester,
-        const ArticlesRead(
-          articlesRead: articlesRead,
-          weekGoal: weekGoal,
-        ),
+        const ArticlesRead(articlesRead: articlesRead, weekGoal: weekGoal),
       );
 
       // Assert
@@ -107,4 +94,3 @@ void main() {
     });
   });
 }
-

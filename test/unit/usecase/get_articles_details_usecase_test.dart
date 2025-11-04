@@ -17,30 +17,35 @@ void main() {
   });
 
   group('GetArticlesDetailsUsecase', () {
-    test('should return DataSuccess with article when repository succeeds', () async {
-      // Arrange
-      final testArticle = ArticlesFixture.defaultArticles().first;
-      const articleId = 'W4414161455';
+    test(
+      'should return DataSuccess with article when repository succeeds',
+      () async {
+        // Arrange
+        final testArticle = ArticlesFixture.defaultArticles().first;
+        const articleId = 'W4414161455';
 
-      when(() => mockRepository.getArticle(articleId))
-          .thenAnswer((_) async => createDataSuccess(testArticle));
+        when(
+          () => mockRepository.getArticle(articleId),
+        ).thenAnswer((_) async => createDataSuccess(testArticle));
 
-      // Act
-      final result = await useCase.call(articleId);
+        // Act
+        final result = await useCase.call(articleId);
 
-      // Assert
-      expect(result, isA<DataSuccess<Article>>());
-      expect((result as DataSuccess).data, equals(testArticle));
-      verify(() => mockRepository.getArticle(articleId)).called(1);
-    });
+        // Assert
+        expect(result, isA<DataSuccess<Article>>());
+        expect((result as DataSuccess).data, equals(testArticle));
+        verify(() => mockRepository.getArticle(articleId)).called(1);
+      },
+    );
 
     test('should return DataFailure when repository fails', () async {
       // Arrange
       const articleId = 'invalid-id';
       final exception = Exception('Article not found');
 
-      when(() => mockRepository.getArticle(articleId))
-          .thenAnswer((_) async => createDataFailure<Article>(exception));
+      when(
+        () => mockRepository.getArticle(articleId),
+      ).thenAnswer((_) async => createDataFailure<Article>(exception));
 
       // Act
       final result = await useCase.call(articleId);
@@ -52,4 +57,3 @@ void main() {
     });
   });
 }
-

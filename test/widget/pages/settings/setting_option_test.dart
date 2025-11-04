@@ -41,7 +41,9 @@ void main() {
       expect(find.text('English'), findsOneWidget);
     });
 
-    testWidgets('should display subtitle when value is not provided', (tester) async {
+    testWidgets('should display subtitle when value is not provided', (
+      tester,
+    ) async {
       // Act
       await pumpApp(
         tester,
@@ -120,4 +122,3 @@ void main() {
     });
   });
 }
-

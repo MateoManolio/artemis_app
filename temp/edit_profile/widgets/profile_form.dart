@@ -34,13 +34,13 @@ class _ProfileFormState extends ConsumerState<ProfileForm> {
   Future<void> _handleSave() async {
     if (_formKey.currentState!.validate()) {
       final notifier = ref.read(editProfileProvider.notifier);
-      
+
       try {
         await notifier.updateProfile(
           displayName: _displayNameController.text.trim(),
           email: _emailController.text.trim(),
         );
-        
+
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
@@ -129,34 +129,36 @@ class _ProfileFormState extends ConsumerState<ProfileForm> {
           const SizedBox(height: 16),
           if (user?.email != 'guest')
             OutlinedButton(
-              onPressed: isLoading ? null : () {
-                // Show delete account dialog
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    title: const Text('Delete Account'),
-                    content: const Text(
-                      'Are you sure you want to delete your account? This action cannot be undone.',
-                    ),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Navigator.of(context).pop(),
-                        child: const Text('Cancel'),
-                      ),
-                      TextButton(
-                        onPressed: () async {
-                          Navigator.of(context).pop();
-                          // TODO: Implement account deletion
-                        },
-                        style: TextButton.styleFrom(
-                          foregroundColor: Colors.red,
+              onPressed: isLoading
+                  ? null
+                  : () {
+                      // Show delete account dialog
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: const Text('Delete Account'),
+                          content: const Text(
+                            'Are you sure you want to delete your account? This action cannot be undone.',
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.of(context).pop(),
+                              child: const Text('Cancel'),
+                            ),
+                            TextButton(
+                              onPressed: () async {
+                                Navigator.of(context).pop();
+                                // TODO: Implement account deletion
+                              },
+                              style: TextButton.styleFrom(
+                                foregroundColor: Colors.red,
+                              ),
+                              child: const Text('Delete'),
+                            ),
+                          ],
                         ),
-                        child: const Text('Delete'),
-                      ),
-                    ],
-                  ),
-                );
-              },
+                      );
+                    },
               style: OutlinedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 shape: RoundedRectangleBorder(
@@ -174,4 +176,3 @@ class _ProfileFormState extends ConsumerState<ProfileForm> {
     );
   }
 }
-

@@ -13,16 +13,19 @@ void main() {
   });
 
   group('RemoveFavoriteUsecase', () {
-    test('should call repository removeFavorite with correct articleId', () async {
-      // Arrange
-      const articleId = 'W4414161455';
+    test(
+      'should call repository removeFavorite with correct articleId',
+      () async {
+        // Arrange
+        const articleId = 'W4414161455';
 
-      // Act
-      await useCase.call(articleId);
+        // Act
+        await useCase.call(articleId);
 
-      // Assert
-      verify(() => mockRepository.removeFavorite(articleId)).called(1);
-    });
+        // Assert
+        verify(() => mockRepository.removeFavorite(articleId)).called(1);
+      },
+    );
 
     test('should handle different article IDs', () async {
       // Arrange
@@ -39,4 +42,3 @@ void main() {
     });
   });
 }
-

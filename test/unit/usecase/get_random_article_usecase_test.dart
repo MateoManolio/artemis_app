@@ -17,28 +17,33 @@ void main() {
   });
 
   group('GetRandomArticleUsecase', () {
-    test('should return DataSuccess with article when repository succeeds', () async {
-      // Arrange
-      final testArticle = ArticlesFixture.defaultArticles().first;
+    test(
+      'should return DataSuccess with article when repository succeeds',
+      () async {
+        // Arrange
+        final testArticle = ArticlesFixture.defaultArticles().first;
 
-      when(() => mockRepository.getRandomArticle())
-          .thenAnswer((_) async => createDataSuccess(testArticle));
+        when(
+          () => mockRepository.getRandomArticle(),
+        ).thenAnswer((_) async => createDataSuccess(testArticle));
 
-      // Act
-      final result = await useCase.call();
+        // Act
+        final result = await useCase.call();
 
-      // Assert
-      expect(result, isA<DataSuccess<Article>>());
-      expect((result as DataSuccess).data, equals(testArticle));
-      verify(() => mockRepository.getRandomArticle()).called(1);
-    });
+        // Assert
+        expect(result, isA<DataSuccess<Article>>());
+        expect((result as DataSuccess).data, equals(testArticle));
+        verify(() => mockRepository.getRandomArticle()).called(1);
+      },
+    );
 
     test('should return DataFailure when repository fails', () async {
       // Arrange
       final exception = Exception('No articles available');
 
-      when(() => mockRepository.getRandomArticle())
-          .thenAnswer((_) async => createDataFailure<Article>(exception));
+      when(
+        () => mockRepository.getRandomArticle(),
+      ).thenAnswer((_) async => createDataFailure<Article>(exception));
 
       // Act
       final result = await useCase.call();
@@ -49,4 +54,3 @@ void main() {
     });
   });
 }
-

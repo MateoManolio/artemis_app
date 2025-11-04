@@ -15,7 +15,7 @@ void main() {
   setUp(() {
     mockClient = MockDioClient();
     service = OpenalexApiService(client: mockClient);
-    
+
     // Register fallback values for mocktail
     registerFallbackValue(CancelToken());
   });
@@ -31,12 +31,14 @@ void main() {
           error: 'Connection timeout',
         );
 
-        when(() => mockClient.get(
-              any(),
-              queryParameters: any(named: 'queryParameters'),
-              options: any(named: 'options'),
-              cancelToken: any(named: 'cancelToken'),
-            )).thenThrow(dioException);
+        when(
+          () => mockClient.get(
+            any(),
+            queryParameters: any(named: 'queryParameters'),
+            options: any(named: 'options'),
+            cancelToken: any(named: 'cancelToken'),
+          ),
+        ).thenThrow(dioException);
 
         // Act
         final result = await service.getArticleById(articleId);
@@ -62,12 +64,14 @@ void main() {
           ),
         );
 
-        when(() => mockClient.get(
-              any(),
-              queryParameters: any(named: 'queryParameters'),
-              options: any(named: 'options'),
-              cancelToken: any(named: 'cancelToken'),
-            )).thenThrow(dioException);
+        when(
+          () => mockClient.get(
+            any(),
+            queryParameters: any(named: 'queryParameters'),
+            options: any(named: 'options'),
+            cancelToken: any(named: 'cancelToken'),
+          ),
+        ).thenThrow(dioException);
 
         // Act
         final result = await service.getArticleById(articleId);
@@ -89,19 +93,24 @@ void main() {
           ),
         );
 
-        when(() => mockClient.get(
-              any(),
-              queryParameters: any(named: 'queryParameters'),
-              options: any(named: 'options'),
-              cancelToken: any(named: 'cancelToken'),
-            )).thenThrow(dioException);
+        when(
+          () => mockClient.get(
+            any(),
+            queryParameters: any(named: 'queryParameters'),
+            options: any(named: 'options'),
+            cancelToken: any(named: 'cancelToken'),
+          ),
+        ).thenThrow(dioException);
 
         // Act
         final result = await service.getArticleById(articleId);
 
         // Assert
         expect(result, isA<DataFailure<WorkDto>>());
-        expect((result as DataFailure).error.toString(), contains('Too many requests'));
+        expect(
+          (result as DataFailure).error.toString(),
+          contains('Too many requests'),
+        );
       });
 
       test('should handle 500 server error', () async {
@@ -116,19 +125,24 @@ void main() {
           ),
         );
 
-        when(() => mockClient.get(
-              any(),
-              queryParameters: any(named: 'queryParameters'),
-              options: any(named: 'options'),
-              cancelToken: any(named: 'cancelToken'),
-            )).thenThrow(dioException);
+        when(
+          () => mockClient.get(
+            any(),
+            queryParameters: any(named: 'queryParameters'),
+            options: any(named: 'options'),
+            cancelToken: any(named: 'cancelToken'),
+          ),
+        ).thenThrow(dioException);
 
         // Act
         final result = await service.getArticleById(articleId);
 
         // Assert
         expect(result, isA<DataFailure<WorkDto>>());
-        expect((result as DataFailure).error.toString(), contains('Server error'));
+        expect(
+          (result as DataFailure).error.toString(),
+          contains('Server error'),
+        );
       });
 
       test('should handle connection error (no internet)', () async {
@@ -140,19 +154,24 @@ void main() {
           error: 'No internet connection',
         );
 
-        when(() => mockClient.get(
-              any(),
-              queryParameters: any(named: 'queryParameters'),
-              options: any(named: 'options'),
-              cancelToken: any(named: 'cancelToken'),
-            )).thenThrow(dioException);
+        when(
+          () => mockClient.get(
+            any(),
+            queryParameters: any(named: 'queryParameters'),
+            options: any(named: 'options'),
+            cancelToken: any(named: 'cancelToken'),
+          ),
+        ).thenThrow(dioException);
 
         // Act
         final result = await service.getArticleById(articleId);
 
         // Assert
         expect(result, isA<DataFailure<WorkDto>>());
-        expect((result as DataFailure).error.toString(), contains('No internet connection'));
+        expect(
+          (result as DataFailure).error.toString(),
+          contains('No internet connection'),
+        );
       });
 
       test('should handle request cancellation', () async {
@@ -163,12 +182,14 @@ void main() {
           type: DioExceptionType.cancel,
         );
 
-        when(() => mockClient.get(
-              any(),
-              queryParameters: any(named: 'queryParameters'),
-              options: any(named: 'options'),
-              cancelToken: any(named: 'cancelToken'),
-            )).thenThrow(dioException);
+        when(
+          () => mockClient.get(
+            any(),
+            queryParameters: any(named: 'queryParameters'),
+            options: any(named: 'options'),
+            cancelToken: any(named: 'cancelToken'),
+          ),
+        ).thenThrow(dioException);
 
         // Act
         final result = await service.getArticleById(articleId);
@@ -183,19 +204,24 @@ void main() {
         const articleId = 'W4414161455';
         final unexpectedError = Exception('Unexpected error');
 
-        when(() => mockClient.get(
-              any(),
-              queryParameters: any(named: 'queryParameters'),
-              options: any(named: 'options'),
-              cancelToken: any(named: 'cancelToken'),
-            )).thenThrow(unexpectedError);
+        when(
+          () => mockClient.get(
+            any(),
+            queryParameters: any(named: 'queryParameters'),
+            options: any(named: 'options'),
+            cancelToken: any(named: 'cancelToken'),
+          ),
+        ).thenThrow(unexpectedError);
 
         // Act
         final result = await service.getArticleById(articleId);
 
         // Assert
         expect(result, isA<DataFailure<WorkDto>>());
-        expect((result as DataFailure).error.toString(), contains('Unexpected error'));
+        expect(
+          (result as DataFailure).error.toString(),
+          contains('Unexpected error'),
+        );
       });
     });
 
@@ -207,12 +233,14 @@ void main() {
           type: DioExceptionType.connectionTimeout,
         );
 
-        when(() => mockClient.get(
-              any(),
-              queryParameters: any(named: 'queryParameters'),
-              options: any(named: 'options'),
-              cancelToken: any(named: 'cancelToken'),
-            )).thenThrow(dioException);
+        when(
+          () => mockClient.get(
+            any(),
+            queryParameters: any(named: 'queryParameters'),
+            options: any(named: 'options'),
+            cancelToken: any(named: 'cancelToken'),
+          ),
+        ).thenThrow(dioException);
 
         // Act
         final result = await service.getArticles();
@@ -223,4 +251,3 @@ void main() {
     });
   });
 }
-

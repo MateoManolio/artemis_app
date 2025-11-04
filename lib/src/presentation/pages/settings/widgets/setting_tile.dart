@@ -34,11 +34,7 @@ class SettingTile extends StatelessWidget {
           ),
           child: Row(
             children: [
-              Icon(
-                icon,
-                color: colorScheme.primary,
-                size: AppIconSize.lg,
-              ),
+              Icon(icon, color: colorScheme.primary, size: AppIconSize.lg),
               const SizedBox(width: AppSpacing.lg),
               Expanded(
                 child: Column(

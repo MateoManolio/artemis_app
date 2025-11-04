@@ -5,17 +5,21 @@ import 'package:artemis_app/src/config/theme/app_theme.dart';
 class ArticlesRead extends StatelessWidget {
   final int articlesRead;
   final int weekGoal;
-  
+
   static const double lineHeight = 10.0;
-  
-  const ArticlesRead({super.key, required this.articlesRead, required this.weekGoal});
+
+  const ArticlesRead({
+    super.key,
+    required this.articlesRead,
+    required this.weekGoal,
+  });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final l10n = AppLocalizations.of(context)!;
-    
+
     return SizedBox(
       width: double.infinity,
       child: Card(

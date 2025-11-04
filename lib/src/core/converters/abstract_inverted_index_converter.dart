@@ -7,14 +7,15 @@ class AbstractInvertedIndexConverter
   @override
   Map<String, List<int>>? fromJson(Map<String, dynamic>? json) {
     if (json == null) return null;
-    
+
     return json.map(
       (key, value) => MapEntry(
         key,
         (value as List<dynamic>?)
-            ?.map((e) => (e as num?)?.toInt())
-            .whereType<int>()
-            .toList() ?? [],
+                ?.map((e) => (e as num?)?.toInt())
+                .whereType<int>()
+                .toList() ??
+            [],
       ),
     );
   }
@@ -22,9 +23,6 @@ class AbstractInvertedIndexConverter
   @override
   Map<String, dynamic>? toJson(Map<String, List<int>>? object) {
     if (object == null) return null;
-    return object.map(
-      (key, value) => MapEntry(key, value),
-    );
+    return object.map((key, value) => MapEntry(key, value));
   }
 }
-

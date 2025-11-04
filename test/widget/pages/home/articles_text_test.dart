@@ -50,7 +50,9 @@ void main() {
       expect(find.text(type), findsOneWidget);
     });
 
-    testWidgets('should display open access icon when isOa is true', (tester) async {
+    testWidgets('should display open access icon when isOa is true', (
+      tester,
+    ) async {
       // Arrange
       const title = 'Open Access Article';
       const domain = 'Science';
@@ -72,7 +74,9 @@ void main() {
       expect(find.byIcon(Icons.check_circle), findsOneWidget);
     });
 
-    testWidgets('should not display open access icon when isOa is false', (tester) async {
+    testWidgets('should not display open access icon when isOa is false', (
+      tester,
+    ) async {
       // Arrange
       const title = 'Closed Access Article';
       const domain = 'Science';
@@ -96,7 +100,8 @@ void main() {
 
     testWidgets('should handle long titles with ellipsis', (tester) async {
       // Arrange
-      const title = 'This is a very long article title that should be truncated with ellipsis when it exceeds the maximum number of lines allowed';
+      const title =
+          'This is a very long article title that should be truncated with ellipsis when it exceeds the maximum number of lines allowed';
       const domain = 'Test Domain';
       const type = 'Article';
       const isOa = false;
@@ -144,4 +149,3 @@ void main() {
     });
   });
 }
-

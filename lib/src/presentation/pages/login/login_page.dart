@@ -32,7 +32,7 @@ class LoginPage extends ConsumerWidget {
         final l10n = AppLocalizations.of(context)!;
         final colorScheme = Theme.of(context).colorScheme;
         String errorMessage;
-        
+
         if (e is NoGoogleAccountException) {
           errorMessage = l10n.errorNoGoogleAccount;
         } else if (e is AuthNetworkException) {
@@ -42,7 +42,7 @@ class LoginPage extends ConsumerWidget {
         } else {
           errorMessage = l10n.errorLogin(e.message);
         }
-        
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(errorMessage),

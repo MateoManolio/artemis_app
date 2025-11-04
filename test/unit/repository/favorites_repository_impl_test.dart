@@ -18,7 +18,7 @@ void main() {
   setUp(() {
     mockDatasource = MockDbDatasource();
     repository = FavoritesRepositoryImpl(dbDataSource: mockDatasource);
-    
+
     // Setup default return values for methods that return Future<void>
     when(() => mockDatasource.insertArticle(any())).thenAnswer((_) async {});
     when(() => mockDatasource.deleteArticle(any())).thenAnswer((_) async {});
@@ -34,8 +34,9 @@ void main() {
         repository.addFavorite(article);
 
         // Assert
-        verify(() => mockDatasource.insertArticle(any(that: isA<ArticleDbModel>())))
-            .called(1);
+        verify(
+          () => mockDatasource.insertArticle(any(that: isA<ArticleDbModel>())),
+        ).called(1);
       });
     });
 
@@ -55,16 +56,15 @@ void main() {
     group('getAllFavorites', () {
       test('should return list of favorite articles', () async {
         // Arrange
-        final dbModels = ArticlesFixture.defaultArticles()
-            .map((article) {
-              final dbModel = ArticleDbModel.fromDomain(article);
-              dbModel.favorite = true;
-              return dbModel;
-            })
-            .toList();
+        final dbModels = ArticlesFixture.defaultArticles().map((article) {
+          final dbModel = ArticleDbModel.fromDomain(article);
+          dbModel.favorite = true;
+          return dbModel;
+        }).toList();
 
-        when(() => mockDatasource.getAllFavorites())
-            .thenAnswer((_) async => dbModels);
+        when(
+          () => mockDatasource.getAllFavorites(),
+        ).thenAnswer((_) async => dbModels);
 
         // Act
         final result = await repository.getAllFavorites();
@@ -78,8 +78,9 @@ void main() {
 
       test('should return empty list when no favorites', () async {
         // Arrange
-        when(() => mockDatasource.getAllFavorites())
-            .thenAnswer((_) async => []);
+        when(
+          () => mockDatasource.getAllFavorites(),
+        ).thenAnswer((_) async => []);
 
         // Act
         final result = await repository.getAllFavorites();
@@ -90,38 +91,50 @@ void main() {
     });
 
     group('toggleFavorite', () {
-      test('should call datasource toggleFavorite with correct parameters', () async {
-        // Arrange
-        const articleId = 'W4414161455';
-        const isFavorite = true;
+      test(
+        'should call datasource toggleFavorite with correct parameters',
+        () async {
+          // Arrange
+          const articleId = 'W4414161455';
+          const isFavorite = true;
 
-        when(() => mockDatasource.toggleFavorite(articleId, isFavorite))
-            .thenAnswer((_) async => {});
+          when(
+            () => mockDatasource.toggleFavorite(articleId, isFavorite),
+          ).thenAnswer((_) async => {});
 
-        // Act
-        await repository.toggleFavorite(articleId, isFavorite);
+          // Act
+          await repository.toggleFavorite(articleId, isFavorite);
 
-        // Assert
-        verify(() => mockDatasource.toggleFavorite(articleId, isFavorite)).called(1);
-      });
+          // Assert
+          verify(
+            () => mockDatasource.toggleFavorite(articleId, isFavorite),
+          ).called(1);
+        },
+      );
     });
 
     group('updateArticle', () {
-      test('should call datasource updateArticle with ArticleDbModel', () async {
-        // Arrange
-        final article = ArticlesFixture.defaultArticles().first;
+      test(
+        'should call datasource updateArticle with ArticleDbModel',
+        () async {
+          // Arrange
+          final article = ArticlesFixture.defaultArticles().first;
 
-        when(() => mockDatasource.updateArticle(any(that: isA<ArticleDbModel>())))
-            .thenAnswer((_) async => {});
+          when(
+            () =>
+                mockDatasource.updateArticle(any(that: isA<ArticleDbModel>())),
+          ).thenAnswer((_) async => {});
 
-        // Act
-        await repository.updateArticle(article);
+          // Act
+          await repository.updateArticle(article);
 
-        // Assert
-        verify(() => mockDatasource.updateArticle(any(that: isA<ArticleDbModel>())))
-            .called(1);
-      });
+          // Assert
+          verify(
+            () =>
+                mockDatasource.updateArticle(any(that: isA<ArticleDbModel>())),
+          ).called(1);
+        },
+      );
     });
   });
 }
-

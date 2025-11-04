@@ -87,4 +87,3 @@ DataSuccess<T> createDataSuccess<T>(T data) {
 DataFailure<T> createDataFailure<T>(Exception error) {
   return DataFailure(error: error);
 }
-

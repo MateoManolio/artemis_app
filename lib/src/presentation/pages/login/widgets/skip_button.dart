@@ -5,16 +5,13 @@ import 'package:artemis_app/src/config/theme/app_theme.dart';
 class SkipButton extends StatelessWidget {
   final VoidCallback onPressed;
 
-  const SkipButton({
-    super.key,
-    required this.onPressed,
-  });
+  const SkipButton({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context)!;
-    
+
     return TextButton(
       onPressed: onPressed,
       style: TextButton.styleFrom(

@@ -7,12 +7,7 @@ void main() {
   group('NewIdeas Widget Tests', () {
     testWidgets('should display discover new ideas text', (tester) async {
       // Act
-      await pumpApp(
-        tester,
-        const Scaffold(
-          body: NewIdeas(),
-        ),
-      );
+      await pumpApp(tester, const Scaffold(body: NewIdeas()));
 
       // Assert
       expect(find.textContaining('Discover'), findsOneWidget);
@@ -20,12 +15,7 @@ void main() {
 
     testWidgets('should display SVG icon', (tester) async {
       // Act
-      await pumpApp(
-        tester,
-        const Scaffold(
-          body: NewIdeas(),
-        ),
-      );
+      await pumpApp(tester, const Scaffold(body: NewIdeas()));
 
       // Assert
       // SVG might render as different widgets in tests
@@ -36,12 +26,7 @@ void main() {
 
     testWidgets('should navigate to articles page when tapped', (tester) async {
       // Arrange & Act
-      await pumpApp(
-        tester,
-        Scaffold(
-          body: const NewIdeas(),
-        ),
-      );
+      await pumpApp(tester, Scaffold(body: const NewIdeas()));
 
       // Verify widget exists before tap
       expect(find.byType(NewIdeas), findsOneWidget);
@@ -58,12 +43,7 @@ void main() {
 
     testWidgets('should have correct card styling', (tester) async {
       // Act
-      await pumpApp(
-        tester,
-        const Scaffold(
-          body: NewIdeas(),
-        ),
-      );
+      await pumpApp(tester, const Scaffold(body: NewIdeas()));
 
       // Assert
       final card = tester.widget<Card>(find.byType(Card));
@@ -74,12 +54,7 @@ void main() {
 
     testWidgets('should display explore text', (tester) async {
       // Act
-      await pumpApp(
-        tester,
-        const Scaffold(
-          body: NewIdeas(),
-        ),
-      );
+      await pumpApp(tester, const Scaffold(body: NewIdeas()));
 
       // Assert
       expect(find.textContaining('Explore'), findsOneWidget);
@@ -87,12 +62,7 @@ void main() {
 
     testWidgets('should use primary color for card', (tester) async {
       // Act
-      await pumpApp(
-        tester,
-        const Scaffold(
-          body: NewIdeas(),
-        ),
-      );
+      await pumpApp(tester, const Scaffold(body: NewIdeas()));
 
       // Assert
       final card = tester.widget<Card>(find.byType(Card));
@@ -100,4 +70,3 @@ void main() {
     });
   });
 }
-

@@ -7,12 +7,7 @@ void main() {
   group('ArticlesSearchBar Widget Tests', () {
     testWidgets('should display search field', (tester) async {
       // Act
-      await pumpApp(
-        tester,
-        const Scaffold(
-          body: ArticlesSearchBar(),
-        ),
-      );
+      await pumpApp(tester, const Scaffold(body: ArticlesSearchBar()));
 
       // Assert
       expect(find.byType(TextField), findsOneWidget);
@@ -20,12 +15,7 @@ void main() {
 
     testWidgets('should display search icon', (tester) async {
       // Act
-      await pumpApp(
-        tester,
-        const Scaffold(
-          body: ArticlesSearchBar(),
-        ),
-      );
+      await pumpApp(tester, const Scaffold(body: ArticlesSearchBar()));
 
       // Assert
       expect(find.byIcon(Icons.search), findsOneWidget);
@@ -39,9 +29,7 @@ void main() {
       await pumpApp(
         tester,
         Scaffold(
-          body: ArticlesSearchBar(
-            onChanged: (value) => changedValue = value,
-          ),
+          body: ArticlesSearchBar(onChanged: (value) => changedValue = value),
         ),
       );
 
@@ -59,11 +47,7 @@ void main() {
       // Act
       await pumpApp(
         tester,
-        Scaffold(
-          body: ArticlesSearchBar(
-            controller: controller,
-          ),
-        ),
+        Scaffold(body: ArticlesSearchBar(controller: controller)),
       );
 
       // Assert
@@ -72,12 +56,7 @@ void main() {
 
     testWidgets('should have rounded border', (tester) async {
       // Act
-      await pumpApp(
-        tester,
-        const Scaffold(
-          body: ArticlesSearchBar(),
-        ),
-      );
+      await pumpApp(tester, const Scaffold(body: ArticlesSearchBar()));
 
       // Assert
       final textField = tester.widget<TextField>(find.byType(TextField));
@@ -92,9 +71,7 @@ void main() {
       // Act
       await pumpApp(
         tester,
-        const Scaffold(
-          body: ArticlesSearchBar(onChanged: null),
-        ),
+        const Scaffold(body: ArticlesSearchBar(onChanged: null)),
       );
 
       await tester.enterText(find.byType(TextField), 'test');
@@ -105,4 +82,3 @@ void main() {
     });
   });
 }
-

@@ -3,10 +3,10 @@ import 'package:envied/envied.dart';
 part 'env.g.dart';
 
 /// Environment configuration for Firebase API keys.
-/// 
+///
 /// This class uses the `envied` package to load and obfuscate
 /// environment variables from the `.env` file.
-/// 
+///
 /// The generated code is in `env.g.dart` which is created by running:
 /// ```
 /// flutter pub run build_runner build --delete-conflicting-outputs

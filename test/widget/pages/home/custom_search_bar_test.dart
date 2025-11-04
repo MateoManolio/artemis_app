@@ -12,11 +12,7 @@ void main() {
         tester,
         Scaffold(
           body: Row(
-            children: [
-              CustomSearchBar(
-                favorites: ArticlesFixture.emptyList(),
-              ),
-            ],
+            children: [CustomSearchBar(favorites: ArticlesFixture.emptyList())],
           ),
         ),
       );
@@ -32,11 +28,7 @@ void main() {
         tester,
         Scaffold(
           body: Row(
-            children: [
-              CustomSearchBar(
-                favorites: ArticlesFixture.emptyList(),
-              ),
-            ],
+            children: [CustomSearchBar(favorites: ArticlesFixture.emptyList())],
           ),
         ),
       );
@@ -49,7 +41,9 @@ void main() {
       expect(find.byIcon(Icons.search_off), findsOneWidget);
     });
 
-    testWidgets('should display search suggestions when typing', (tester) async {
+    testWidgets('should display search suggestions when typing', (
+      tester,
+    ) async {
       // This test would need more complex setup with provider overrides
       // For now, we verify the widget structure
       await pumpApp(
@@ -57,9 +51,7 @@ void main() {
         Scaffold(
           body: Row(
             children: [
-              CustomSearchBar(
-                favorites: ArticlesFixture.defaultArticles(),
-              ),
+              CustomSearchBar(favorites: ArticlesFixture.defaultArticles()),
             ],
           ),
         ),
@@ -77,13 +69,7 @@ void main() {
       await pumpApp(
         tester,
         Scaffold(
-          body: Row(
-            children: [
-              CustomSearchBar(
-                favorites: favorites,
-              ),
-            ],
-          ),
+          body: Row(children: [CustomSearchBar(favorites: favorites)]),
         ),
       );
 
@@ -92,4 +78,3 @@ void main() {
     });
   });
 }
-
