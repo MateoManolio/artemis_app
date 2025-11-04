@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:artemis_app/l10n/app_localizations.dart';
 import 'package:artemis_app/src/config/theme/app_theme.dart';
+import 'terms_dialog.dart';
+import 'privacy_dialog.dart';
 
 class AboutSection extends StatelessWidget {
   const AboutSection({super.key});
@@ -29,9 +31,10 @@ class AboutSection extends StatelessWidget {
             subtitle: l10n.legalInformation,
             colorScheme: colorScheme,
             onTap: () {
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(SnackBar(content: Text(l10n.comingSoon)));
+              showDialog(
+                context: context,
+                builder: (context) => const TermsDialog(),
+              );
             },
           ),
           const SizedBox(height: AppSpacing.lg),
@@ -41,9 +44,10 @@ class AboutSection extends StatelessWidget {
             subtitle: l10n.howWeHandleData,
             colorScheme: colorScheme,
             onTap: () {
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(SnackBar(content: Text(l10n.comingSoon)));
+              showDialog(
+                context: context,
+                builder: (context) => const PrivacyDialog(),
+              );
             },
           ),
         ],
