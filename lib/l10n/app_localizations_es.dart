@@ -271,6 +271,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get adjustReadingComfort => 'Ajusta la comodidad de lectura';
 
   @override
+  String get fontSizePreview =>
+      'El veloz murciélago hindú comía feliz cardillo y kiwi';
+
+  @override
   String get medium => 'Medio';
 
   @override

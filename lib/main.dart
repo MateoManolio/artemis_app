@@ -4,6 +4,7 @@ import 'package:artemis_app/src/config/localization/locale_provider.dart';
 import 'package:artemis_app/src/config/route/app_router.dart';
 import 'package:artemis_app/src/config/theme/app_theme.dart';
 import 'package:artemis_app/src/config/theme/theme_mode_provider.dart';
+import 'package:artemis_app/src/config/theme/font_size_provider.dart';
 import 'package:artemis_app/src/core/util/config_constants.dart';
 import 'package:artemis_app/src/data/datasource/local/isar_storage.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +34,7 @@ class MainApp extends ConsumerWidget {
     final lightTheme = ref.watch(lightThemeProviderProvider);
     final darkTheme = ref.watch(darkThemeProviderProvider);
     final currentMode = ref.watch(themeModeProvider);
+    final fontSize = ref.watch(fontSizeProvider);
     ref.read(localeProvider.notifier).initializeLocale();
 
     return MaterialApp.router(
@@ -54,6 +56,14 @@ class MainApp extends ConsumerWidget {
       darkTheme: darkTheme,
       themeMode: currentMode,
       routerConfig: router,
+      builder: (context, child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(
+            textScaler: TextScaler.linear(fontSize.scale),
+          ),
+          child: child!,
+        );
+      },
     );
   }
 }

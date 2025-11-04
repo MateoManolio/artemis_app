@@ -155,6 +155,7 @@
   "pleaseEnterValidNumber": "Please enter a valid positive number",
   "fontSize": "Font Size",
   "adjustReadingComfort": "Adjust reading comfort",
+  "fontSizePreview": "The quick brown fox jumps over the lazy dog",
   "medium": "Medium",
   "fontSizeComingSoon": "Font size feature coming soon",
   "readingMode": "Reading Mode",

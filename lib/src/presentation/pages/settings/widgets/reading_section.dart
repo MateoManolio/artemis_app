@@ -1,5 +1,7 @@
+import 'package:artemis_app/src/presentation/pages/settings/widgets/font_size_dialog.dart';
 import 'package:artemis_app/src/presentation/providers/weekly_goal_provider.dart';
 import 'package:artemis_app/src/config/theme/app_theme.dart';
+import 'package:artemis_app/src/config/theme/font_size_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:artemis_app/l10n/app_localizations.dart';
@@ -107,12 +109,12 @@ class ReadingSection extends ConsumerWidget {
           icon: Icons.text_fields_outlined,
           title: l10n.fontSize,
           subtitle: l10n.adjustReadingComfort,
-          value: l10n.medium,
-          onTap: () {
-            // TODO: Implement font size selector
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text(l10n.fontSizeComingSoon)));
+          value: ref.watch(fontSizeProvider).label,
+          onTap: () async {
+            await showDialog(
+              context: context,
+              builder: (context) => const FontSizeDialog(),
+            );
           },
         ),
         const SizedBox(height: AppSpacing.sm),

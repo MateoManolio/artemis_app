@@ -267,6 +267,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get adjustReadingComfort => 'Adjust reading comfort';
 
   @override
+  String get fontSizePreview => 'The quick brown fox jumps over the lazy dog';
+
+  @override
   String get medium => 'Medium';
 
   @override

@@ -269,6 +269,10 @@ class AppLocalizationsPt extends AppLocalizations {
   String get adjustReadingComfort => 'Ajuste o conforto de leitura';
 
   @override
+  String get fontSizePreview =>
+      'Vejo xá giz pôr quinhentos florins bravos em watt';
+
+  @override
   String get medium => 'Médio';
 
   @override

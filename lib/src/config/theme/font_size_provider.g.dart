@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'articles_read_provider.dart';
+part of 'font_size_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,53 +9,52 @@ part of 'articles_read_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(ArticlesReadProvider)
-const articlesReadProviderProvider = ArticlesReadProviderProvider._();
+@ProviderFor(FontSizeNotifier)
+const fontSizeProvider = FontSizeNotifierProvider._();
 
-final class ArticlesReadProviderProvider
-    extends $NotifierProvider<ArticlesReadProvider, int> {
-  const ArticlesReadProviderProvider._()
+final class FontSizeNotifierProvider
+    extends $NotifierProvider<FontSizeNotifier, FontSize> {
+  const FontSizeNotifierProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'articlesReadProviderProvider',
-        isAutoDispose: true,
+        name: r'fontSizeProvider',
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$articlesReadProviderHash();
+  String debugGetCreateSourceHash() => _$fontSizeNotifierHash();
 
   @$internal
   @override
-  ArticlesReadProvider create() => ArticlesReadProvider();
+  FontSizeNotifier create() => FontSizeNotifier();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(int value) {
+  Override overrideWithValue(FontSize value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<int>(value),
+      providerOverride: $SyncValueProvider<FontSize>(value),
     );
   }
 }
 
-String _$articlesReadProviderHash() =>
-    r'6de4911ab38993f714fa29b693268cda9054789a';
+String _$fontSizeNotifierHash() => r'349997214415ea86a323f8159556800dbf54e2ed';
 
-abstract class _$ArticlesReadProvider extends $Notifier<int> {
-  int build();
+abstract class _$FontSizeNotifier extends $Notifier<FontSize> {
+  FontSize build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<int, int>;
+    final ref = this.ref as $Ref<FontSize, FontSize>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<int, int>,
-              int,
+              AnyNotifier<FontSize, FontSize>,
+              FontSize,
               Object?,
               Object?
             >;
