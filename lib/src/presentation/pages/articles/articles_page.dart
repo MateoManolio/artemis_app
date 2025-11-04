@@ -79,6 +79,31 @@ class _ArticlesPageState extends ConsumerState<ArticlesPage> {
 
     final articlesState = ref.watch(articlesDataProvider);
 
+    // Listen for pagination errors
+    ref.listen(articlesDataProvider, (previous, next) {
+      final notifier = ref.read(articlesDataProvider.notifier);
+      if (notifier.paginationError != null && next.hasValue) {
+        // Show snackbar when there's a pagination error
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(notifier.paginationError!),
+                action: SnackBarAction(
+                  label: l10n.retry,
+                  onPressed: () {
+                    notifier.loadMoreArticles();
+                  },
+                ),
+              ),
+            );
+            // Clear the error after showing
+            notifier.paginationError = null;
+          }
+        });
+      }
+    });
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -104,79 +129,87 @@ class _ArticlesPageState extends ConsumerState<ArticlesPage> {
           ),
         ],
       ),
-      body: articlesState.when(
-        data: (articles) {
-          if (articles.isEmpty) {
-            return Center(child: Text(l10n.noArticlesFound));
-          }
-
-          return CustomScrollView(
-            controller: _scrollController,
-            slivers: [
-              // Sticky header with search and filters
-              SliverPersistentHeader(
-                pinned: true,
-                delegate: _ArticlesHeaderDelegate(
-                  child: Container(
-                    color: colorScheme.surface,
-                    padding: const EdgeInsets.all(AppSpacing.lg),
-                    child: ArticlesHeader(
-                      searchController: _searchController,
-                      onSearchChanged: _onSearchChanged,
-                      onFiltersPressed: _onFiltersPressed,
-                    ),
-                  ),
+      body: CustomScrollView(
+        controller: _scrollController,
+        slivers: [
+          // Sticky header with search and filters (always visible)
+          SliverPersistentHeader(
+            pinned: true,
+            delegate: _ArticlesHeaderDelegate(
+              child: Container(
+                color: colorScheme.surface,
+                padding: const EdgeInsets.all(AppSpacing.lg),
+                child: ArticlesHeader(
+                  searchController: _searchController,
+                  onSearchChanged: _onSearchChanged,
+                  onFiltersPressed: _onFiltersPressed,
                 ),
               ),
-              // Articles list
-              ArticlesList.sliver(
+            ),
+          ),
+          // Content based on state
+          articlesState.when(
+            data: (articles) {
+              if (articles.isEmpty) {
+                return SliverFillRemaining(
+                  child: Center(child: Text(l10n.noArticlesFound)),
+                );
+              }
+
+              return ArticlesList.sliver(
                 articles: articles,
                 scrollController: _scrollController,
                 onArticleTap: _onArticleTap,
                 onLoadMore: () {
                   ref.read(articlesDataProvider.notifier).loadMoreArticles();
                 },
-              ),
-            ],
-          );
-        },
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stackTrace) {
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.error_outline,
-                  size: AppIconSize.xxxl,
-                  color: colorScheme.error,
-                ),
-                const SizedBox(height: AppSpacing.lg),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppSpacing.xxl,
-                  ),
-                  child: Text(
-                    error.toString(),
-                    textAlign: TextAlign.center,
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      color: colorScheme.error,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: AppSpacing.xl),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    ref.read(articlesDataProvider.notifier).refresh();
-                    ref.read(articlesDataProvider.notifier).fetchArticles();
-                  },
-                  icon: const Icon(Icons.refresh),
-                  label: Text(l10n.retry),
-                ),
-              ],
+              );
+            },
+            loading: () => const SliverFillRemaining(
+              child: Center(child: CircularProgressIndicator()),
             ),
-          );
-        },
+            error: (error, stackTrace) {
+              return SliverFillRemaining(
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.error_outline,
+                        size: AppIconSize.xxxl,
+                        color: colorScheme.error,
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: AppSpacing.xxl,
+                        ),
+                        child: Text(
+                          error.toString(),
+                          textAlign: TextAlign.center,
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            color: colorScheme.error,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: AppSpacing.xl),
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          ref.read(articlesDataProvider.notifier).refresh();
+                          ref
+                              .read(articlesDataProvider.notifier)
+                              .fetchArticles();
+                        },
+                        icon: const Icon(Icons.refresh),
+                        label: Text(l10n.retry),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
       ),
     );
   }

@@ -14,6 +14,7 @@ class ArticlesData extends _$ArticlesData {
   int page = 1;
   int perPage = 10;
   CancelToken cancelToken = CancelToken();
+  String? paginationError;
 
   @override
   AsyncValue<List<Article>> build() {
@@ -35,6 +36,7 @@ class ArticlesData extends _$ArticlesData {
         );
 
     if (articles is DataSuccess<List<Article>>) {
+      paginationError = null;
       if (isRefresh) {
         state = AsyncValue.data(articles.data!);
       } else {
@@ -45,7 +47,20 @@ class ArticlesData extends _$ArticlesData {
       // keep the loading state
       final errorMessage = articles.error.toString();
       if (!errorMessage.contains('Request was cancelled')) {
-        state = AsyncValue.error(articles.error!, StackTrace.current);
+        // If we're paginating and already have articles, keep them
+        // and don't replace the state with an error
+        if (!isRefresh && state.hasValue && state.value!.isNotEmpty) {
+          // Keep current articles, just decrement page to allow retry
+          page--;
+          // Store the error to show in UI
+          paginationError = errorMessage;
+          // Force state update to trigger listeners by creating a new list
+          final currentArticles = state.value!;
+          state = AsyncValue.data([...currentArticles]);
+        } else {
+          // Only show error state if it's a refresh or we have no articles yet
+          state = AsyncValue.error(articles.error!, StackTrace.current);
+        }
       }
     }
   }

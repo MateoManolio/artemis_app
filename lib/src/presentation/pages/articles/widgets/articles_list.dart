@@ -50,8 +50,8 @@ class _ArticlesListState extends State<ArticlesList> {
   @override
   void didUpdateWidget(ArticlesList oldWidget) {
     super.didUpdateWidget(oldWidget);
-    // Reset flag when new articles arrive
-    if (oldWidget.articles.length != widget.articles.length) {
+    // Reset flag when articles list changes (either new articles or same articles but different instance)
+    if (oldWidget.articles != widget.articles) {
       _hasTriggeredLoad = false;
     }
 
