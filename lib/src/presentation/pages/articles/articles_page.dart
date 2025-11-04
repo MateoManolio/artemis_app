@@ -24,6 +24,7 @@ class ArticlesPage extends ConsumerStatefulWidget {
 
 class _ArticlesPageState extends ConsumerState<ArticlesPage> {
   final TextEditingController _searchController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -36,6 +37,7 @@ class _ArticlesPageState extends ConsumerState<ArticlesPage> {
   @override
   void dispose() {
     _searchController.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -102,74 +104,107 @@ class _ArticlesPageState extends ConsumerState<ArticlesPage> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(AppSpacing.lg),
-            child: ArticlesHeader(
-              searchController: _searchController,
-              onSearchChanged: _onSearchChanged,
-              onFiltersPressed: _onFiltersPressed,
-            ),
-          ),
-          Expanded(
-            child: articlesState.when(
-              data: (articles) {
-                if (articles.isEmpty) {
-                  return Center(child: Text(l10n.noArticlesFound));
-                }
+      body: articlesState.when(
+        data: (articles) {
+          if (articles.isEmpty) {
+            return Center(child: Text(l10n.noArticlesFound));
+          }
 
-                return ArticlesList(
-                  articles: articles,
-                  onArticleTap: _onArticleTap,
-                  onLoadMore: () {
-                    ref.read(articlesDataProvider.notifier).loadMoreArticles();
-                  },
-                );
-              },
-              loading: () => const Center(child: CircularProgressIndicator()),
-              error: (error, stackTrace) {
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.error_outline,
-                        size: AppIconSize.xxxl,
-                        color: colorScheme.error,
-                      ),
-                      const SizedBox(height: AppSpacing.lg),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: AppSpacing.xxl,
-                        ),
-                        child: Text(
-                          error.toString(),
-                          textAlign: TextAlign.center,
-                          style: theme.textTheme.bodyMedium?.copyWith(
-                            color: colorScheme.error,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: AppSpacing.xl),
-                      ElevatedButton.icon(
-                        onPressed: () {
-                          ref.read(articlesDataProvider.notifier).refresh();
-                          ref
-                              .read(articlesDataProvider.notifier)
-                              .fetchArticles();
-                        },
-                        icon: const Icon(Icons.refresh),
-                        label: Text(l10n.retry),
-                      ),
-                    ],
+          return CustomScrollView(
+            controller: _scrollController,
+            slivers: [
+              // Sticky header with search and filters
+              SliverPersistentHeader(
+                pinned: true,
+                delegate: _ArticlesHeaderDelegate(
+                  child: Container(
+                    color: colorScheme.surface,
+                    padding: const EdgeInsets.all(AppSpacing.lg),
+                    child: ArticlesHeader(
+                      searchController: _searchController,
+                      onSearchChanged: _onSearchChanged,
+                      onFiltersPressed: _onFiltersPressed,
+                    ),
                   ),
-                );
-              },
+                ),
+              ),
+              // Articles list
+              ArticlesList.sliver(
+                articles: articles,
+                scrollController: _scrollController,
+                onArticleTap: _onArticleTap,
+                onLoadMore: () {
+                  ref.read(articlesDataProvider.notifier).loadMoreArticles();
+                },
+              ),
+            ],
+          );
+        },
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stackTrace) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.error_outline,
+                  size: AppIconSize.xxxl,
+                  color: colorScheme.error,
+                ),
+                const SizedBox(height: AppSpacing.lg),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppSpacing.xxl,
+                  ),
+                  child: Text(
+                    error.toString(),
+                    textAlign: TextAlign.center,
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: colorScheme.error,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: AppSpacing.xl),
+                ElevatedButton.icon(
+                  onPressed: () {
+                    ref.read(articlesDataProvider.notifier).refresh();
+                    ref.read(articlesDataProvider.notifier).fetchArticles();
+                  },
+                  icon: const Icon(Icons.refresh),
+                  label: Text(l10n.retry),
+                ),
+              ],
             ),
-          ),
-        ],
+          );
+        },
       ),
     );
+  }
+}
+
+/// Custom delegate for the persistent header
+class _ArticlesHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final Widget child;
+
+  _ArticlesHeaderDelegate({required this.child});
+
+  @override
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
+    return child;
+  }
+
+  @override
+  double get maxExtent => 90.0;
+
+  @override
+  double get minExtent => 90.0; // Same as maxExtent to keep it fixed
+
+  @override
+  bool shouldRebuild(covariant _ArticlesHeaderDelegate oldDelegate) {
+    return child != oldDelegate.child;
   }
 }

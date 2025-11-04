@@ -42,9 +42,9 @@ void main() {
       );
 
       // Assert
-      // When articles list is empty, the ListView should be empty
+      // When articles list is empty, the CustomScrollView should be empty
       // The empty message is handled by the parent ArticlesPage
-      expect(find.byType(ListView), findsOneWidget);
+      expect(find.byType(CustomScrollView), findsOneWidget);
     });
 
     testWidgets('should call onArticleTap when article is tapped', (
@@ -94,14 +94,14 @@ void main() {
       );
 
       // Scroll to trigger load more (65% of max scroll)
-      final listView = find.byType(ListView);
-      await tester.drag(listView, const Offset(0, -500));
+      final scrollView = find.byType(CustomScrollView);
+      await tester.drag(scrollView, const Offset(0, -500));
       await tester.pumpAndSettle();
 
       // Assert
       // Note: Actual trigger depends on scroll position calculation
       // This test verifies the widget structure
-      expect(find.byType(ListView), findsOneWidget);
+      expect(find.byType(CustomScrollView), findsOneWidget);
     });
 
     testWidgets('should show loading indicator when onLoadMore is triggered', (
@@ -125,13 +125,13 @@ void main() {
       // Wait for initial layout
       await tester.pumpAndSettle();
 
-      // Get the ListView and ensure it's scrollable
-      final listView = find.byType(ListView);
-      expect(listView, findsOneWidget);
+      // Get the CustomScrollView and ensure it's scrollable
+      final scrollView = find.byType(CustomScrollView);
+      expect(scrollView, findsOneWidget);
 
       // Scroll down significantly to trigger load more (65% threshold)
       // Using drag to ensure we scroll past the threshold
-      await tester.drag(listView, const Offset(0, -3000));
+      await tester.drag(scrollView, const Offset(0, -3000));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 100));
 
@@ -139,7 +139,7 @@ void main() {
       // The onLoadMore callback should have been called, which sets _hasTriggeredLoad to true
       // Note: The loading indicator appears at the bottom when _hasTriggeredLoad is true
       // Due to the complexity of scroll position calculation in tests, we just verify the structure
-      expect(find.byType(ListView), findsOneWidget);
+      expect(find.byType(CustomScrollView), findsOneWidget);
       // Verify that the callback mechanism works (loadMoreCalled may be true if scroll threshold is reached)
       // Note: This test verifies the widget structure and scroll functionality
     });

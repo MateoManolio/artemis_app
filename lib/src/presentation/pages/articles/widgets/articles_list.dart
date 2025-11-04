@@ -7,25 +7,44 @@ class ArticlesList extends StatefulWidget {
   final List<Article> articles;
   final ValueChanged<Article> onArticleTap;
   final VoidCallback? onLoadMore;
+  final bool asSliver;
+  final ScrollController? scrollController;
 
   const ArticlesList({
     super.key,
     required this.articles,
     required this.onArticleTap,
     this.onLoadMore,
-  });
+    this.scrollController,
+  }) : asSliver = false;
+
+  /// Constructor that returns slivers to be used inside a CustomScrollView
+  const ArticlesList.sliver({
+    super.key,
+    required this.articles,
+    required this.onArticleTap,
+    this.onLoadMore,
+    required this.scrollController,
+  }) : asSliver = true;
 
   @override
   State<ArticlesList> createState() => _ArticlesListState();
 }
 
 class _ArticlesListState extends State<ArticlesList> {
-  final ScrollController _scrollController = ScrollController();
+  ScrollController? _internalScrollController;
   bool _hasTriggeredLoad = false;
+
+  ScrollController get _scrollController =>
+      widget.scrollController ?? _internalScrollController!;
 
   @override
   void initState() {
     super.initState();
+    // Only create internal controller if not provided
+    if (widget.scrollController == null) {
+      _internalScrollController = ScrollController();
+    }
     _scrollController.addListener(_onScroll);
   }
 
@@ -36,12 +55,19 @@ class _ArticlesListState extends State<ArticlesList> {
     if (oldWidget.articles.length != widget.articles.length) {
       _hasTriggeredLoad = false;
     }
+
+    // Handle controller changes
+    if (oldWidget.scrollController != widget.scrollController) {
+      oldWidget.scrollController?.removeListener(_onScroll);
+      _scrollController.addListener(_onScroll);
+    }
   }
 
   @override
   void dispose() {
     _scrollController.removeListener(_onScroll);
-    _scrollController.dispose();
+    // Only dispose if we created it
+    _internalScrollController?.dispose();
     super.dispose();
   }
 
@@ -64,34 +90,54 @@ class _ArticlesListState extends State<ArticlesList> {
     }
   }
 
+  List<Widget> _buildSlivers() {
+    return [
+      // Main articles list using SliverPadding + SliverList
+      SliverPadding(
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+        sliver: SliverList.builder(
+          itemCount: widget.articles.length,
+          itemBuilder: (context, index) {
+            final article = widget.articles[index];
+            return ArticleCard(
+              title: article.title,
+              authors: article.authors.join(', '),
+              type: article.type.displayName,
+              year: article.year,
+              isOpenAccess: article.openAccess,
+              onTap: () => widget.onArticleTap(article),
+            );
+          },
+        ),
+      ),
+
+      // Loading indicator at the bottom (only shown when loading more)
+      SliverToBoxAdapter(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: AppSpacing.xxl),
+          child: Center(
+            child: _hasTriggeredLoad
+                ? const CircularProgressIndicator()
+                : const SizedBox.shrink(),
+          ),
+        ),
+      ),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      controller: _scrollController,
-      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-      itemCount: widget.articles.length + 1,
-      itemBuilder: (context, index) {
-        if (index == widget.articles.length) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: AppSpacing.xxl),
-            child: Center(
-              child: _hasTriggeredLoad
-                  ? const CircularProgressIndicator()
-                  : const SizedBox.shrink(),
-            ),
-          );
-        }
+    final slivers = _buildSlivers();
 
-        final article = widget.articles[index];
-        return ArticleCard(
-          title: article.title,
-          authors: article.authors.join(', '),
-          type: article.type.displayName,
-          year: article.year,
-          isOpenAccess: article.openAccess,
-          onTap: () => widget.onArticleTap(article),
-        );
-      },
+    // If used as sliver, return the children directly
+    if (widget.asSliver) {
+      return SliverMainAxisGroup(slivers: slivers);
+    }
+
+    // Otherwise, wrap in CustomScrollView with internal controller
+    return CustomScrollView(
+      controller: _internalScrollController,
+      slivers: slivers,
     );
   }
 }
