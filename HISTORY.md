@@ -567,8 +567,8 @@ See the TODO section below for completed features and future plans.
 - [ ] Skeleton loaders for better UX
 - [ ] Improved discovery algorithm (prevent showing same articles)
 - [ ] Enhanced splash screen customization
-- [ ] CI/CD improvements (add tests to build pipeline, release automation)
+- [x] CI/CD improvements (add tests to build pipeline, release automation)
 
 ### Known Issues
-- [ ] Articles read consistency (needs refinement)
+- [x] Articles read consistency (needs refinement)
 - [ ] Performance optimizations (ongoing)
