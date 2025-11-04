@@ -118,18 +118,6 @@ class ReadingSection extends ConsumerWidget {
           },
         ),
         const SizedBox(height: AppSpacing.sm),
-        SettingOption(
-          icon: Icons.auto_stories_outlined,
-          title: l10n.readingMode,
-          subtitle: l10n.chooseHowToRead,
-          value: l10n.distractionFree,
-          onTap: () {
-            // TODO: Implement reading mode selector
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text(l10n.readingModeComingSoon)));
-          },
-        ),
       ],
     );
   }

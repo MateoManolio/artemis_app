@@ -38,31 +38,25 @@ class SettingsPage extends StatelessWidget {
           const SizedBox(height: AppSpacing.lg),
 
           // Account Section
-          SettingsSection(
-            title: l10n.account,
-            children: [const AccountSection()],
-          ),
+          SettingsSection(title: l10n.account, child: const AccountSection()),
 
           const SizedBox(height: AppSpacing.xl),
 
           // Appearance Section
           SettingsSection(
             title: l10n.appearance,
-            children: [const AppearanceSection()],
+            child: const AppearanceSection(),
           ),
 
           const SizedBox(height: AppSpacing.xl),
 
           // Reading Section
-          SettingsSection(
-            title: l10n.reading,
-            children: [const ReadingSection()],
-          ),
+          SettingsSection(title: l10n.reading, child: const ReadingSection()),
 
           const SizedBox(height: AppSpacing.xl),
 
           // About Section
-          SettingsSection(title: l10n.about, children: [const AboutSection()]),
+          SettingsSection(title: l10n.about, child: const AboutSection()),
 
           const SizedBox(height: AppSpacing.xxl),
 

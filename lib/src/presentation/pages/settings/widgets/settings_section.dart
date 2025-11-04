@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:artemis_app/src/config/theme/app_theme.dart';
 
 class SettingsSection extends StatelessWidget {
-  const SettingsSection({super.key, this.title, required this.children});
+  const SettingsSection({super.key, this.title, required this.child});
 
   final String? title;
-  final List<Widget> children;
+  final Widget child;
   static const double letterSpacing = 0.5;
 
   @override
@@ -33,16 +33,7 @@ class SettingsSection extends StatelessWidget {
         ],
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-          child: Column(
-            children: children
-                .map(
-                  (child) => Padding(
-                    padding: const EdgeInsets.only(bottom: AppSpacing.sm),
-                    child: child,
-                  ),
-                )
-                .toList(),
-          ),
+          child: child,
         ),
       ],
     );
