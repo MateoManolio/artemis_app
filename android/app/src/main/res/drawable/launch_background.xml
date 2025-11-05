@@ -8,10 +8,18 @@
             android:src="@drawable/splash_background" />
     </item>
     
-    <!-- Centered icon -->
+    <!-- Centered icon with proper sizing -->
     <item>
-        <bitmap
-            android:gravity="center"
-            android:src="@drawable/splash_icon" />
+        <inset
+            android:insetTop="30%"
+            android:insetBottom="30%"
+            android:insetLeft="30%"
+            android:insetRight="30%">
+            <bitmap
+                android:gravity="fill"
+                android:src="@drawable/splash_icon" 
+                android:filter="true"
+                android:dither="true" />
+        </inset>
     </item>
 </layer-list>
