@@ -12,10 +12,9 @@ class AppearanceSection extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeNotifier = ref.read(themeModeProvider.notifier);
-    final themeMode = ref.watch(themeModeProvider);
     final l10n = AppLocalizations.of(context)!;
 
-    final isDarkMode = themeMode == ThemeMode.dark;
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     void toggleTheme() {
       if (isDarkMode) {
