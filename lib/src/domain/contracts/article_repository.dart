@@ -17,7 +17,12 @@ abstract class IArticleRepository {
   });
 
   /// Gets autocomplete suggestions for articles
-  Future<DataState<List<Article>>> getAutocompleteArticles(String query);
+  Future<DataState<List<Article>>> getAutocompleteArticles({
+    required String query,
+    ArticlesFilters? filters,
+    CancelToken? cancelToken,
+    int? perPage,
+  });
 
   /// Gets a random article
   Future<DataState<Article>> getRandomArticle();

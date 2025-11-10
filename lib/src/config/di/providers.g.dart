@@ -608,6 +608,54 @@ final class ToggleFavoriteUsecaseProvider
 String _$toggleFavoriteUsecaseHash() =>
     r'8af811da6f5f8f28184741a28c98f04c8aa7ff71';
 
+@ProviderFor(searchFavoritesUsecase)
+const searchFavoritesUsecaseProvider = SearchFavoritesUsecaseProvider._();
+
+final class SearchFavoritesUsecaseProvider
+    extends
+        $FunctionalProvider<
+          SearchFavoritesUsecase,
+          SearchFavoritesUsecase,
+          SearchFavoritesUsecase
+        >
+    with $Provider<SearchFavoritesUsecase> {
+  const SearchFavoritesUsecaseProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'searchFavoritesUsecaseProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$searchFavoritesUsecaseHash();
+
+  @$internal
+  @override
+  $ProviderElement<SearchFavoritesUsecase> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  SearchFavoritesUsecase create(Ref ref) {
+    return searchFavoritesUsecase(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SearchFavoritesUsecase value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SearchFavoritesUsecase>(value),
+    );
+  }
+}
+
+String _$searchFavoritesUsecaseHash() =>
+    r'b00e7941ac04dadcf467e4994ae3a844e0d71140';
+
 @ProviderFor(articleApiDatasource)
 const articleApiDatasourceProvider = ArticleApiDatasourceProvider._();
 

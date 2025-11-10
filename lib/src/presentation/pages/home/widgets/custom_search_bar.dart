@@ -10,23 +10,54 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:artemis_app/l10n/app_localizations.dart';
 
-class CustomSearchBar extends ConsumerWidget {
+class CustomSearchBar extends ConsumerStatefulWidget {
   const CustomSearchBar({super.key, required this.favorites});
 
   final List<Article> favorites;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<CustomSearchBar> createState() => _CustomSearchBarState();
+}
+
+class _CustomSearchBarState extends ConsumerState<CustomSearchBar> {
+  final SearchController _searchController = SearchController();
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+
+    ref.listen(getArticlesPlusProvider, (previous, next) {
+      if (mounted && _searchController.isOpen) {
+        final currentText = _searchController.text;
+        _searchController.text = '$currentText ';
+        _searchController.text = currentText;
+      }
+    });
+
+    ref.listen(articlesLoadingStateProvider, (previous, next) {
+      if (mounted && _searchController.isOpen) {
+        final currentText = _searchController.text;
+        _searchController.text = '$currentText ';
+        _searchController.text = currentText;
+      }
+    });
 
     return Expanded(
       child: SearchAnchor(
+        searchController: _searchController,
         builder: (_, controller) => SearchBar(
           controller: controller,
           onTap: () {
             ref
                 .read(getArticlesPlusProvider.notifier)
-                .loadInitialArticles(favorites);
+                .loadInitialArticles(widget.favorites);
+            ref.read(articlesLoadingStateProvider.notifier).setLoading(false);
             controller.openView();
           },
           onChanged: (value) => controller.openView(),
@@ -39,14 +70,16 @@ class CustomSearchBar extends ConsumerWidget {
           ) {
             ref
                 .read(getArticlesPlusProvider.notifier)
-                .getArticlesAndFavorites(query, cancelToken);
+                .getArticlesAndFavorites(query, cancelToken, widget.favorites);
           });
         },
         viewOnClose: () {
           ref.invalidate(getArticlesPlusProvider);
+          ref.read(articlesLoadingStateProvider.notifier).setLoading(false);
         },
         suggestionsBuilder: (_, controller) {
           final articles = ref.watch(getArticlesPlusProvider);
+          final isLoading = ref.watch(articlesLoadingStateProvider);
           final currentQuery = controller.text.trim();
 
           final filteredArticles = currentQuery.isEmpty
@@ -116,26 +149,35 @@ class CustomSearchBar extends ConsumerWidget {
             ];
           }
 
-          return filteredArticles.map((article) {
-            return InkWell(
-              onTap: () {
-                controller.closeView('');
-                context.push(
-                  DetailsPage.routeName,
-                  extra: DetailsParameters(article: article),
-                );
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(AppSpacing.lg),
-                child: ArticlesText(
-                  title: article.title,
-                  domain: article.domain,
-                  type: article.type.displayName,
-                  isOa: article.openAccess,
+          final resultWidgets = <Widget>[
+            ...filteredArticles.map((article) {
+              return InkWell(
+                onTap: () {
+                  controller.closeView('');
+                  context.push(
+                    DetailsPage.routeName,
+                    extra: DetailsParameters(article: article),
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(AppSpacing.lg),
+                  child: ArticlesText(
+                    title: article.title,
+                    domain: article.domain,
+                    type: article.type.displayName,
+                    isOa: article.openAccess,
+                  ),
                 ),
+              );
+            }),
+            if (isLoading)
+              const Padding(
+                padding: EdgeInsets.all(AppSpacing.lg),
+                child: Center(child: CircularProgressIndicator()),
               ),
-            );
-          });
+          ];
+
+          return resultWidgets;
         },
       ),
     );

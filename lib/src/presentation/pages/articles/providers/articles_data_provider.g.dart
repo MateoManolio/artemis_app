@@ -41,7 +41,7 @@ final class ArticlesDataProvider
   }
 }
 
-String _$articlesDataHash() => r'158073ecb2c18a4dc5f0c639848107b5945d0233';
+String _$articlesDataHash() => r'556de62f1ad7fbf475e01a071c7d8e792fbdba85';
 
 abstract class _$ArticlesData extends $Notifier<AsyncValue<List<Article>>> {
   AsyncValue<List<Article>> build();

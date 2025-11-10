@@ -15,5 +15,10 @@ abstract class IArticleApiDatasource {
 
   Future<DataState<WorkDto>> getRandomArticle();
 
-  Future<DataState<List<WorkDto>>> getAutocompleteArticle(String query);
+  Future<DataState<List<WorkDto>>> getAutocompleteArticle({
+    required String query,
+    ArticlesFilters? filters,
+    CancelToken? cancelToken,
+    int? perPage,
+  });
 }

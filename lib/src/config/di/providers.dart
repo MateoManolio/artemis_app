@@ -14,6 +14,7 @@ import 'package:artemis_app/src/domain/usecase/get_articles_usecase.dart';
 import 'package:artemis_app/src/domain/usecase/get_autocomplete_articles_usecase.dart';
 import 'package:artemis_app/src/domain/usecase/get_random_article_usecase.dart';
 import 'package:artemis_app/src/domain/usecase/observe_auth_state_usecase.dart';
+import 'package:artemis_app/src/domain/usecase/search_favorites_usecase.dart';
 import 'package:artemis_app/src/domain/usecase/sign_out_usecase.dart';
 import 'package:artemis_app/src/domain/usecase/sign_in_with_google_usecase.dart';
 import 'package:artemis_app/src/domain/usecase/toggle_favorite_usecase.dart';
@@ -97,6 +98,10 @@ GetAllFavoritesUsecase getAllFavoritesUsecase(Ref ref) =>
 @riverpod
 ToggleFavoriteUsecase toggleFavoriteUsecase(Ref ref) =>
     ToggleFavoriteUsecase(ref.watch(favoritesRepositoryProvider));
+
+@riverpod
+SearchFavoritesUsecase searchFavoritesUsecase(Ref ref) =>
+    SearchFavoritesUsecase();
 
 // ============================================================================
 // ARTICLES - Datasources, Repositories

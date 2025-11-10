@@ -99,7 +99,12 @@ class OpenalexApiService implements IArticleApiDatasource {
   }
 
   @override
-  Future<DataState<List<WorkDto>>> getAutocompleteArticle(String query) async {
+  Future<DataState<List<WorkDto>>> getAutocompleteArticle({
+    required String query,
+    ArticlesFilters? filters,
+    CancelToken? cancelToken,
+    int? perPage,
+  }) async {
     try {
       if (query.isEmpty) {
         return DataSuccess(data: []);
@@ -107,13 +112,21 @@ class OpenalexApiService implements IArticleApiDatasource {
 
       final queryParameters = <String, dynamic>{
         'search': query,
-        'per-page': 10, // Limit results for autocomplete
+        'per-page': perPage ?? 10, // Default to 10, customizable
         'sort': 'relevance_score:desc',
       };
+
+      // Apply filters if provided
+      if (filters != null) {
+        queryParameters.addAll(
+          OpenAlexFiltersMapper.toQueryParameters(filters),
+        );
+      }
 
       final response = await _client.get(
         '/works',
         queryParameters: queryParameters,
+        cancelToken: cancelToken,
       );
 
       if (response.statusCode == 200 && response.data != null) {

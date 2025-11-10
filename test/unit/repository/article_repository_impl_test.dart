@@ -178,11 +178,16 @@ void main() {
           ];
 
           when(
-            () => mockDatasource.getAutocompleteArticle(query),
+            () => mockDatasource.getAutocompleteArticle(
+              query: query,
+              filters: null,
+              cancelToken: null,
+              perPage: null,
+            ),
           ).thenAnswer((_) async => createDataSuccess(workDtos));
 
           // Act
-          final result = await repository.getAutocompleteArticles(query);
+          final result = await repository.getAutocompleteArticles(query: query);
 
           // Assert
           expect(result, isA<DataSuccess<List<Article>>>());

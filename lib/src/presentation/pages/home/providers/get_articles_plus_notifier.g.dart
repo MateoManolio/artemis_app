@@ -42,7 +42,7 @@ final class GetArticlesPlusNotifierProvider
 }
 
 String _$getArticlesPlusNotifierHash() =>
-    r'e3bec102679e410b217876a230730d5e14f76b3e';
+    r'340d381c0ccab290aa08e8f59a1d8847015d15a4';
 
 abstract class _$GetArticlesPlusNotifier extends $Notifier<List<Article>> {
   List<Article> build();
@@ -56,6 +56,66 @@ abstract class _$GetArticlesPlusNotifier extends $Notifier<List<Article>> {
             as $ClassProviderElement<
               AnyNotifier<List<Article>, List<Article>>,
               List<Article>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}
+
+/// Provider to track loading state of API call
+
+@ProviderFor(ArticlesLoadingState)
+const articlesLoadingStateProvider = ArticlesLoadingStateProvider._();
+
+/// Provider to track loading state of API call
+final class ArticlesLoadingStateProvider
+    extends $NotifierProvider<ArticlesLoadingState, bool> {
+  /// Provider to track loading state of API call
+  const ArticlesLoadingStateProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'articlesLoadingStateProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$articlesLoadingStateHash();
+
+  @$internal
+  @override
+  ArticlesLoadingState create() => ArticlesLoadingState();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(bool value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<bool>(value),
+    );
+  }
+}
+
+String _$articlesLoadingStateHash() =>
+    r'eef20faa64e70df3bf007611fbaf9fa5e5eb2750';
+
+/// Provider to track loading state of API call
+
+abstract class _$ArticlesLoadingState extends $Notifier<bool> {
+  bool build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<bool, bool>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<bool, bool>,
+              bool,
               Object?,
               Object?
             >;

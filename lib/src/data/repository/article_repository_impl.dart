@@ -60,9 +60,19 @@ class ArticleRepositoryImpl implements IArticleRepository {
   }
 
   @override
-  Future<DataState<List<Article>>> getAutocompleteArticles(String query) async {
+  Future<DataState<List<Article>>> getAutocompleteArticles({
+    required String query,
+    ArticlesFilters? filters,
+    CancelToken? cancelToken,
+    int? perPage,
+  }) async {
     try {
-      final result = await service.getAutocompleteArticle(query);
+      final result = await service.getAutocompleteArticle(
+        query: query,
+        filters: filters,
+        cancelToken: cancelToken,
+        perPage: perPage,
+      );
 
       if (result is DataSuccess) {
         final articles = result.data!.map((work) => work.toDomain()).toList();
