@@ -1,0 +1,193 @@
+workflows:
+  flutter-ci:
+    name: Flutter CI (Analyze, Tests, Coverage, Android Build)
+    instance_type: linux_x2
+    max_build_duration: 60
+
+    environment:
+      flutter: stable
+      groups:
+        - firebase_config
+        - codecov
+
+    cache:
+      cache_paths:
+        - ~/.pub-cache
+        - ~/.gradle
+
+    triggering:
+      events:
+        - push
+        - pull_request
+      branch_patterns:
+        - pattern: '*'
+          include: true
+          source: true
+      cancel_previous_builds: true
+
+    scripts:
+      - name: 📦 Flutter pub get
+        script: |
+          flutter pub get
+
+      - name: 🔑 Crear archivo .env
+        script: |
+          cat << EOF > .env
+          FIREBASE_WEB_API_KEY=$FIREBASE_WEB_API_KEY
+          FIREBASE_ANDROID_API_KEY=$FIREBASE_ANDROID_API_KEY
+          FIREBASE_IOS_API_KEY=$FIREBASE_IOS_API_KEY
+          FIREBASE_APP_ID_WEB=$FIREBASE_APP_ID_WEB
+          FIREBASE_APP_ID_ANDROID=$FIREBASE_APP_ID_ANDROID
+          FIREBASE_APP_ID_IOS=$FIREBASE_APP_ID_IOS
+          FIREBASE_MESSAGING_SENDER_ID=$FIREBASE_MESSAGING_SENDER_ID
+          FIREBASE_PROJECT_ID=$FIREBASE_PROJECT_ID
+          FIREBASE_AUTH_DOMAIN=$FIREBASE_AUTH_DOMAIN
+          FIREBASE_STORAGE_BUCKET=$FIREBASE_STORAGE_BUCKET
+          FIREBASE_IOS_BUNDLE_ID=$FIREBASE_IOS_BUNDLE_ID
+          EOF
+
+      - name: 🔧 Generar código
+        script: |
+          dart run build_runner build --delete-conflicting-outputs
+
+      - name: 🔍 Static analysis
+        script: |
+          flutter analyze --no-pub
+
+      - name: 📝 Verificar formato
+        script: |
+          dart format --set-exit-if-changed .
+
+      - name: 🧪 Unit + Widget tests con coverage
+        script: |
+          flutter test --coverage
+
+      - name: 📊 Generar reporte de coverage (lcov + html)
+        script: |
+          sudo apt-get update
+          sudo apt-get install -y lcov
+
+          ls -la coverage
+          genhtml coverage/lcov.info -o coverage/html
+
+          lcov --summary coverage/lcov.info > coverage_summary.txt
+          cat coverage_summary.txt
+
+      - name: 📤 Subir coverage a Codecov
+        script: |
+          if [ -n "$CODECOV_TOKEN" ]; then
+            bash <(curl -s https://codecov.io/bash) \
+              -t "$CODECOV_TOKEN" \
+              -f coverage/lcov.info \
+              -F flutter
+          else
+            echo "No CODECOV_TOKEN configured, skipping upload."
+          fi
+
+      - name: 🤖 Build Android APK
+        script: |
+          flutter build apk --release
+
+    artifacts:
+      - build/app/outputs/flutter-apk/app-release.apk
+      - coverage/lcov.info
+      - coverage/html/**
+
+  android-release:
+    name: Android Release
+    instance_type: linux_x2
+    max_build_duration: 60
+
+    environment:
+      flutter: stable
+      groups:
+        - firebase_config
+        - android_keystore
+
+      vars:
+        ANDROID_PACKAGE_NAME: "com.example.artemis_app"
+
+    cache:
+      cache_paths:
+        - ~/.pub-cache
+        - ~/.gradle
+
+    triggering:
+      events:
+        - tag
+      tag_patterns:
+        - pattern: '🔖 v*.*.*'
+          include: true
+
+    scripts:
+      - name: 📦 Flutter pub get
+        script: |
+          flutter pub get
+
+      - name: 🔓 Decodificar google-services.json
+        script: |
+          if [ -n "$FIREBASE_ANDROID_JSON_B64" ]; then
+            mkdir -p android/app
+            echo "$FIREBASE_ANDROID_JSON_B64" | base64 --decode > android/app/google-services.json
+            echo "google-services.json generado en android/app/"
+          else
+            echo "FIREBASE_ANDROID_JSON_B64 no configurado, se omite google-services.json"
+          fi
+
+      - name: 🔑 Crear archivo .env
+        script: |
+          cat << EOF > .env
+          FIREBASE_WEB_API_KEY=$FIREBASE_WEB_API_KEY
+          FIREBASE_ANDROID_API_KEY=$FIREBASE_ANDROID_API_KEY
+          FIREBASE_IOS_API_KEY=$FIREBASE_IOS_API_KEY
+          FIREBASE_APP_ID_WEB=$FIREBASE_APP_ID_WEB
+          FIREBASE_APP_ID_ANDROID=$FIREBASE_APP_ID_ANDROID
+          FIREBASE_APP_ID_IOS=$FIREBASE_APP_ID_IOS
+          FIREBASE_MESSAGING_SENDER_ID=$FIREBASE_MESSAGING_SENDER_ID
+          FIREBASE_PROJECT_ID=$FIREBASE_PROJECT_ID
+          FIREBASE_AUTH_DOMAIN=$FIREBASE_AUTH_DOMAIN
+          FIREBASE_STORAGE_BUCKET=$FIREBASE_STORAGE_BUCKET
+          FIREBASE_IOS_BUNDLE_ID=$FIREBASE_IOS_BUNDLE_ID
+          EOF
+
+      - name: 🔧 Generar código
+        script: |
+          dart run build_runner build --delete-conflicting-outputs
+
+      - name: 🔐 Configurar keystore Android
+        script: |
+          if [ -n "$ANDROID_KEYSTORE_B64" ]; then
+            mkdir -p $HOME/.android
+            echo "$ANDROID_KEYSTORE_B64" | base64 --decode > $HOME/.android/upload-keystore.jks
+
+            echo "MY_STORE_FILE=$HOME/.android/upload-keystore.jks" >> android/gradle.properties
+            echo "MY_STORE_PASSWORD=$ANDROID_KEYSTORE_PASSWORD"     >> android/gradle.properties
+            echo "MY_KEY_ALIAS=$ANDROID_KEY_ALIAS"                  >> android/gradle.properties
+            echo "MY_KEY_PASSWORD=$ANDROID_KEY_PASSWORD"            >> android/gradle.properties
+          else
+            echo "ANDROID_KEYSTORE_B64 no configurado, se compila sin firma custom."
+          fi
+
+      - name: 🧱 Build Android AppBundle
+        script: |
+          flutter build appbundle --release \
+            --build-name=$(echo "$CM_TAG" | sed 's/^🔖 v//') \
+            --build-number=$CM_BUILD_ID
+
+      - name: 🤖 Build Android APK
+        script: |
+          flutter build apk --release \
+            --build-name=$(echo "$CM_TAG" | sed 's/^🔖 v//') \
+            --build-number=$CM_BUILD_ID
+
+    artifacts:
+      - build/app/outputs/**/*.aab
+      - build/app/outputs/**/*.apk
+
+    publishing:
+      email:
+        recipients:
+          - "mateojuego@gmail.com"
+        notify:
+          success: true
+          failure: true
