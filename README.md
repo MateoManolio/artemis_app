@@ -6,6 +6,40 @@ A Flutter application for exploring and managing scientific publications using t
 
 Artemis is a modern mobile application designed to facilitate the exploration of scientific publications. It leverages the OpenAlex API to provide access to a vast repository of academic papers, allowing users to search, filter, and save their favorite articles. The app features a clean and intuitive UI, supports multiple languages, and includes features like infinite scrolling, intelligent caching, and offline favorites management.
 
+## Screenshots
+
+Take a visual tour through Artemis and discover how it simplifies your research journey. From the moment you launch the app to exploring articles and managing your preferences, every screen is designed with clarity and ease of use in mind.
+
+### App Icon
+
+![App Icon](assets/docs/app_icon.png)
+
+The Artemis app icon represents knowledge and discovery, setting the tone for your scientific exploration journey.
+
+### Getting Started: Login Screen
+
+![Login Screen](assets/docs/login_page.png)
+
+When you first open Artemis, you're greeted with a clean and welcoming login screen. You can sign in securely with your Google account using Firebase Authentication, or choose to skip authentication and explore articles as a guest. The interface supports multiple languages and adapts to your device's theme preferences.
+
+### Your Research Hub: Home Screen
+
+![Home Screen](assets/docs/home_page.png)
+
+After logging in, the home screen becomes your central command center. Here you can quickly access your favorite articles, view your weekly reading statistics, discover random articles to spark new interests, and navigate to different sections of the app. The intuitive layout makes it easy to jump into your research workflow.
+
+### Explore Articles: Articles Screen
+
+![Articles Screen](assets/docs/articles_page.png)
+
+The articles screen is where the magic happens. Browse through thousands of scientific publications from the OpenAlex API with infinite scrolling. Use the powerful search functionality with real-time filtering, or apply advanced filters to narrow down results. Each article card displays key information at a glance, and intelligent caching ensures smooth performance even with large result sets.
+
+### Customize Your Experience: Settings Screen
+
+![Settings Screen](assets/docs/settings_page.png)
+
+Personalize Artemis to match your preferences in the settings screen. Change the app language (English, Spanish, or Portuguese), toggle between light and dark themes, set your weekly reading goals, and access information about the app. All your preferences are saved and persist across sessions.
+
 ### Key Highlights
 
 - 🔍 **Advanced Search**: Search articles with debounced input and automatic request cancellation
