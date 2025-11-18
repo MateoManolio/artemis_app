@@ -14,9 +14,9 @@ class ToggleFavoriteUsecase implements IUseCaseQuery<void, Article> {
   @override
   Future<void> call(Article article) async {
     if (!article.favorite) {
-      _repository.removeFavorite(article.id);
-    } else {
       _repository.addFavorite(article);
+    } else {
+      _repository.removeFavorite(article.id);
     }
   }
 }
