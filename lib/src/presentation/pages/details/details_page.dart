@@ -101,12 +101,11 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
           IconButton(
             icon: Icon(_isFavorite ? Icons.favorite : Icons.favorite_border),
             onPressed: () {
-              ref.read(toggleFavoriteProvider(widget.article!));
-
               setState(() {
                 _isFavorite = !_isFavorite;
                 widget.article!.favorite = _isFavorite;
               });
+              ref.read(toggleFavoriteProvider(widget.article!));
             },
           ),
         ],
