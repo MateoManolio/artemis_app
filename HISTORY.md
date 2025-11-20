@@ -572,3 +572,4 @@ See the TODO section below for completed features and future plans.
 ### Known Issues
 - [x] Articles read consistency (needs refinement)
 - [x] Performance optimizations (ongoing)
+
